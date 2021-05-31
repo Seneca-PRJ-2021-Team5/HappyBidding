@@ -43,7 +43,20 @@ const addNewUser = (data)=> {
     })
 }
 
+// This function is called in server.js to get all users from database
+const getAllUsers = ()=> {
+    let users = []
+
+    User.find()
+    .then((allUsers)=>
+    {
+
+    })
+    return users
+}   
+
 module.exports = {
     initialize: initialize,
-    addNewUser: addNewUser
+    addNewUser: addNewUser,
+    getAllUsers: getAllUsers
 }
