@@ -15,4 +15,6 @@ let userSchema = new Schema({
     emailAddress: String 
 }) 
 
-module.exports = userSchema;
+const userMODEL = mongoose.model('users', userSchema);
+
+module.exports = userMODEL;
