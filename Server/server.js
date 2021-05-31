@@ -13,26 +13,36 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json()); 
 
+app.get("/",(req,res)=>{
+    res.send({message: "it is alive"})
+})
 
 // API ROUTES
 // POST /api/users
 app.post("/api/users", (req,res)=>{
-    myData.addNewUser(req.body)
-    .then(()=>{
-        res.json({message:`USER ADDED SUCCESSFULLY !`});
-        
-    })
-    .catch((err)=>{
-        res.json({message:`ERROR: ${err} !`});
-        
-    });
+    dataService.addNewUser(req.body)
+});
+
+
+// GET /api/quicktest
+app.get("/api/users", (req,res)=>{
+
+    res.json({message: "This is a test !"})
+
 });
 
 
 
-
-
+// ------------------- CONNECTIVITY PART
+//
 // ************* Initialize the Service & Start the Server
+
+const HTTP_PORT = process.env.PORT || 8080;
+app.listen(HTTP_PORT,()=>{
+    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    console.log(chalk.yellow(`WEB SERVER:`), chalk.green(` STARTED AT PORT ${HTTP_PORT}`));
+})
+
 // ************** Initialize connection with Database
 dataService.initialize();
 
