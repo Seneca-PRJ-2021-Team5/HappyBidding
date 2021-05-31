@@ -1,66 +1,49 @@
-// const mongoose = require("mongoose");
+const mongoose = require("mongoose");
+
 const express = require("express");
 const app = express();
 
-const {MongoClient} = require('mongodb');
 const chalk = require('chalk'); // to style console.log texts
 const keys = require("./keys.js");
 
-const userSchema = require("./userSchema.js");
+const User = require("../Models/userSchema");
 
-const HTTP_PORT = process.env.PORT || 8080;
 
-module.exports = function(connectionString)
-{
-    let User;
+// function initialize creates the connection between server and MongoDB database
+const initialize = ()=>{
 
-    return {
-        addNewUser: function(data){
-            return new Promise((resolve,reject)=>{
+    mongoose.connect(keys.MONGO_DB_URL, {useNewUrlParser: true, useUnifiedTopology: true})
+    .then(()=>{
+        console.log(chalk.yellow(`Happy Bidding database: `) + chalk.green(`SCCESSFULLY connected to the database !`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    })
+    .catch((err)=>{
+        console.log(chalk.yellow(`Happy Bidding database:`) + chalk.red(`ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    });
 
-                let newUser = new User(data);
-
-                newUser.save((err) => {
-                    if(err) {
-                        reject(err);
-                    } else {
-                        resolve(`New User SUCCESSFULLY ADDED !`);
-                    }
-                });
-            });
-        }
-
-    }
 }
 
-const initialize = ()=>{
-    app.listen(HTTP_PORT,()=>{
+
+// This function is called in server.js to post a new user document into users collection
+const addNewUser = (data)=> {
+
+    let newUser = new User(data);
+
+    newUser.save()
+    .then(() =>
+    {                  
+        console.log(chalk.magenta(`User registration:`),chalk.green(` Registration completed and database's document created!`));
         console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-        console.log(chalk.yellow(`WEB SERVER:`), chalk.green(` STARTED AT PORT ${HTTP_PORT}`));
     })
-
-    async function main() 
+    .catch((err)=>
     {
-        const client = new MongoClient(keys.MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-        try {
-            // Connect to the MongoDB cluster
-            await client.connect();
-            console.log(chalk.yellow(`Happy Bidding database: `) + chalk.green(`SCCESSFULLY connected to the database !`));
-            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-
-        } catch (e) {
-            console.log(chalk.yellow(`Happy Bidding database:`) + chalk.red(`ERROR ${err}`));
-            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-            console.error(e);
-
-        } finally {
-            await client.close();
-        }
-    }
-    main().catch(console.error);
-
+        console.log(chalk.magenta(`User registration:`),chalk.red(` ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    })
 }
 
 module.exports = {
-    initialize: initialize
+    initialize: initialize,
+    addNewUser: addNewUser
 }
