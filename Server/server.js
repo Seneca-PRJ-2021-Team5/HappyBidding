@@ -1,10 +1,7 @@
 const express = require("express");
-//const mongoose = require("mongoose");
-const {MongoClient} = require('mongodb');
 const cors = require("cors");
 const chalk = require('chalk'); // to style console.log texts
 const bodyParser = require("body-parser");
-require("dotenv").config({path:'./modules/keys.env'});
 
 const dataService = require("./modules/data-service.js");
 
@@ -26,7 +23,9 @@ app.post("/api/users", (req,res)=>{
 
 // GET /api/quicktest
 app.get("/api/users", (req,res)=>{
+    let users = dataService.getAllUsers()
 
+    console.log(users)
     res.json({message: "This is a test !"})
 
 });
