@@ -1,4 +1,3 @@
-
 import React from 'react';              //read react
 import './css/login.css';
 class login extends React.Component {   //inherit react.component to this page
@@ -6,13 +5,16 @@ class login extends React.Component {   //inherit react.component to this page
         super(props);
         this.state = {
             username: "username",
-            password: "password"
+            password: "password",
+            showError: false,
+            eMessage: ""
         };
     
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleClick = this.handleClick.bind(this);
       }
-    
+
       handleInputChange(event) {
         const target = event.target;
         const name = target.name;
@@ -20,21 +22,41 @@ class login extends React.Component {   //inherit react.component to this page
         this.setState({[name]:value});
       }
     
+      handleClick(event){
+        this.props.history.push({
+            pathname: '/recoveryAccount',
+            //this.props.location.state.username on dashboard.js
+            state: { username: this.state.username }
+        });
+
+      }
+
       handleSubmit(event) {
         const username = this.state.username;
         const password = this.state.password;
+        console.log(username)
+        console.log(password)
 
-        if(username==="prj@prj.ca"){
-            alert("user SUCCESS")
-            if(password==="password123"){
-                alert("password SUCCESS")
-            }else{
-                alert("PASS WRONG")
-            }
-        }else{
-            alert("FAILED")
-        }
-        event.preventDefault();
+        fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${username}&password=${password}`)
+        .then((res) => {
+            return res.json();
+        })
+        .then(data => {  //data = res.json
+                if(data.message.includes("SUCCESS")){ 
+                    this.setState({showResults:false})
+                    this.props.history.push({
+                        pathname: '/dashboard',
+                        //this.props.location.state.username on dashboard.js
+                        state: { username: this.state.username }
+                    });
+                }else{
+                    this.setState({ showResults: true, eMessage: "Username or Password is wrong." });
+                }
+            }).catch((e)=>{
+                this.setState({ showResults: true, eMessage: "Username or Password is wrong." });
+            });
+
+            event.preventDefault();
       }
     
     
@@ -42,21 +64,23 @@ class login extends React.Component {   //inherit react.component to this page
         return (
             <div class="loginContainer">
                 <div id="top"></div>
-                <div id="leftSide">
-                    <img src="img/bidding.png" alt="bidding image picture" />
+                <div id="login_leftSide">
+                    <img src="img/bidding.png" alt="bidding image" />
                 </div>
-                <div id="rightSide">
-                    <img src="img/logo.png" alt="Happy Bidding Logo" />
+                <div id="login_rightSide">
+                    <img id="login_logo" src="img/logo.png" alt="Happy Bidding Logo" />
+                    { this.state.showResults ?  <span id="errorTextArea">{this.state.eMessage}</span> :  <span id="noErrorArea"></span> }
                     <div>
                         <form class="loginForm" onSubmit={this.handleSubmit}>
                             <label> <div id="login_label">User Name</div><br />
-                                <input  id="inputarea" name="username" type="text" value={this.state.username} onChange={this.handleInputChange} />
+                                <input  id="login_inputarea" name="username" type="text" value={this.state.username} onChange={this.handleInputChange} />
                             </label> <br />
                             <label><div id="login_label"> Password</div><br />
-                                <input id="inputarea" name="password" type="text" value={this.state.password} onChange={this.handleInputChange} />
+                                <input id="login_inputarea" name="password" type="text" value={this.state.password} onChange={this.handleInputChange} />
                             </label><br />
                             <input id="login_sButton" type="submit" value="Sign in" /><br />
-                            Trouble logging in?
+                            <label onClick={this.handleClick}>Trouble logging in?</label>
+
                         </form>
                     </div>
                 </div>

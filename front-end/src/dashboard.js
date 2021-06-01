@@ -1,17 +1,29 @@
-import React from 'react'
-
-function Dashboard(props) {
- 
-    const handleLogout = () => {    
-      props.history.push('/login');
+import React from 'react';              //read react
+import './css/login.css';
+class dashboard extends React.Component {   //inherit react.component to this page
+    constructor(props) {
+        super(props);/* 
+        this.state = {
+            username: "username",
+            password: "password"
+        }; */
+        this.handleLogout = this.handleLogout.bind(this);
     }
-   
-    return (
-      <div>
-        Welcome User!<br /><br />
-        <input type="button" onClick={handleLogout} value="Logout" />
-      </div>
-    );
-  }
-   
-  export default Dashboard;
+
+    handleLogout(){
+        this.props.history.push('/login');
+    }
+    
+    render() {                          //declare render to display
+        return (
+            <div class="dashboardContainer">
+                <div>
+                    Welcome User!<br /><br />
+                    <input type="button" onClick={this.handleLogout} value="Logout" />
+                </div>
+            </div>
+        );
+    }
+}
+ 
+export default dashboard;  
