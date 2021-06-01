@@ -12,7 +12,8 @@ let userSchema = new Schema({
     userType: String, 
     userName: String, 
     phoneNumber: String, 
-    emailAddress: String 
+    emailAddress: String,
+    password: String
 }) 
 
 const userMODEL = mongoose.model('users', userSchema);
