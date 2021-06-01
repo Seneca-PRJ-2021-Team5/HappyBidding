@@ -17,19 +17,21 @@ app.get("/",(req,res)=>{
 // API ROUTES
 // POST /api/users
 app.post("/api/users", (req,res)=>{
-    dataService.addNewUser(req.body)
+
+    dataService.addNewUser(req.body, res)
 });
 
 
-// GET /api/quicktest
+// GET /api/users GET ALL USERS
 app.get("/api/users", (req,res)=>{
-    let users = dataService.getAllUsers()
-
-    console.log(users)
-    res.json({message: "This is a test !"})
-
+    dataService.getAllUsers(res)
 });
 
+
+// GET /api/users GET A SPECIFIC USER
+app.get("/api/user", (req,res)=>{
+    dataService.getSpecificUser(req,res)
+});
 
 
 // ------------------- CONNECTIVITY PART
