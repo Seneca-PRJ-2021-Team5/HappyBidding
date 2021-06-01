@@ -9,6 +9,8 @@ const bcrypt = require('bcryptjs');
 
 const User = require("../Models/userSchema");
 
+require("dotenv").config({path:'./modules/keys.env'});
+
 
 // function initialize creates the connection between server and MongoDB database
 const initialize = ()=>{
