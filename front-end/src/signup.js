@@ -67,8 +67,6 @@ class signup extends React.Component{
         + this.state.postalCode + " "
         + this.state.country + " "
         ) */
-
-
         event.preventDefault();
     }
 

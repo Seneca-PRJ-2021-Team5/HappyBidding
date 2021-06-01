@@ -1,16 +1,20 @@
+
 body{
     width: auto;
     height: auto;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f4f1f5;  
 }
-
+ 
 .loginContainer{
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f1f5; 
   text-align: center;
   padding-top: 2.5%;
   padding-bottom: 5%;
   display:flex;
 }
+
 #login_logo{
     margin-left: 5%;
 }
@@ -53,12 +57,18 @@ body{
 
 }
 
+.loginForm{
+
+    margin: 20%;
+}
+
 #login_label{
     margin: -12px 0px;
     text-align: left;
     font-size: 18px;
     color: #3f3e3e;
 }
+
 #login_rightSide {
     text-align: center;
     margin: 2% 5%;
@@ -99,3 +109,4 @@ body{
     border-color: #85e2e5;
     color: #FFF;
   }
+

@@ -12,7 +12,10 @@ let userSchema = new Schema({
     userType: String, 
     userName: String, 
     phoneNumber: String, 
-    emailAddress: String 
+    emailAddress: String,
+    password: String
 }) 
 
-module.exports = userSchema;
+const userMODEL = mongoose.model('users', userSchema);
+
+module.exports = userMODEL;

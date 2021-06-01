@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 
 import React from 'react'; //import react
 //import react-router-dom to use BrowserRouter, route, switch to move page

@@ -15,7 +15,6 @@ class login extends React.Component {   //inherit react.component to this page
         this.handleClick = this.handleClick.bind(this);
       }
 
-
       handleInputChange(event) {
         const target = event.target;
         const name = target.name;
@@ -58,7 +57,6 @@ class login extends React.Component {   //inherit react.component to this page
             });
 
             event.preventDefault();
-        
       }
     
     
@@ -82,6 +80,7 @@ class login extends React.Component {   //inherit react.component to this page
                             </label><br />
                             <input id="login_sButton" type="submit" value="Sign in" /><br />
                             <label onClick={this.handleClick}>Trouble logging in?</label>
+
                         </form>
                     </div>
                 </div>
