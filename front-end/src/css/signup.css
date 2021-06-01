@@ -1,0 +1,58 @@
+#signup_logo{
+  margin-top: 15px;
+  width: 15%;
+  height: 15%;
+  margin-left: 65%;
+}
+#signup_formContainer{
+  text-align: center;
+  display:flex;
+  background:#fff;
+  margin: auto;
+  width: 60%;
+}
+
+
+.form-item {
+  margin-bottom: 0.75em;
+  width: 100%;
+}
+
+.cp_iptxt input {
+  background: #fff;
+  border: none;
+  border-bottom: 2px solid #e9e9e9;
+  color: #666;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1em;
+  height: 50px;
+  transition: border-color 0.3s;
+  width: 100%;
+}
+
+.cp_iptxt input:focus {
+  border-bottom: 2px solid #c0c0c0;
+  outline: none;
+}
+
+#signup_sButton {
+  display: inline-block;
+  max-width: 180px;
+  text-align: center;
+  border: 2px solid #4bb5c3;
+  font-size: 18px;
+  color: #4bb5c3;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 5%;
+  margin-bottom: 15px;
+  padding: 12px 30px;
+  border-radius: 12px;
+  transition: .4s;
+}
+
+#signup_sButton:hover {
+  background-color: #4bb5c3;
+  border-color: #85e2e5;
+  color: #FFF;
+}

@@ -1,0 +1,101 @@
+body{
+    width: auto;
+    height: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f1f5;  
+}
+
+.loginContainer{
+  text-align: center;
+  padding-top: 2.5%;
+  padding-bottom: 5%;
+  display:flex;
+}
+#login_logo{
+    margin-left: 5%;
+}
+#errorTextArea{
+
+    display: inline-block;
+
+    width: 80%;
+    max-width: 100%;
+    text-align: left;
+    border: 2px solid #ad0303;
+    font-size: 20px;
+    color: #ad0303;
+    background-color: #f3c6d1;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-right: auto;
+    padding: 24px 60px;
+    border-radius: 12px;
+    transition: .4s;
+}
+
+#noErrorArea{
+
+    display: inline-block;
+    width: 80%;
+    max-width: 100%;
+    text-align: center;
+    border: 2px solid #f4f1f5;
+    color: #f4f1f5;
+    background-color: #f4f1f5;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5%;
+    padding: 24px 12px;
+    border-radius: 12px;
+    transition: .4s;
+
+}
+
+#login_label{
+    margin: -12px 0px;
+    text-align: left;
+    font-size: 18px;
+    color: #3f3e3e;
+}
+#login_rightSide {
+    text-align: center;
+    margin: 2% 5%;
+}
+#login_leftSide {
+    margin-left:5%
+}
+#login_inputarea {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    margin: 0.5rem 0;
+    padding: 24px 12px;
+    border-radius: 0.3rem;
+    background: darken(#ffffff, 10%);
+    color: gray;
+    font-size: 24px;
+    margin-bottom: 48px;
+}
+
+#login_sButton {
+    display: inline-block;
+    max-width: 300px;
+    text-align: center;
+    border: 2px solid #4bb5c3;
+    font-size: 36px;
+    color: #4bb5c3;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5%;
+    padding: 24px 60px;
+    border-radius: 12px;
+    transition: .4s;
+  }
+  
+  #login_sButton:hover {
+    background-color: #4bb5c3;
+    border-color: #85e2e5;
+    color: #FFF;
+  }
