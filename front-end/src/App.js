@@ -1,12 +1,10 @@
 import './App.css';
-
 import React from 'react'; //import react
 //import react-router-dom to use BrowserRouter, route, switch to move page
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import login from './login'; //import login.js 
 import signup from './signup';
- 
- 
+
 class App extends React.Component {
   render(){
     return(
