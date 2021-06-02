@@ -1,0 +1,26 @@
+
+.profile{
+    background-color:white;
+}
+
+.profile_sidebar{
+    background-color: rgb(202, 248, 248);
+}
+@media ( min-width : 767px ){
+    .profile {
+    display: -webkit-flex;
+    display: flex;
+    }
+    .profile_sidebar{
+    -webkit-flex: 1;
+    flex: 1;
+    }
+    .profile_main {
+    -webkit-flex: 3;
+    flex: 3;
+    }
+    .profile_side {
+    -webkit-flex: 1;
+    flex: 1;
+    }
+}

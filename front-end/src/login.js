@@ -1,92 +1,97 @@
-import React from 'react';              //read react
+/* Library */
+import React, {useState} from 'react';              //read react
+import { useMediaQuery } from "react-responsive";
+/* CSS */
 import './css/login.css';
-class login extends React.Component {   //inherit react.component to this page
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: "username",
-            password: "password",
-            showError: false,
-            eMessage: ""
-        };
-    
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleClick = this.handleClick.bind(this);
-      }
+/* Image */
+import logoPic from './img/logo.png';
+import biddingPic from './img/bidding.png';
 
-      handleInputChange(event) {
-        const target = event.target;
-        const name = target.name;
-        const value = target.value;
-        this.setState({[name]:value});
-      }
-    
-      handleClick(event){
-        this.props.history.push({
-            pathname: '/recoveryAccount',
-            //this.props.location.state.username on dashboard.js
-            state: { username: this.state.username }
+
+//function component
+function Login(props){ 
+    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
+    const [values, setValues] = useState({
+        username: "",
+        password: "",
+        showError: false,
+        eMessage: ""
+    });
+
+    //it change value when user input value
+    function handleInputChange(event){
+        const name = event.target.name;
+        const value = event.target.value;
+        setValues({ ...values, [name]: value });
+    }
+
+    //it works if user click "Trouble logging in?"
+    function handleClick(){
+        props.history.push({
+        pathname: '/recoveryAccount',
+        //this.props.location.state.username on dashboard.js
+        state: { username: values.username }
+    });
+
+  }
+
+  //it work when user submit a form
+  function handleSubmit(event){
+    console.log(values.username)
+    console.log(values.password)
+
+    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.username}&password=${values.password}`)
+    .then((res) => {
+        return res.json();
+    })
+    .then(data => {  //data = res.json
+            if(data.message.includes("SUCCESS")){  
+                setValues({ ...values, showResults:false });
+                props.history.push({
+                    pathname: '/dashboard',
+                    //this.props.location.state.username on dashboard.js
+                    state: { username: values.username }
+                });
+            }else{
+                setValues({ showResults: true, eMessage: "Username or Password is wrong."  });
+            }
+        }).catch(()=>{
+            setValues({ showResults: true, eMessage: "Username or Password is wrong."  });
         });
 
-      }
+        event.preventDefault();
+  }
 
-      handleSubmit(event) {
-        const username = this.state.username;
-        const password = this.state.password;
-        console.log(username)
-        console.log(password)
+  //return page body
+  //min-width: 768px => for PC
+   return (
+        <div class="loginContainer">
+            <div id="top"></div>
+            <div id="login_leftSide">
+        
+            {isTabletOrMobile?null:<img src={biddingPic} alt="happy bidding" />}
+            </div>
+            <div id="login_rightSide">
+            <img id="login_logo" src={logoPic} alt="Happy Bidding Logo" />
+               <div>
+                    <form class="loginForm" onSubmit={handleSubmit}>
+                        { values.showResults ?  <span id="errorTextArea">{values.eMessage}</span> :  <span id="noErrorArea"></span> }
+ 
+                        <label> <div id="login_label">User Name</div><br />
+                            <input  id="login_inputarea" name="username" placeholder="username" type="text" value={values.username} onChange={handleInputChange} />
+                        </label> <br />
+                        <label><div id="login_label"> Password</div><br />
+                            <input id="login_inputarea" name="password" placeholder="password" type="password" value={values.password} onChange={handleInputChange} />
+                        </label><br />
+                        <input id="login_sButton" type="submit" value="Sign in" /><br />
+                        <label onClick={handleClick}>Trouble logging in?</label>
 
-        fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${username}&password=${password}`)
-        .then((res) => {
-            return res.json();
-        })
-        .then(data => {  //data = res.json
-                if(data.message.includes("SUCCESS")){ 
-                    this.setState({showResults:false})
-                    this.props.history.push({
-                        pathname: '/dashboard',
-                        //this.props.location.state.username on dashboard.js
-                        state: { username: this.state.username }
-                    });
-                }else{
-                    this.setState({ showResults: true, eMessage: "Username or Password is wrong." });
-                }
-            }).catch((e)=>{
-                this.setState({ showResults: true, eMessage: "Username or Password is wrong." });
-            });
-
-            event.preventDefault();
-      }
-    
-    
-    render() {                          //declare render to display
-        return (
-            <div class="loginContainer">
-                <div id="top"></div>
-                <div id="login_leftSide">
-                    <img src="img/bidding.png" alt="bidding image" />
-                </div>
-                <div id="login_rightSide">
-                    <img id="login_logo" src="img/logo.png" alt="Happy Bidding Logo" />
-                    { this.state.showResults ?  <span id="errorTextArea">{this.state.eMessage}</span> :  <span id="noErrorArea"></span> }
-                    <div>
-                        <form class="loginForm" onSubmit={this.handleSubmit}>
-                            <label> <div id="login_label">User Name</div><br />
-                                <input  id="login_inputarea" name="username" type="text" value={this.state.username} onChange={this.handleInputChange} />
-                            </label> <br />
-                            <label><div id="login_label"> Password</div><br />
-                                <input id="login_inputarea" name="password" type="text" value={this.state.password} onChange={this.handleInputChange} />
-                            </label><br />
-                            <input id="login_sButton" type="submit" value="Sign in" /><br />
-                            <label onClick={this.handleClick}>Trouble logging in?</label>
-
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
+
  
-export default login;  
+export default Login;  
