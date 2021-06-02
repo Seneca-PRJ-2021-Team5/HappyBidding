@@ -31,26 +31,54 @@ const initialize = ()=>{
 
 // This function is called in server.js to post a new user document into users collection
 const addNewUser = (data, res)=> {
-    let salt = bcrypt.genSaltSync(10);
-    let hash = bcrypt.hashSync(data.password, salt);
-
-    data.password = hash
-    
-    let newUser = new User(data);
-
-    newUser.save()
-    .then(() =>
-    {                  
-        console.log(chalk.magenta(`User registration:`),chalk.green(` Registration completed and database's document created!`));
-        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-        res.json({message:`USER REGISTERED SUCCESSFULLY !`})
-    })
-    .catch((err)=>
+    User.findOne({emailAddress: data.emailAddress}) // CHECK IN DATABASE IF AN EMAIL ALREADY EXISTS
+    .then(userForEmail=>
     {
-        console.log(chalk.magenta(`User registration:`),chalk.red(` ERROR ${err}`));
-        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-        res.json({message:`ERROR: ${err} !`});
+        if(userForEmail == null) // if email does not exists, then go check if username exists
+        { 
+            User.findOne({userName: data.userName}) // CHECK IN DATABASE IF A USERNAME ALREADY EXISTS
+            .then(user=>
+            {
+                if(user == null) // if userName does not exists yet, then persist data to database
+                { 
+                    let salt = bcrypt.genSaltSync(10);
+                    let hash = bcrypt.hashSync(data.password, salt);
+                    data.password = hash
+        
+                    let newUser = new User(data);
+        
+                    newUser.save()
+                    .then(() =>
+                    {                  
+                        console.log(chalk.magenta(`User registration:`),chalk.green(` Registration completed and database's document created!`));
+                        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                        res.json({message:`USER REGISTERED SUCCESSFULLY !`})
+                    })
+                    .catch((err)=>
+                    {
+                        console.log(chalk.magenta(`User registration:`),chalk.red(` ERROR ${err}`));
+                        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                        res.json({message:`ERROR: ${err} !`});
+                    })
+                }
+                else {
+                    res.json({message:`USERNAME ALREADY REGISTERED`})
+                }
+            })
+
+        }
+        else {
+            res.json({message:`EMAIL ALREADY REGISTERED`})
+        }
     })
+
+    
+
+   
+    
+    
+
+    
 }
 
 // This function is called in server.js to get all users from database
