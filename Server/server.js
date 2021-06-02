@@ -15,8 +15,8 @@ app.get("/",(req,res)=>{
 })
 
 // API ROUTES
-// POST /api/users
-app.post("/api/users", (req,res)=>{
+// POST /api/user
+app.post("/api/user", (req,res)=>{
 
     dataService.addNewUser(req.body, res)
 });
