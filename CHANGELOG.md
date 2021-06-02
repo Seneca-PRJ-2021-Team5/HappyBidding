@@ -6,10 +6,10 @@ plz install react-responsive
 npm -install react-responsive  
 
 Signup, Login page:  
-  change class component to functional component  
-  fix page for responsible page    
+&nbsp;change class component to functional component  
+&nbsp;fix page for responsible page    
 AuctioneerProfile(Profile page):    
-  just design, didnt do anything about backend   
-  that include User profile(not auctioneer) too.  
+&nbsp;just design, didnt do anything about backend   
+&nbsp;that include User profile(not auctioneer) too.  
 Dashboard, RecoveryAccount   
-  nothing    
+&nbsp;nothing    
