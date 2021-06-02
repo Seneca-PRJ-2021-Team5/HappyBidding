@@ -9,11 +9,23 @@ let userSchema = new Schema({
         postalCode: String,
         country: String
     }, 
-    userType: String, 
-    userName: String, 
+    userType: {
+        type: String, 
+        default: 'user'
+    },
+    userName: {
+        type: String, 
+        required: true
+    }, 
     phoneNumber: String, 
-    emailAddress: String,
-    password: String
+    emailAddress: {
+        type: String, 
+        required: true
+    },
+    password: {
+        type: String, 
+        required: true
+    }
 }) 
 
 const userMODEL = mongoose.model('users', userSchema);
