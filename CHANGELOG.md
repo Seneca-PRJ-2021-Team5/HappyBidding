@@ -4,7 +4,11 @@ Change Log History
 !important!  
 plz install react-responsive  
 npm -install react-responsive  
-
+  
+2021/06/03  
+Megumi----  
+Created Mobile profile page
+  
 2021/06/01  
 Arthur----  
  a small change for the route for post a new user  
