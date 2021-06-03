@@ -1,13 +1,13 @@
 /* Library */
 import React, {useState} from 'react';              //read react
 /* CSS */
-import './css/payInfo.css';
+import '../../css/payInfoPC.css';
 /* Image */
-import userPic from './img/userImage.png';
-import cardPic from './img/creditCard.png';
+import userPic from '../..//img/userImage.png';
+import cardPic from '../../img/creditCard.png';
 
 //function component
-function PayInfo(props){ 
+function PayInfoPC(props){ 
     const [values, setValues] = useState({
         usertype: "",
         username: "",
@@ -22,12 +22,12 @@ function PayInfo(props){
   //min-width: 768px => for PC
    return (
         <div class="profile_payInfo">
-            <div class="userInfoArea">
+            <div class="userInfoArea_pc">
                 <img src={userPic} /><br/>
                 <label>User Name</label><br/>
                 <span>Edit Profile</span>
             </div>
-            <div class="cardInfo">
+            <div class="cardInfo_pc">
                 <label>Cards Saved </label> <span> Update payment information</span>
                 <div class="cardInfo">
                     <img src={cardPic} />
@@ -37,15 +37,15 @@ function PayInfo(props){
                     <p class="expiryDate">22/07</p>
                 </div>
             </div>
-            <div class="transaction">
+            <div class="transaction_pc">
                 <label class="title">Recent Auction Transactions </label><br/>
                 <div>
                     <label>Today </label><br/>
-                    <span id="purchasedItem">Car</span> <span id="purchasedPrice">CA$ 2345.12</span><br/>
+                    <span class="purchasedItem_pc">Car</span> <span class="purchasedPrice_pc">CA$ 2345.12</span><br/>
                 </div>
                 <div>
                 <br/><label>Yesterday </label> <br/>
-                    <span id="purchasedItem">Bicycle</span> <span id="purchasedPrice">CA$ 3215.50</span>
+                    <span class="purchasedItem_pc">Bicycle</span> <span class="purchasedPrice_pc">CA$ 3215.50</span>
                 </div>
             </div>
         </div>
@@ -54,4 +54,4 @@ function PayInfo(props){
 }
 
  
-export default PayInfo; 
+export default PayInfoPC; 

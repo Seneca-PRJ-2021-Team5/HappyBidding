@@ -1,38 +1,37 @@
-.profile_payInfo{
-}
-.userInfoArea{
+
+.userInfoArea_pc{
     margin: 5% 0% 5% 20%;
 }
-.userInfoArea img{
+.userInfoArea_pc img{
     width: 50%;
     height: 50%;
 }
 
-.userInfoArea label{
+.userInfoArea_pc label{
    font-size: 24px;
    font-weight: bold; 
    margin-left: 8%;
 }
-.userInfoArea span{
+.userInfoArea_pc span{
    font-size: 12px;
    margin-left: 18%;
 }
 
 
-.cardInfo{
+.cardInfo_pc{
     position: relative;
     margin-bottom: 5%;
 }
 
-.cardInfo label{
+.cardInfo_pc label{
     font-size: 24px;
     font-weight: bold; 
 }
 
-.cardInfo span{
+.cardInfo_pc span{
     font-size: 14px;
  }
-.cardInfo .number_title{
+.cardInfo_pc .number_title{
     position: absolute;
     color: white;
     font-size: 12px;
@@ -40,14 +39,14 @@
     top: 25%;
     left: 10%;
 }
-.cardInfo .cardNum{
+.cardInfo_pc .cardNum{
     position: absolute;
     color: white;
     font-size: 24px;
     top: 35%;
     left: 10%;
 }
-.cardInfo .expiry_title{
+.cardInfo_pc .expiry_title{
     position: absolute;
     color: white;
     font-size: 12px;
@@ -55,40 +54,38 @@
     bottom: 25%;
     left: 5%;
 }
-.cardInfo .expiryDate{
+.cardInfo_pc .expiryDate{
 position: absolute;
     color: white;
     bottom: 10%;
     left: 5%;
 }
 
-.cardInfo img{
+.cardInfo_pc img{
     width: 80%;
     height: 80%;
 }
 
-.transaction{
+.transaction_pc{
     margin-top: 5%;
     margin-right: 10%;
     font-size: 18px;
 }
-.transaction label{
+.transaction_pc label{
     margin-top: 10%;
     font-size: 18px;
 }
-.transaction .title{
+.transaction_pc .title{
     font-size: 24px;
     font-weight: bold; 
 }
-.transaction span{
+.transaction_pc span{
     margin-top: 5%;
     font-size: 15px;
 }
-#purchasedItem{
+.purchasedItem_pc{
     margin-top: 5%;
     font-size: 15px;
-    float:left; 
-}
-#purchasedPrice{
-    float:right;
+    
+    margin-right: 50%;
 }

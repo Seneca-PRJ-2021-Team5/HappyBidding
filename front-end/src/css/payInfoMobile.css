@@ -1,0 +1,38 @@
+.cardInfo_mobile span{
+    display: inline-block;
+    margin-bottom: 2%;
+}
+
+.profile_payInfo_mobile{
+    text-align: center; 
+    margin:5%;
+}
+
+.purchasedItem_mobile{
+    margin-top: 5%;
+    font-size: 15px;
+    margin-right: 50%;
+}
+.purchasedPrice_mobile{
+    margin-top: 5%;
+    font-size: 15px;
+
+}
+
+.transaction_mobile .title{
+    font-size: 24px;
+    font-weight: bold; 
+
+}
+
+
+
+.cardInfo_mobile, .transaction_mobile { 
+    padding-top:3%;
+    padding-bottom:3%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: left; 
+    background-color: #fcf9e8;
+    border: 2px solid #fffeeb; 
+}

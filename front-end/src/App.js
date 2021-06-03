@@ -6,18 +6,18 @@ import login from './login'; //import login.js
 import dashboard from './dashboard'; //import dashboard.js 
 import recoveryAccount from './recoveryAccount'; //import dashboard.js 
 import signup from './signup';
-import profile from './auctioneerProfile'
+import profile from './profile';
  
 class App extends React.Component {
   render(){
     return(
       <BrowserRouter>
         <Switch>
-          <Route exact path="/login" component={login} />　//when user specify /login, go to login page
+          <Route exact path="/login" component={login} />　
           <Route exact path="/signup" component={signup}/>
-          <Route exact path="/profile" component={profile} />　//go to dashboard
-          <Route exact path="/dashboard" component={dashboard} />　//go to dashboard
-          <Route exact path="/recoveryAccount" component={recoveryAccount} />　//go to dashboard
+          <Route exact path="/profile" component={profile} />
+          <Route exact path="/dashboard" component={dashboard} />　
+          <Route exact path="/recoveryAccount" component={recoveryAccount} />　
         </Switch>
       </BrowserRouter>
     );

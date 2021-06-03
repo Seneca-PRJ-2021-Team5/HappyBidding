@@ -1,0 +1,46 @@
+.overview_main_pc{
+    margin-top: 3%;
+    background-color: #fff;
+}
+
+.overview_userProfileArea_pc{
+    margin-top: 2%;
+    padding-left: 5%;
+}
+.overview_userProfileArea_pc label{
+    font-size: 24px;
+}
+
+.overview_userProfileArea_pc div{
+    margin-top: 2%;
+}
+
+.overview_userProfileArea_pc .title, .nextTitle{
+    margin-right: 24%;
+}
+.overview_userProfileArea_pc .input{
+    margin-right: 18%;
+}
+.overview_userProfileArea_pc .updateLabel, .nextUpdateLabel{
+    margin-right: 34%;
+    font-size: 12px;
+}
+.overview_userProfileArea_pc .title, .nextTitle{
+    margin-right: 36%;
+    font-size: 16px;
+}
+
+
+.overview_userProfileArea_pc  .input, .secondInput{
+    background: #fff;
+    border: none;
+    border-bottom: 2px solid #e9e9e9;
+    color: #666;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+    height: 50px;
+    transition: border-color 0.3s;
+    width: 25%;
+  }
+  
+ 

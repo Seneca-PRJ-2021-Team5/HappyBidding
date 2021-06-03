@@ -1,0 +1,20 @@
+.profile_main{
+    text-align: center; 
+}
+
+.editBtn {
+
+    display: inline-block;
+    max-width: 600px;
+    text-align: center;
+    border: 2px solid #4bb5c3;
+    font-size: 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5% 5% 15px 5%;
+    padding: 18px 30%;
+    border-radius: 12px;
+    transition: .4s;
+    background-color: #0079eb;
+  }

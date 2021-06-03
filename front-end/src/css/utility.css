@@ -1,0 +1,22 @@
+.signout_button_profile {
+
+    display: inline-block;
+    max-width: 240px;
+    text-align: center;
+    border: 2px solid #c34b4b;
+    font-size: 24px;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 5%;
+    margin-bottom: 15px;
+    padding: 18px 50px;
+    border-radius: 12px;
+    transition: .4s;
+    background-color: #ee0404;
+}
+
+
+.b-radius {
+    border-radius: 10px; 
+    }

@@ -1,10 +1,7 @@
 /* Library */
 import React, {useState} from 'react';              //read react
 /* CSS */
-import './css/sideBar.css';
-/* Image */
-import logoPic from './img/logo.png';
-import biddingPic from './img/bidding.png';
+import '../../css/sideBar.css';
 
 
 //function component
@@ -17,17 +14,10 @@ function Sidebar(props){
         eMessage: ""
     });
 
-    //it change value when user input value
-    function handleInputChange(event){
-        const name = event.target.name;
-        const value = event.target.value;
-        setValues({ ...values, [name]: value });
-    }
-
     //it works if user click "Trouble logging in?"
     function handleOverViewClick(){
         props.history.push({
-            pathname: '/recoveryAccount',
+            pathname: '/overView',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
@@ -36,7 +26,7 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleCreateAuctionClick(){
         props.history.push({
-            pathname: '/recoveryAccount',
+            pathname: '/createAuction',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
@@ -45,7 +35,7 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleManageAuctionClick(){
         props.history.push({
-            pathname: '/recoveryAccount',
+            pathname: '/manageAuction',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
@@ -54,7 +44,7 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleNotificationClick(){
         props.history.push({
-            pathname: '/recoveryAccount',
+            pathname: '/notification',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
@@ -63,8 +53,8 @@ function Sidebar(props){
     function AuctioneerMenu(){
         return (
             <React.Fragment>
-            <div id="cAuction">Create Auction</div>
-            <div id="notice">Notification</div>
+            <div onClick={handleCreateAuctionClick}>Create Auction</div>
+            <div onClick={handleNotificationClick}>Notification</div>
             </React.Fragment>
         );
     }
@@ -73,8 +63,8 @@ function Sidebar(props){
    return (
         <div class="SideBar">
             <div id="SideBarMenu">
-                <div>Overview</div>
-                <div>Create Auction</div>
+                <div onClick={handleOverViewClick}>Overview</div>
+                <div onClick={handleManageAuctionClick}>Manage Auction</div>
                 {(values.usertype!="User"?<AuctioneerMenu/>: null)}
             </div>
 
