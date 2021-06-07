@@ -113,6 +113,10 @@ const getSpecificUser =(req, res)=>
     .catch(err=>console.log(`Error :${err}`)); 
 }
 
+const getSpecificUserWithDetails = (req, res) => {
+    
+}
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
