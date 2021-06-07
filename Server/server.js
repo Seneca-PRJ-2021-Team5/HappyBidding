@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const chalk = require('chalk'); // to style console.log texts
 const bodyParser = require("body-parser");
-const clientSession = require("client-sessions");
+const clientSessions = require("client-sessions");
 
 const dataService = require("./modules/data-service.js");
 
@@ -20,6 +20,14 @@ app.use(clientSessions({
     activeDuration: 1000 * 60 // the session will be extended by this many ms each request (1 minute)
 }));
 
+// Helper function to ensure that the user is logged in
+function ensureLogin(req, res, next) {
+    if (!req.session.user) {
+      res.status(403).send('Forbidden access');
+    } else {
+      next();
+    }
+}
 
 app.get("/",(req,res)=>{
     res.send({message: "it is alive"})
@@ -41,11 +49,14 @@ app.get("/api/users", (req,res)=>{
 
 // GET /api/users GET A SPECIFIC USER
 app.get("/api/user", (req,res)=>{
+    req.session.user = {
+        isLoggedOn: false
+    }
     dataService.getSpecificUser(req,res)
 });
 
 // GET /api/user/profile GET A SPECIFIC USER AND DETAIL INFO FOR PROFILE
-app.get("/api/user/profile", (req, res) => {
+app.get("/api/user/profile", ensureLogin, (req, res) => {
     dataService.getSpecificUserWithDetails(req, res);
 });
 

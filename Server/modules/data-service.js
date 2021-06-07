@@ -101,6 +101,7 @@ const getSpecificUser =(req, res)=>
         {
             if(isMatched == true)
             {
+                req.session.user.isLoggedOn = true
                 res.json({message:`USER LOGED IN SUCCESSFULLY !`})
             }
             else{
@@ -114,6 +115,11 @@ const getSpecificUser =(req, res)=>
 }
 
 const getSpecificUserWithDetails = (req, res) => {
+    // do stuff
+    User.findOne({emailAddress: req.query.emailAddress})
+    .then(user => {
+        res.send(user)
+    })    
     
 }
 
@@ -121,5 +127,6 @@ module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
     getAllUsers: getAllUsers,
-    getSpecificUser: getSpecificUser
+    getSpecificUser: getSpecificUser,
+    getSpecificUserWithDetails: getSpecificUserWithDetails
 }
