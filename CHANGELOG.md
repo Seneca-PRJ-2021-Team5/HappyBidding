@@ -16,6 +16,8 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 \- Created NavigationBar component in order to display the navigation bar at the to of the page  
 \- Created the version 1 of the Slider component  
 \- Inserted the Slider component in the HomePage  
+\- Added a heart emoji in the name of the navigation bar  
+\- Added bronken heart emoji to NotFound page  
 \- In App component, all imported components were change their names to start with UPPERCASE (React standard). For Example:  
    ```javascript 
    import login from './login'; // INSTEAD OF THIS 
