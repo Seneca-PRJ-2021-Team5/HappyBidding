@@ -8,6 +8,7 @@ const chalk = require('chalk'); // to style console.log texts
 const bcrypt = require('bcryptjs');
 
 const User = require("../Models/userSchema");
+const CreditCard = require("../Models/creditCardSchema");
 
 require("dotenv").config({path:'./modules/keys.env'});
 
@@ -115,12 +116,18 @@ const getSpecificUser =(req, res)=>
 }
 
 const getSpecificUserWithDetails = (req, res) => {
-    // do stuff
     User.findOne({emailAddress: req.query.emailAddress})
     .then(user => {
-        res.send(user)
+        CreditCard.findOne({userEmail: user.emailAddress})
+        .then(creditCard => {
+            res.json({
+                user: user,
+                creditCard: creditCard
+            })
+        })
+        .catch(err=>console.log(`Error with credit card call: ${err}`));
     })    
-    
+    .catch(err=>console.log(`Error with User call: ${err}`));
 }
 
 module.exports = {
