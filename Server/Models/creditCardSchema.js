@@ -3,6 +3,7 @@ let Schema = mongoose.Schema;
 
 let creditCardSchema = new Schema({
     cardType: String,
+    cardNumber: Number,
     expiryDate: Date,
     nameOnCard: String,
     verificationNumber: String,
