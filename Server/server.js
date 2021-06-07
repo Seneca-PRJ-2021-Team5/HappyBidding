@@ -21,6 +21,10 @@ app.post("/api/user", (req,res)=>{
     dataService.addNewUser(req.body, res)
 });
 
+app.post("/api/auction", (req,res) => {
+    dataService.addNewAuction(req.body, res)
+});
+
 
 // GET /api/users GET ALL USERS
 app.get("/api/users", (req,res)=>{
@@ -31,6 +35,11 @@ app.get("/api/users", (req,res)=>{
 // GET /api/users GET A SPECIFIC USER
 app.get("/api/user", (req,res)=>{
     dataService.getSpecificUser(req,res)
+});
+
+//get autions
+app.get("/api/auctions", (req, res) => {
+    dataService.getAllAuctions(req, res)
 });
 
 
