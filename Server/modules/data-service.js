@@ -9,6 +9,8 @@ const bcrypt = require('bcryptjs');
 
 const User = require("../Models/userSchema");
 
+const Auction = require("../Models/auctionSchema");
+
 require("dotenv").config({path:'./modules/keys.env'});
 
 
@@ -112,10 +114,51 @@ const getSpecificUser =(req, res)=>
     })
     .catch(err=>console.log(`Error :${err}`)); 
 }
+//MARK: retrieve auction data
+const getAllAuctions = (req, res) => {
+    Auction.find()
+    .then((auctions) => {
+        res.json(auctions)
+    })
+
+}
+
+const addNewAuction = (data,res) => {
+    Auction.findOne({title: data.title})
+    .then(auctionByTitle => 
+    {
+        console.log(auctionByTitle);
+        console.log(data.title);
+
+        if(auctionByTitle == null)
+        {
+            let newAcution = new Auction(data);
+            newAcution.save()
+            .then(() => 
+            {
+                console.log(chalk.magenta(`Auction added:`),chalk.green(` Adding completed and database's document created!`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                res.json({message:`AUCTION ADDED SUCCESSFULLY !`})
+            })
+            .catch((e) =>
+            {
+                console.log(chalk.magenta(`Auction added:`),chalk.red(` ERROR ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                res.json({message:`ERROR: ${err} !`}); 
+            })
+        }
+        else
+        {
+            res.json({message:`AUCTION ALREADY ADDED `});
+        }
+    })
+}
 
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
     getAllUsers: getAllUsers,
-    getSpecificUser: getSpecificUser
+    getSpecificUser: getSpecificUser,
+    getAllAuctions : getAllAuctions,
+    addNewAuction: addNewAuction
 }
