@@ -29,7 +29,9 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
    ```javascript 
    import login from './login'; // INSTEAD OF THIS 
    import Login from './login'; // IT SHOULD BE THIS
-   ```
+   ```   
+\- Renamed file profileSideBar.js because it was getting typo error in the code: "profileSIdeBar.js" (old name) to "profileSideBar.js" (new name)  
+
 
 #### 2021/06/06 - Arthur  
 \- Created HomePage component (still needs to develop)  
