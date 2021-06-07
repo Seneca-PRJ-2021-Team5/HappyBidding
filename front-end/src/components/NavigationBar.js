@@ -6,7 +6,7 @@ const NavigationBar =()=>
     return(
         <Navbar bg="light" expand="lg">
             <LinkContainer to="/">
-                <Navbar.Brand>HappyBidding - React Routing</Navbar.Brand>
+                <Navbar.Brand>&#10084;HappyBidding</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
