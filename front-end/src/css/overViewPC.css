@@ -20,56 +20,124 @@
     margin-bottom: 5%;
 }
 
-#updateLabel, #nextUpdateLabel,#updateLabel1, #updateLabel2{
-    font-size: 15px;
-    color: blue;
-    
+/*Current Mailing Address L1*/
+#currentMailA{
+    position: absolute;
+    margin-left: -25%;
 }
 
-/*Current Mailing Address*/
+/*Update Mailinng Address L1*/
+#updateMailA{
+    position: absolute;
+    margin-left: -25%;
+    margin-top: 0.5%;
+}
+
+/*Address Input L1*/
+#inputAddress{
+    position: absolute;
+    margin-left: -25%;
+    margin-top: 3.5%;
+    border-bottom: 2px solid #e9e9e9;
+}
+
+/*First Name L2*/
+#firstN{
+    position: absolute;
+    margin-left: -25%;
+    margin-top: 3.5%;
+}
+
+/*User Name L3*/
+#userN{
+    position: absolute;
+    margin-left: -25%;
+    margin-top: 5.9%;
+}
+
+/*First Name Input L2*/
+#firstNameInput{
+    position: absolute;
+    margin-left: -25%;
+    margin-top: 5.5%;
+    border-bottom: 2px solid #e9e9e9;
+}
+
+#lastNameInput{
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 5.5%;
+    border-bottom: 2px solid #e9e9e9;
+}
+
+#updateUsername{
+    position: absolute;
+    margin-left: -25%;
+    color: blue;
+    margin-top: 5.3%;
+}
+
+#usernameInput{
+    position: absolute;
+    margin-left: -25%;
+    margin-top: 8.4%;
+    border-bottom: 2px solid #e9e9e9;
+}
+
+#lastName{
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 3.5%;
+}
+
+#curretPass{
+    position: absolute;
+    margin-left: 5%;
+    margin-top: 5.9%;
+}
+
+#updateLastN{
+    position: absolute;
+    margin-left: 5%;
+    color: blue;
+    margin-top: 2.8%;
+}
+
 .title, .nextTitle {
     font-size: 25px;
     font-weight: bold;
+    border: 1px solid red;
+    margin-top: 1%;
 }
 
-/*Left Side*/
-#leftSide{
+#updatePass{
     position: absolute;
-    left: 400px;
+    margin-left: 5%;
+    color: blue;
+    margin-top: 5.3%;
 }
 
-#smallLeft{
+#passInput{
     position: absolute;
-    left: 400px;
+    margin-left: 5%;
+    margin-top: 8.4%;
+    border-bottom: 2px solid #e9e9e9;
 }
 
-/*First Name*/
-#firstN, #updateLabel2, #leftInput{
-    position: absolute;
-    left: 400px;
+/*Button*/
+#button{
+    margin-top: 20%;
+    left: 67px;
 }
-
-#rightSide, #updateLabel1, #nextUpdateLabel, #rightInput{
-    position: absolute;
-    left: 815px;
-    
-}
-
-
-
 
 
 
 .overview_userProfileArea_pc  .input, .secondInput{
     background: #fff;
-    border: none;
-    border-bottom: 2px solid #e9e9e9;
     color: #666;
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
-   /* height: 50px;*/
     transition: border-color 0.3s;
-    
   }
   
  

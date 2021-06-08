@@ -30,10 +30,10 @@ function OverviewPC(props){
             <div class="overview_userProfileArea_pc">
             <label id="overview">Overview</label>
                 <form action="" method="">
-                <div><label class="title" id="leftSide">Current Mailing Address</label><br/> <textarea class="input" id="leftInput" disabled>Address INFO</textarea><br/><label class="updateLabel" id="smallLeft">Update Mailling Address</label></div><br/>
-                <div><label class="title" id="firstN">First Name</label> <label class="nextTitle" id="rightSide">Last Name</label> <br/><input type="text" id="rightInput" class="input" value="FirstName"disabled/><input type="text" class="secondInput" id="leftInput" value="FirstName" disabled/><br/><label id="updateLabel1">Update Last Name</label></div><br/>
-                <div><label class="title" id="leftSide">User Name</label>  <label class="nextTitle" id="rightSide">Current Password</label> <br/><input type="text" id="leftInput" class="input" value="Username" disabled/><input type="password" class="secondInput" value="FirstName" disabled/><br/><label id="updateLabel2">Update User Name</label> <label id="nextUpdateLabel">Update Password</label></div>
-                <input type="button" class="signout_button_profile" onClick={handleSignout} value="Signout" />
+                <div><label class="title" id="currentMailA">Current Mailing Address</label><br/> <textarea class="input" id="inputAddress" disabled>Address INFO</textarea><br/><label class="updateLabel" id="updateMailA">Update Mailling Address</label></div><br/>
+                <div><label class="title" id="firstN">First Name</label> <label class="nextTitle" id="lastName">Last Name</label> <br/><input type="text" id="firstNameInput" class="input" value="FirstName"disabled/><input type="text" class="secondInput" id="lastNameInput" value="LastName" disabled/><br/><label id="updateLastN">Update Last Name</label></div><br/>
+                <div><label class="title" id="userN">User Name</label>  <label class="nextTitle" id="curretPass">Current Password</label> <br/><input type="text" id="usernameInput" class="input" value="Username" disabled/><input id="passInput" type="password" class="secondInput" value="FirstName" disabled/><br/><label id="updateUsername">Update User Name</label> <label id="updatePass">Update Password</label></div>
+                <input type="button" id="button" class="signout_button_profile" onClick={handleSignout} value="Signout" />
                 </form>
             </div>
         </div>
