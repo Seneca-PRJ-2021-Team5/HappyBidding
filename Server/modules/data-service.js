@@ -8,6 +8,7 @@ const chalk = require('chalk'); // to style console.log texts
 const bcrypt = require('bcryptjs');
 
 const User = require("../Models/userSchema");
+const CreditCard = require("../Models/creditCardSchema");
 
 const Auction = require("../Models/auctionSchema");
 
@@ -103,6 +104,7 @@ const getSpecificUser =(req, res)=>
         {
             if(isMatched == true)
             {
+                req.session.user.isLoggedOn = true
                 res.json({message:`USER LOGED IN SUCCESSFULLY !`})
             }
             else{
@@ -154,11 +156,27 @@ const addNewAuction = (data,res) => {
     })
 }
 
+const getSpecificUserWithDetails = (req, res) => {
+    User.findOne({emailAddress: req.query.emailAddress})
+    .then(user => {
+        CreditCard.findOne({userEmail: user.emailAddress})
+        .then(creditCard => {
+            res.json({
+                user: user,
+                creditCard: creditCard
+            })
+        })
+        .catch(err=>console.log(`Error with credit card call: ${err}`));
+    })    
+    .catch(err=>console.log(`Error with User call: ${err}`));
+}
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
     getAllUsers: getAllUsers,
     getSpecificUser: getSpecificUser,
     getAllAuctions : getAllAuctions,
-    addNewAuction: addNewAuction
+    addNewAuction: addNewAuction,
+    getSpecificUserWithDetails: getSpecificUserWithDetails
 }
