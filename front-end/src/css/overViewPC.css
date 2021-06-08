@@ -7,28 +7,57 @@
     margin-top: 2%;
     padding-left: 5%;
 }
-.overview_userProfileArea_pc label{
-    font-size: 24px;
+
+.updateLabel {
+    font-size: 15px;
+    color: blue;
 }
 
-.overview_userProfileArea_pc div{
-    margin-top: 2%;
+#overview{
+    font-size: 35px;
+    font-weight: bold;
+    margin-right: 78%;
+    margin-bottom: 5%;
 }
 
-.overview_userProfileArea_pc .title, .nextTitle{
-    margin-right: 24%;
+#updateLabel, #nextUpdateLabel,#updateLabel1, #updateLabel2{
+    font-size: 15px;
+    color: blue;
+    
 }
-.overview_userProfileArea_pc .input{
-    margin-right: 18%;
+
+/*Current Mailing Address*/
+.title, .nextTitle {
+    font-size: 25px;
+    font-weight: bold;
 }
-.overview_userProfileArea_pc .updateLabel, .nextUpdateLabel{
-    margin-right: 34%;
-    font-size: 12px;
+
+/*Left Side*/
+#leftSide{
+    position: absolute;
+    left: 400px;
 }
-.overview_userProfileArea_pc .title, .nextTitle{
-    margin-right: 36%;
-    font-size: 16px;
+
+#smallLeft{
+    position: absolute;
+    left: 400px;
 }
+
+/*First Name*/
+#firstN, #updateLabel2, #leftInput{
+    position: absolute;
+    left: 400px;
+}
+
+#rightSide, #updateLabel1, #nextUpdateLabel, #rightInput{
+    position: absolute;
+    left: 815px;
+    
+}
+
+
+
+
 
 
 .overview_userProfileArea_pc  .input, .secondInput{
@@ -38,9 +67,9 @@
     color: #666;
     font-family: 'Open Sans', sans-serif;
     font-size: 1em;
-    height: 50px;
+   /* height: 50px;*/
     transition: border-color 0.3s;
-    width: 25%;
+    
   }
   
  

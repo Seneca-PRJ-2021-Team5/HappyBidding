@@ -28,11 +28,11 @@ function OverviewPC(props){
                 <img src={logoPic}/>
             </div>
             <div class="overview_userProfileArea_pc">
-            <label>Overview</label>
+            <label id="overview">Overview</label>
                 <form action="" method="">
-                <div><label class="title">Current Mailing Address</label><br/> <textarea class="input" disabled>Address INFO</textarea><br/><label class="updateLabel">Update Mailling Address</label></div><br/>
-                <div><label class="title">First Name</label> <label class="nextTitle">Last Name</label> <br/><input type="text" class="input" value="FirstName"disabled/><input type="text" class="secondInput" value="FirstName" disabled/><br/><label id="updateLabel">Update Name</label></div><br/>
-                <div><label class="title">User Name</label>  <label class="nextTitle">Current Password</label> <br/><input type="text" class="input" value="FirstName" disabled/><input type="password" class="secondInput" value="FirstName" disabled/><br/><label id="updateLabel">Update User Name</label> <label id="nextUpdateLabel">Update Password</label></div>
+                <div><label class="title" id="leftSide">Current Mailing Address</label><br/> <textarea class="input" id="leftInput" disabled>Address INFO</textarea><br/><label class="updateLabel" id="smallLeft">Update Mailling Address</label></div><br/>
+                <div><label class="title" id="firstN">First Name</label> <label class="nextTitle" id="rightSide">Last Name</label> <br/><input type="text" id="rightInput" class="input" value="FirstName"disabled/><input type="text" class="secondInput" id="leftInput" value="FirstName" disabled/><br/><label id="updateLabel1">Update Last Name</label></div><br/>
+                <div><label class="title" id="leftSide">User Name</label>  <label class="nextTitle" id="rightSide">Current Password</label> <br/><input type="text" id="leftInput" class="input" value="Username" disabled/><input type="password" class="secondInput" value="FirstName" disabled/><br/><label id="updateLabel2">Update User Name</label> <label id="nextUpdateLabel">Update Password</label></div>
                 <input type="button" class="signout_button_profile" onClick={handleSignout} value="Signout" />
                 </form>
             </div>
