@@ -10,6 +10,10 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 
 ## CHANGELOG HISTORY
 
+#### 2021/06/07 - Leonel
+\- Worked improving the user profile page front-end.
+\- Merged changes into main branch in GitHub.
+
 #### 2021/06/07 - Henry
 \- Merge branch 'serverDevelopment' into main.   
 \- update auctionSchema.   
@@ -54,3 +58,8 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 \- that include User profile(not auctioneer) too.  
 ##### Dashboard, RecoveryAccount   
 \- nothing    
+
+#### 2021/05/31 - Leonel
+\- Worked along with Megumi in the front-end of User Login Page.
+\- Created the HappyBidding Heroku Account.
+

@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "bcrypt": "^5.0.1",
     "bootstrap": "^5.0.1",
+    "client-sessions": "^0.8.0",
     "cors": "^2.8.5",
     "mongoose": "^5.12.12",
     "react": "^17.0.2",
