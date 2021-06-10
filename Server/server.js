@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 // Setup client-sessions
 app.use(clientSessions({
     cookieName: "session", // this is the object name that will be added to 'req'
-    secret: "alongunguessablestring", // this should be a long un-guessable string. (need to replace this later)
+    secret: process.env.SECRET, // this should be a long un-guessable string. (need to replace this later)
     duration: 2 * 60 * 1000, // duration of the session in milliseconds (2 minutes)
     activeDuration: 1000 * 60 // the session will be extended by this many ms each request (1 minute)
 }));
