@@ -10,6 +10,10 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 
 ## CHANGELOG HISTORY
 
+#### 2021/06/14 - Megumi
+\- Added profile on Navigation bar
+\- Replaced main function name in profile.js from AuctioneerProfile to Profile
+
 #### 2021/06/07 - Leonel
 \- Worked improving the user profile page front-end.
 \- Merged changes into main branch in GitHub.
