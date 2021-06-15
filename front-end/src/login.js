@@ -46,14 +46,7 @@ function Login(props){
     console.log(values.username)
     console.log(values.password)
 
-    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.username}&password=${values.password}`,
-       { 
-
-        method: 'GET',
-        credentials: 'same-origin',
-        headers: myHeaders,
-    }
-    )
+    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.username}&password=${values.password}`)
     .then((res) => {
         return res.json();
     })
@@ -65,7 +58,7 @@ function Login(props){
                     //this.props.location.state.username on dashboard.js
                     state: { username: values.username}
                 });
-                console.log(data)
+                console.log(data.username)
             }else{
                 setValues({ showResults: true, eMessage: "Username or Password is wrong."  });
             }

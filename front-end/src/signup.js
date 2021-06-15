@@ -12,7 +12,6 @@ function Signup(props){
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     //it is equals with this.state on function component 
     const [values, setValues] = useState({
-        userType: "",
         userName: "",
         phoneNumber: "",
         emailAddress: "",
@@ -42,14 +41,14 @@ function Signup(props){
                 postalCode: values.postalCode,
                 country: values.country
             },
-            userType: values.userType,
             userName: values.userName,
             phoneNumber: values.phoneNumber,
             emailAddress: values.emailAddress,
             password: values.password,
         }
-
-        fetch('https://happybiddingserve.herokuapp.com/api/users', {
+        console.log(`|${userData.userName}|`)
+        console.log(`|${userData.password}|`)
+        fetch('https://happybiddingserve.herokuapp.com/api/user', {
             method: "POST",
             body: JSON.stringify(userData),
             headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -72,9 +71,6 @@ function Signup(props){
             <h2>Sign up form</h2>
 
             <form onSubmit={handleSubmit}>
-                <div class="cp_iptxt">
-                <input type="text" placeholder="User Type" id="userType" name="userType" value={values.userType} onChange={handleChange}/>
-                </div>
                 <div class="cp_iptxt">
                 <input type="text" placeholder="User Name" id="userName" name="userName" value={values.userName} onChange={handleChange}/>
                 </div>
