@@ -10,6 +10,7 @@
     "bootstrap": "^5.0.1",
     "client-sessions": "^0.8.0",
     "cors": "^2.8.5",
+    "js-cookie": "^2.2.1",
     "mongoose": "^5.12.12",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",

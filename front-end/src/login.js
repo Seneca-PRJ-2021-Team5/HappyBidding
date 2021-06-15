@@ -14,6 +14,7 @@ function Login(props){
     const [values, setValues] = useState({
         username: "",
         password: "",
+        type:"",
         showError: false,
         eMessage: ""
     });
@@ -35,12 +36,24 @@ function Login(props){
 
   }
 
+  var myHeaders = new Headers({
+    'Authorization': 'Token ' + process.env.API_TOKEN,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  });
+
   //it work when user submit a form
   function handleSubmit(event){
     console.log(values.username)
     console.log(values.password)
 
-    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.username}&password=${values.password}`)
+    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.username}&password=${values.password}`,
+       { 
+
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: myHeaders,
+    }
+    )
     .then((res) => {
         return res.json();
     })
@@ -48,10 +61,11 @@ function Login(props){
             if(data.message.includes("SUCCESS")){  
                 setValues({ ...values, showResults:false });
                 props.history.push({
-                    pathname: '/dashboard',
+                    pathname: '/profile',
                     //this.props.location.state.username on dashboard.js
-                    state: { username: values.username }
+                    state: { username: values.username}
                 });
+                console.log(data)
             }else{
                 setValues({ showResults: true, eMessage: "Username or Password is wrong."  });
             }
