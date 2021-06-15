@@ -65,7 +65,8 @@ app.get("/api/auctions", (req, res) => {
 });
 
 // GET /api/user/profile GET A SPECIFIC USER AND DETAIL INFO FOR PROFILE
-app.get("/api/user/profile", ensureLogin, (req, res) => {
+//app.get("/api/user/profile", ensureLogin, (req, res) => {
+app.get("/api/user/profile", (req, res) => {
     dataService.getSpecificUserWithDetails(req, res);
 });
 
