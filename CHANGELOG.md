@@ -53,7 +53,15 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 \- For the server, updated the route route name from "**/api/users**" to "**/api/user**"    
 <br>
 
-#### Before 2021/06/01 - Megumi 
+#### Before 2021/06/01 
+#### -----> Adam
+##### Signup Front end
+\- Created inputs for the user to insert data   
+\- Created Signup.css to make the style of the signup page    
+\- Included API POST request for the fetch in order to persist data into the database using the API through the signup form    
+\- Created a redirect to the login page after the signup form was submitted    
+    
+#### -----> Megumi 
 ##### Signup, Login page:  
 \- change class component to functional component  
 \- fix page for responsible page    
