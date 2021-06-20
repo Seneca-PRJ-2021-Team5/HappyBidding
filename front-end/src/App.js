@@ -8,6 +8,7 @@ import RecoveryAccount from './recoveryAccount'; //import RecoveryAccount.js
 import Signup from './signup';
 import Profile from './profile';
 import HomePage from './HomePage'
+import UserManageAuction from './UserManageAuction'
 import NotFound from './NotFound'
 import NavigationBar from './components/NavigationBar'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,6 +27,7 @@ function App (props){
             <Route exact path="/login" component={Login} />　
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/userauction" component={UserManageAuction} />
             <Route exact path="/recoveryAccount" component={RecoveryAccount} />　
             <Route component={NotFound} />
           </Switch>
