@@ -1,0 +1,20 @@
+.userInfoArea_pc{
+    width: 15%;
+    height: 15%;
+
+}
+
+.userInfoArea_pc{
+    margin: 5%;
+}
+
+.userInfoArea_pc span{
+    font-size: 8px;
+    margin-left: 5%;
+ }
+
+ .userInfoArea_pc label{
+    font-size: 12px;
+    font-weight: bold; 
+    margin-left: 5%;
+ }
