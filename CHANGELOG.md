@@ -7,7 +7,6 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 | react-router-bootstrap  | 2021/06/07    | Frontend  | npm install react-router-bootstrap    |  |
 | @material-ui/core       | 2021/06/20    | Frontend  | npm install  @material-ui/core        | UserManageAuction  |
 | react-chat-elements     | 2021/06/21    | Frontend  | npm install react-chat-elements       | synchAuctionChat   |
- @material-ui/core is for UserManageAuction.js
 
 <br>
 
