@@ -3,7 +3,7 @@ import React, {useState} from 'react';              //read react
 /* CSS */
 import '../../css/payInfoPC.css';
 /* Image */
-import userPic from '../..//img/userImage.png';
+import userPic from '../../img/userImage.png';
 import cardPic from '../../img/creditCard.png';
 
 //function component

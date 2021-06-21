@@ -7,6 +7,9 @@ import Login from './login'; //import login.js
 import RecoveryAccount from './recoveryAccount'; //import RecoveryAccount.js 
 import Signup from './signup';
 import Profile from './profile';
+import Description from './components/synchronousAuction/description';
+//test
+import SynchAuction from './synchAuction';
 import HomePage from './HomePage'
 import NotFound from './NotFound'
 import NavigationBar from './components/NavigationBar'
@@ -26,6 +29,8 @@ function App (props){
             <Route exact path="/login" component={Login} />　
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/description" component={Description} />
+            <Route exact path="/synchAuction" component={SynchAuction} />
             <Route exact path="/recoveryAccount" component={RecoveryAccount} />　
             <Route component={NotFound} />
           </Switch>

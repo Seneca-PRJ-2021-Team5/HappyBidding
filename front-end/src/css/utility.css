@@ -19,4 +19,15 @@
 
 .b-radius {
     border-radius: 10px; 
-    }
+}
+
+.top-margin-5{
+    margin-top: 5%;
+} 
+
+.top-margin-3{
+    margin-top: 3%;
+}
+.top-margin-10{
+    margin-top: 10%;
+}

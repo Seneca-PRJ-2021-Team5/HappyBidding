@@ -1,0 +1,51 @@
+/* synchAuction page's body*/
+#synchAuctionContainer{
+   background-color: #f4f1f5;  
+   width: auto;
+   height: 100%;
+}
+
+/* bid*/
+/* input-group is to call bootstrap css */
+#bidContainer{
+   margin-top: 10%;
+}
+#top5thBidHistory{
+   background: white;
+}
+
+#bidForm{
+   margin-top: 98%;
+   margin-bottom: 0%;
+}
+
+/* liveStreaming*/
+#liveStreamingContainer{
+   margin-top: 5%;
+   width: auto;
+   height:100%;
+}
+
+/* synchAuctionChat */
+#chatScreen{
+   margin-top:49%;
+}
+/* description (PC)*/
+#productDiscription{
+   padding: 3% 5% 5% 5%;
+   margin-top: 5%;
+   margin-bottom: 10%;
+   background: white;
+   height:100%;
+}
+
+/*topBid*/
+.placePic{
+   height: auto;
+   width: 25%;
+   margin-right: 3%;
+}
+
+.bidPrice{
+   margin-left: 5%;
+}

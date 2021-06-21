@@ -64,7 +64,7 @@ function Signup(props){
     }
 
     return(
-        <div class="signupContainer">
+        <div id="signupContainer">
         <img id="signup_logo"  src={logoPic} alt="Happy Bidding Logo" />
             <div id="signup_formContainer">
             <div id="signup_leftSide">
