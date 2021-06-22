@@ -12,9 +12,13 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 
 
 ## CHANGELOG HISTORY
+#### 2021/06/22 - Adam
+\- Created server side for synchronous auction's live chat
 
 #### 2021/06/20 - Megumi
 \- Created front-end for synchronous auction
+\- Fixed some small things
+
 #### 2021/06/14 - Megumi
 \- Added profile on Navigation bar  
 \- Replaced main function name in profile.js from AuctioneerProfile to Profile
