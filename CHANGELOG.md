@@ -13,6 +13,8 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 
 ## CHANGELOG HISTORY
 
+#### 2021/06/20 - Megumi
+\- Created front-end for synchronous auction
 #### 2021/06/14 - Megumi
 \- Added profile on Navigation bar  
 \- Replaced main function name in profile.js from AuctioneerProfile to Profile
