@@ -16,7 +16,7 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 \- Created server side for synchronous auction's live chat
 
 #### 2021/06/20 - Megumi
-\- Created front-end for synchronous auction
+\- Created front-end for synchronous auction  
 \- Fixed some small things
 
 #### 2021/06/14 - Megumi
