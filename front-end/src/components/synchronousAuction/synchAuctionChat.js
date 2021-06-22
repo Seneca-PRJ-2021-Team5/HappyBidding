@@ -2,9 +2,7 @@
 import React, {useState, useEffect} from 'react';              //read react
 import socketIOClient from "socket.io-client";
 
-import Messages from './Messages/messages';
-
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "http://localhost:5000" // the host that the server is running on
 
 let socket;
 
