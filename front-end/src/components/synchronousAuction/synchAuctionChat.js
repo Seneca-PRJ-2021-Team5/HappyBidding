@@ -1,5 +1,7 @@
 
-import React, {useState, useEffect} from 'react';              //read react
+import React, {useState, useEffect} from 'react';  //read react
+import { MessageList } from 'react-chat-elements';
+import 'react-chat-elements/dist/main.css';
 import socketIOClient from "socket.io-client";
 
 const ENDPOINT = "http://localhost:5000" // the host that the server is running on
@@ -18,7 +20,8 @@ function SynchAuctionChat(props){
 
     useEffect(() => {
         socket.on('message', m => {
-            setMessages([...messages, m.text]);
+            m.date = new Date(m.date);
+            setMessages([...messages, m]);
         });
     }, [messages]);
 
@@ -37,14 +40,19 @@ function SynchAuctionChat(props){
     return(
             <React.Fragment>
                 <div id="chatScreen">
-                    {messages.map((message, i) => <p id={i}>{message}</p>)}
+                    <MessageList
+                        toBottomHeight={'100%'}
+                        lockable={true}
+                        dataSource={messages} />
                 </div>
-                <form id="chatForm" class="input-group" onSubmit={handleSubmit}>
-                    <input type="text" class="form-control" placeholder="Text to chat" value={message} onChange={({ target: { value } }) => setMessage(value)} />
-                    <div class="input-group-append">
-                        <input class="btn btn-outline-info" type="submit" value="Send" onClick={e => sendMessage(e)} />
-                    </div>
-                </form>
+                <div id="chatForm">
+                    <form class="input-group" onSubmit={handleSubmit}>
+                        <input type="text" class="form-control" placeholder="Text to chat" value={message} onChange={({ target: { value } }) => setMessage(value)}/>
+                        <div class="input-group-append">
+                            <input class="btn btn-outline-info" type="submit" value="Send" onClick={e => sendMessage(e)} />
+                        </div>
+                    </form>
+                </div>
             </React.Fragment>
     );
 }

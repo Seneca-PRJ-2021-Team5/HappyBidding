@@ -2,12 +2,13 @@
 #synchAuctionContainer{
    background-color: #f4f1f5;  
    width: auto;
-   height: 100%;
+   height: auto;
 }
 
 /* bid*/
 /* input-group is to call bootstrap css */
 #bidContainer{
+   min-height: 100%;
    margin-top: 10%;
 }
 #top5thBidHistory{
@@ -15,7 +16,7 @@
 }
 
 #bidForm{
-   margin-top: 98%;
+   margin-top: 100%;
    margin-bottom: 0%;
 }
 
@@ -28,7 +29,23 @@
 
 /* synchAuctionChat */
 #chatScreen{
-   margin-top:49%;
+   height:70%;
+}
+
+#chatForm{
+   margin-top:5%;
+   margin-bottom:0;
+}
+
+.rce-container-mbox{
+   margin-top:5%;
+}
+.rce-container-mbox > .rce-mbox-right{
+   background: greenyellow;
+}
+
+.rce-container-mbox > .rce-mbox-right>.rce-mbox-right-notch{
+   fill: greenyellow;
 }
 /* description (PC)*/
 #productDiscription{
