@@ -33,8 +33,18 @@ io.on("connection", socket => {
     console.log("new client connected!")
 
     socket.on('sendMessage', (message, callback) => {
-        io.emit('message', { text: message });
+        //io.emit('message', { text: message });
 
+        currentDate = new Date();
+        console.log(currentDate);
+        io.emit('message', 
+        {
+            position: 'left', 
+            title: 'User', 
+            type: 'text', 
+            text: message, 
+            date: currentDate
+        });
         callback();
     });
 
