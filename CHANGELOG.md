@@ -7,6 +7,7 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 | react-router-bootstrap  | 2021/06/07    | Frontend  | npm install react-router-bootstrap    |  |
 | @material-ui/core       | 2021/06/20    | Frontend  | npm install  @material-ui/core        | UserManageAuction  |
 | react-chat-elements     | 2021/06/21    | Frontend  | npm install react-chat-elements       | synchAuctionChat   |
+| socket.io-client        | 2021/06/21    | Frontend  | npm install socket.io-client          | synchAuctionChat   |
 
 <br>
 
@@ -18,6 +19,13 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 #### 2021/06/20 - Megumi
 \- Created front-end for synchronous auction  
 \- Fixed some small things
+
+#### 2021/06/22 - Adam
+\- Installed socket.io to Server package.json
+\- Implemented io connection server side
+\- Installed socket.io-client to front-end (check table above)
+\- Added Messages component; but not currently functional
+\- Added socket functionality to synchAuctionChat
 
 #### 2021/06/14 - Megumi
 \- Added profile on Navigation bar  

@@ -1,5 +1,10 @@
 const express = require("express");
 const cors = require("cors");
+corsOptions={
+    cors:{
+        origins:["http://localhost:5000"]
+    }
+}
 const chalk = require('chalk'); // to style console.log texts
 const bodyParser = require("body-parser");
 const clientSessions = require("client-sessions");
@@ -8,6 +13,10 @@ const dataService = require("./modules/data-service.js");
 
 
 const app = express();
+
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, corsOptions);
+
 app.use(cors());
 app.use(bodyParser.json()); 
 
@@ -19,6 +28,27 @@ app.use(clientSessions({
     duration: 2 * 60 * 1000, // duration of the session in milliseconds (2 minutes)
     activeDuration: 1000 * 60 // the session will be extended by this many ms each request (1 minute)
 }));
+
+io.on("connection", socket => { 
+    console.log("new client connected!")
+
+    socket.on('sendMessage', (message, callback) => {
+        //io.emit('message', { text: message });
+
+        currentDate = new Date();
+        console.log(currentDate);
+        io.emit('message', 
+        {
+            position: 'left', 
+            title: 'User', 
+            type: 'text', 
+            text: message, 
+            date: currentDate
+        });
+        callback();
+    });
+
+});
 
 // Helper function to ensure that the user is logged in
 function ensureLogin(req, res, next) {
@@ -74,8 +104,8 @@ app.get("/api/user/profile", (req, res) => {
 //
 // ************* Initialize the Service & Start the Server
 
-const HTTP_PORT = process.env.PORT || 8080;
-app.listen(HTTP_PORT,()=>{
+const HTTP_PORT = process.env.PORT || 5000;
+httpServer.listen(HTTP_PORT,()=>{
     console.log(chalk.blue(`------------------------------------------------------------------------------------`));
     console.log(chalk.yellow(`WEB SERVER:`), chalk.green(` STARTED AT PORT ${HTTP_PORT}`));
 })
