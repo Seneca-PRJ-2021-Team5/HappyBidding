@@ -100,6 +100,29 @@ app.get("/api/user/profile", (req, res) => {
     dataService.getSpecificUserWithDetails(req, res);
 });
 
+app.post("/api/user/creditcard", (req, res) => {
+    dataService.addCreditCard(req.body, res);
+})
+// This route will be used for Navigation bar and user Profile links Sidebar 
+
+// it returns true if the user is loggedin 
+// false otherwise, aso the userType
+
+app.get("/api/checkForNavProf", (req, res)=>
+{
+    if(req.session.user){
+        res.json({
+            isLogged: true,
+            userType: req.session.user.userType
+        })
+    }
+    else {
+        res.json({
+            isLogged: false
+        })
+    }
+});
+
 // ------------------- CONNECTIVITY PART
 //
 // ************* Initialize the Service & Start the Server
