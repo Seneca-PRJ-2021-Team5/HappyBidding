@@ -28,9 +28,9 @@ function ProfilePC(props){
   //min-width: 768px => for PC
    return (
         <React.Fragment>
-            <div class="profile_sidebar"><SideMenu/></div>
-            <div class="profile_main"><OverViewPC /></div>
-            <div class="profile_side"><PayInfoPC /></div>
+            <div className="profile_sidebar"><SideMenu/></div>
+            <div className="profile_main"><OverViewPC /></div>
+            <div className="profile_side"><PayInfoPC /></div>
         </React.Fragment>
     );
 }
