@@ -60,7 +60,7 @@
     margin-right: 20%;
 }
 
-#login_label{
+.login_label{
     margin: -12px 0px;
     text-align: left;
     font-size: 18px;
@@ -74,7 +74,7 @@
 #login_leftSide {
     margin-left:5%
 }
-#login_inputarea {
+.login_inputarea {
     width: 100%;
     max-width: 100%;
     border: none;
