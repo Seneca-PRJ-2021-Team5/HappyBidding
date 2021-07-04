@@ -50,6 +50,8 @@ const addNewUser = (data, res)=> {
         
                     let newUser = new User(data);
         
+                    // set session key to empty string
+                    newUser.currentSessionKey = "";
                     newUser.save()
                     .then(() =>
                     {                  
@@ -104,13 +106,29 @@ const getSpecificUser =(req, res)=>
         {
             if(isMatched == true)
             {
-                req.session.user.isLoggedOn = true
-                res.json({message:`USER LOGED IN SUCCESSFULLY !`})
+                // passwords match
+                // create session id key
+                const crypto = require('crypto');
+                let sess_id = crypto.randomBytes(20).toString('hex');
+
+                user.currentSessionKey = sess_id;
+
+                user.save()
+                .then(() => {
+
+                    res.json({message:`USER LOGED IN SUCCESSFULLY !`, user: user})
+                })
+                .catch((err) => {
+                    res.json({message: `Error: ${err}`});
+                });
+                //req.session.user.isLoggedOn = true
             }
             else{
                 res.json({message:`ERROR: ${err} !`});
             }
-            
+        })
+        .catch(err=>{
+            res.json({message:`ERROR: ${err} !`})
         })
 
     })
@@ -159,16 +177,35 @@ const addNewAuction = (data,res) => {
 const getSpecificUserWithDetails = (req, res) => {
     User.findOne({emailAddress: req.query.emailAddress})
     .then(user => {
-        CreditCard.findOne({userEmail: user.emailAddress})
-        .then(creditCard => {
-            res.json({
-                user: user,
-                creditCard: creditCard
+        if(user.currentSessionKey != req.query.sessionId){
+            res.json({message: "Your session key is invalid"});
+        }
+        else{
+            CreditCard.findOne({userEmail: user.emailAddress})
+            .then(creditCard => {
+                res.json({
+                    user: user,
+                    creditCard: creditCard
+                })
             })
-        })
-        .catch(err=>console.log(`Error with credit card call: ${err}`));
+            .catch(err=>console.log(`Error with credit card call: ${err}`));
+        }
     })    
     .catch(err=>console.log(`Error with User call: ${err}`));
+}
+
+
+const addCreditCard = (data, res) => {
+    let newCard = new CreditCard(data);
+    newCard.save()
+    .then(() => {
+        console.log("Added credit card")
+        res.json({message: "Success"})
+    })
+    .catch((err) => {
+        console.log(err);
+        res.json({message: "ERROR"})
+    })
 }
 
 module.exports = {
@@ -178,5 +215,6 @@ module.exports = {
     getSpecificUser: getSpecificUser,
     getAllAuctions : getAllAuctions,
     addNewAuction: addNewAuction,
+    addCreditCard: addCreditCard,
     getSpecificUserWithDetails: getSpecificUserWithDetails
 }
