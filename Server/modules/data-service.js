@@ -76,15 +76,10 @@ const addNewUser = (data, res)=> {
             res.json({message:`EMAIL ALREADY REGISTERED`})
         }
     })
-
-    
-
-   
-    
-    
-
     
 }
+
+
 
 // This function is called in server.js to get all users from database
 const getAllUsers = (res)=> {
@@ -127,13 +122,15 @@ const getSpecificUser =(req, res)=>
                 res.json({message:`ERROR: ${err} !`});
             }
         })
-        .catch(err=>{
+        .catch(err=>{ // error in case password is wrong
             res.json({message:`ERROR: ${err} !`})
         })
 
     })
-    .catch(err=>console.log(`Error :${err}`)); 
+    .catch(err=>console.log(`Error :${err}`)); //error in case user does not exists
 }
+
+
 //MARK: retrieve auction data
 const getAllAuctions = (req, res) => {
     Auction.find()
