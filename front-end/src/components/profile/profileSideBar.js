@@ -61,11 +61,11 @@ function Sidebar(props){
   //return page body
   //min-width: 768px => for PC
    return (
-        <div class="SideBar">
+        <div className="SideBar">
             <div id="SideBarMenu">
                 <div onClick={handleOverViewClick}>Overview</div>
                 <div onClick={handleManageAuctionClick}>Manage Auction</div>
-                {(values.usertype!="User"?<AuctioneerMenu/>: null)}
+                {(values.usertype!="user"?<AuctioneerMenu/>: null)}
             </div>
 
         </div>
