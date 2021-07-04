@@ -25,7 +25,8 @@ let userSchema = new Schema({
     password: {
         type: String, 
         required: true
-    }
+    },
+    currentSessionKey: String
 }) 
 
 const userMODEL = mongoose.model('users', userSchema);
