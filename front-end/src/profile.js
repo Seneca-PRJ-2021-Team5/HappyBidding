@@ -10,62 +10,38 @@ import './css/utility.css';
 /* Component */
 import ProfilePC from './components/profile/profilePC';
 import ProfileMobile from './components/profile/profileMobile';
-import SideMenu from './components/profile/profileSideBar';
 
+import SideMenu from './components/profile/profileSideBar';
 import logoPic from './img/logo.png';
 import userPic from './img/userImage.png';
 import cardPic from './img/creditCard.png';
-
 import { Card, Button, Container, Row, Col, Form } from 'react-bootstrap'
-
 
 //function component
 function Profile(props){ 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
 
     const [disableEdit, setDisableEdit] = useState(true)
-    const [gotUser, setGotUser] = useState(props.location.state.gotUser)
-
     const [values, setValues] = useState({
         userType: "",
-        userName: props.location.state.username, //props.location.state.username,
+        userName: props.location.state.username,
         password: "",
         showError: false,
         eMessage: ""
     });
 
-    
-    // fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${values.username}`)
-    // .then((res) => {
-    //     return res.json();
-    // }).then((data)=>{
-    //     console.log(data)
-    //     Cookies.set('userName', data.user);
-    // })
-
-    // const getUserInfo =()=>{
-    //     fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${values.username}`)
-    //     .then((res) => {
-    //         return res.json();
-    //     }).then((data)=>{
-    //         console.log(data)
-    //         setValues({...values, userType: data.userType, userName: data.userName, password: data.password})
-    //     })
-    // }
-    
-    useEffect(() =>
-    {
-        console.log("PROFILE IS BEING LOADED")
+    /*
+    useEffect(() => {
         fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${values.username}`)
         .then((res) => {
             return res.json();
         }).then((data)=>{
+            console.log("PROFILE PAGGGGGGGGGE")
             console.log(data)
             setValues({...values, userType: data.userType, userName: data.userName, password: data.password})
         })
-
-    }, [gotUser])
-
+    },[values.userName])
+    */
 
     //it change value when user input value
     function handleInputChange(event){
@@ -78,6 +54,9 @@ function Profile(props){
   //min-width: 768px => for PC
   //{isTabletOrMobile? <ProfileMobile /> : < ProfilePC />}
    return (
+        // <div className="profile">
+        //     <h1>{console.log(values.username)}</h1>{isTabletOrMobile? <ProfileMobile userInfo={values}/> : < ProfilePC userInfo={values}/>}
+        // </div>
         <Container>
             <Row>
         {/* ---------------- SIDEBAR ------------------------- */}
@@ -155,14 +134,12 @@ function Profile(props){
                 </Col>
             </Row>
         </Container>
-    // <div className="profile">
-
-    //     <h1>{console.log(values.username)}</h1>{isTabletOrMobile? <ProfileMobile userInfo={values}/> : < ProfilePC userInfo={values}/>}
-    // </div>
-
-);
+    );
 }
 
+export default Profile; 
+
+// Code from the other components
 /* <div className="profile">
 
     <h1>{console.log(values.username)}</h1>{isTabletOrMobile? <ProfileMobile userInfo={values}/> : < ProfilePC userInfo={values}/>}
@@ -238,6 +215,4 @@ function Profile(props){
         
         
         */}
-
  
-export default Profile; 
