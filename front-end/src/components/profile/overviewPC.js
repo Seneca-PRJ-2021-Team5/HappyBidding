@@ -23,17 +23,35 @@ function OverviewPC(props){
   //return page body
   //min-width: 768px => for PC
    return (
-        <div class="overview_main_pc">
-            <div class="overview_logoArea_pc">
+        <div className="overview_main_pc">
+            <div className="overview_logoArea_pc">
                 <img src={logoPic}/>
             </div>
-            <div class="overview_userProfileArea_pc">
+            <div className="overview_userProfileArea_pc">
             <label id="overview">Overview</label>
                 <form action="" method="">
-                <div><label class="title" id="currentMailA">Current Mailing Address</label><br/> <textarea class="input" id="inputAddress" disabled>Address INFO</textarea><br/><label class="updateLabel" id="updateMailA">Update Mailling Address</label></div><br/>
-                <div><label class="title" id="firstN">First Name</label> <label class="nextTitle" id="lastName">Last Name</label> <br/><input type="text" id="firstNameInput" class="input" value="FirstName"disabled/><input type="text" class="secondInput" id="lastNameInput" value="LastName" disabled/><br/><label id="updateLastN">Update Last Name</label></div><br/>
-                <div><label class="title" id="userN">User Name</label>  <label class="nextTitle" id="curretPass">Current Password</label> <br/><input type="text" id="usernameInput" class="input" value="Username" disabled/><input id="passInput" type="password" class="secondInput" value="FirstName" disabled/><br/><label id="updateUsername">Update User Name</label> <label id="updatePass">Update Password</label></div>
-                <input type="button" id="button" class="signout_button_profile" onClick={handleSignout} value="Signout" />
+                <div>
+                    <label className="title" id="currentMailA">Current Mailing Address</label><br/> 
+                    <textarea className="input" id="inputAddress" disabled>Address INFO</textarea><br/>
+                    <label className="updateLabel" id="updateMailA">Update Mailling Address</label>
+                </div>
+                <br/>
+                <div>
+                    <label className="title" id="firstN">First Name</label> 
+                    <label className="nextTitle" id="lastName">Last Name</label><br/>
+                    <input type="text" id="firstNameInput" className="input" value="FirstName"disabled/>
+                    <input type="text" className="secondInput" id="lastNameInput" value="LastName" disabled/><br/>
+                    <label id="updateLastN">Update Last Name</label>
+                </div>
+                <br/>
+                <div>
+                    <label className="title" id="userN">User Name</label>  
+                    <label className="nextTitle" id="curretPass">Current Password</label><br/>
+                    <input type="text" id="usernameInput" className="input" value="Username" disabled/>
+                    <input id="passInput" type="password" className="secondInput" value="FirstName" disabled/><br/>
+                    <label id="updateUsername">Update User Name</label> <label id="updatePass">Update Password</label>
+                </div>
+                <input type="button" id="button" className="signout_button_profile" onClick={handleSignout} value="Signout" />
                 </form>
             </div>
         </div>
