@@ -19,7 +19,7 @@ import SideMenu from './components/profile/profileSideBar';
 import logoPic from './img/logo.png';
 import userPic from './img/userImage.png';
 import cardPic from './img/creditCard.png';
-import { Card, Button, Container, Row, Col, Form } from 'react-bootstrap'
+import { Card, Button, Container, Row, Col, Form, Image } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 
 //function component
@@ -89,12 +89,22 @@ function Profile(props){
                 </Col>
 
         {/* ---------------- OVERVIEW PROFILE ---------------- */}
-                <Col sm={6}>
+                <Col sm={6} className="mt-5">
                     {/* <div className="overview_logoArea_pc">
                         <img src={logoPic}/>
                     </div> */}
-                    <h2 Style="text-align: center; margin-botton: 30px;">Profile Overview</h2>
                     <Form>
+                        <h2 className="text-center" Style="margin-botton: 30px;">Profile Overview</h2>
+                        <Image width={180} height={180} Style="" src={userPic}/>
+                        <br/>
+                        <Row className="text-center">
+                            <Col>
+                                <label>{values.userInfo.userName}</label><br/>
+                                <Button variant="primary" onClick={editOnClick} disabled={!disableEdit}>
+                                    Edit Profile
+                                </Button>
+                            </Col>
+                        </Row>
                         <Row className="profileOverviewRow">
                             <h4>Current Mailing Address</h4>
                             {/* <Form.Group controlId="userAddress"> */}
@@ -148,16 +158,12 @@ function Profile(props){
 
                         <Row className="profileOverviewRow">
                             <Col>
-                                <Button variant="primary" onClick={editOnClick} disabled={!disableEdit}>
-                                    Edit Profile
-                                </Button>
-                            </Col>
-
-                            <Col>
-                                <Button variant="warning" type="submit" onClick={saveChanges} className="" hidden={disableEdit}>
+                                <Button variant="warning" type="submit" onClick={saveChanges} hidden={disableEdit}>
                                     Save Changes
                                 </Button>
                             </Col>
+                            <br/>
+                            <br/>
                         </Row>
 
                     </Form>
@@ -166,11 +172,10 @@ function Profile(props){
 
         {/* ---------------- PAYMENT PROFILE ----------------- */}
                 <Col  sm={4}>
-                    <img src={userPic} /><br/>
-                    <label>User Name</label><br/>
+
                     <span>Edit Profile</span>
 
-                    <label>Cards Saved </label> <span> Update payment information</span>
+                    <label>Cards Saved </label> <span>Update payment information</span>
                     
                     <img src={cardPic} />
                     <label className="number_title">card number</label>
