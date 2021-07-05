@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react'
 //import react-router-dom to use BrowserRouter, route, switch to move page
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Jumbotron, Container, Row } from 'react-bootstrap';
 
 
 import Login from './login'; //import login.js 
@@ -16,6 +16,8 @@ import NotFound from './NotFound'
 import SynchAuction from './synchAuction'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/navigationBar.css'
+import './css/App.css'
+import { NativeError } from 'mongoose';
 
 function App (props){
 
@@ -46,54 +48,62 @@ function App (props){
       <>
         <BrowserRouter>
           {/* -------------------- START LINKS TO NAVBAR ---------------------- */}
-          <Navbar bg="light" expand="lg">
+          <Navbar bg="light" expand="lg" fixed="top">
+
             <LinkContainer to="/">
-                <Navbar.Brand><h2>&#10084;HappyBidding</h2></Navbar.Brand>
+                <Navbar.Brand>
+                  <h2>&#10084;HappyBidding</h2>
+                </Navbar.Brand>
             </LinkContainer>
+
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                
-                    <LinkContainer to="/">
-                        <Nav.Link className="navButtons">HOME</Nav.Link>
-                    </LinkContainer>
+                <Nav>
+                  
+                  <LinkContainer to="/">
+                      <Nav.Link className="navButtons">HOME</Nav.Link>
+                  </LinkContainer>
 
-                {!userStatus && 
-                <React.Fragment>
-                    <LinkContainer to="/login">
-                        <Nav.Link className="navButtons">Login</Nav.Link>
-                    </LinkContainer>
-                    <LinkContainer to="/signup">
-                        <Nav.Link className="navButtons">SignUp</Nav.Link>
-                    </LinkContainer>
-                </React.Fragment>}
-                
-                {userStatus && <React.Fragment>
-                    <LinkContainer to={{
-                        pathname: '/profile',
-                        state: {username:""}
-                    }}>
-                        <Nav.Link className="navButtons">Profile</Nav.Link>
-                    </LinkContainer>
+                  {!userStatus && 
+                  <React.Fragment>
+                      <LinkContainer to="/login">
+                          <Nav.Link className="navButtons">Login</Nav.Link>
+                      </LinkContainer>
+                      <LinkContainer to="/signup">
+                          <Nav.Link className="navButtons">SignUp</Nav.Link>
+                      </LinkContainer>
+                  </React.Fragment>}
+                  
+                  {userStatus && 
+                  <React.Fragment>
+                      <LinkContainer to={{
+                          pathname: '/profile',
+                          state: {username:""}
+                      }}>
+                          <Nav.Link className="navButtons">Profile</Nav.Link>
+                      </LinkContainer>
 
-                    <LinkContainer to={{
-                        pathname: '/synchAuction',
-                        state: {userName: sessionStorage.getItem("userName")}
-                    }}>
-                        <Nav.Link className="navButtons">Synch Auction</Nav.Link>
-                    </LinkContainer>
+                      <LinkContainer to={{
+                          pathname: '/synchAuction',
+                          state: {userName: sessionStorage.getItem("userName")}
+                      }}>
+                          <Nav.Link className="navButtons">Synch Auction</Nav.Link>
+                      </LinkContainer>
 
-                    <LinkContainer to='/logout'>
-                        <Nav.Link className="navButtons">Logout</Nav.Link>
-                    </LinkContainer>
-
-                </React.Fragment>}
+                      <LinkContainer to='/logout'>
+                          <Nav.Link className="navButtons">Logout</Nav.Link>
+                      </LinkContainer>
+                  </React.Fragment>}
                 
                 </Nav>
             </Navbar.Collapse>
+            {userStatus &&
+              <p className="navButtons">Welcome {sessionStorage.getItem("userName")}</p>
+            }
           </Navbar>
+          <br/><br/><br/>
           {/* -------------------- END LINKS TO NAVBAR ---------------------- */}
-
+          
           {/* -------------------- START ROUTES OF NAVBAR ------------------- */}
           <Switch>
             <Route exact path="/" component={HomePage} />　
@@ -114,6 +124,19 @@ function App (props){
           </Switch>
         </BrowserRouter>
         {/* -------------------- END ROUTES OF NAVBAR ------------------- */}
+
+        {/* ------------------------ START FOOTER ----------------------- */}
+        <Jumbotron className='jumbotron-override bg-dark text-white' fluid>
+          <Container>
+            <h1>Fluid jumbotron</h1>
+            <p>
+              This is a modified jumbotron that occupies the entire horizontal space of
+              its parent.
+            </p>
+            <p>&copy; Copyright 2021, HappyBidding</p>
+          </Container>
+        </Jumbotron>
+        {/* ------------------------- END FOOTER ------------------------ */}
       </>
     );
 }
