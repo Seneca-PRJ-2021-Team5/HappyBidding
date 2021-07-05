@@ -39,7 +39,6 @@ const HomePage = (props)=>
     return(
         <>
             {props.userStatus && props.setLogOut()}
-            <h1> THIS IS THE HOME PAGE !</h1>
             <Slider products={products}/>
             <ProductCard products={products}/>
         </>
