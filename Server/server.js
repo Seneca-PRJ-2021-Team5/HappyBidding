@@ -104,6 +104,11 @@ app.post("/api/user/creditcard", (req, res) => {
     dataService.addCreditCard(req.body, res);
 })
 
+app.put("/api/user/:id",(req,res)=>
+{
+    dataService.updateUser(req.body, req.params.id, res);
+})
+
 // ------------------- CONNECTIVITY PART
 //
 // ************* Initialize the Service & Start the Server
