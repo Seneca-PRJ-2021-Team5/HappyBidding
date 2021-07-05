@@ -76,10 +76,17 @@ function App (props){
                         <Nav.Link className="navButtons">Profile</Nav.Link>
                     </LinkContainer>
 
+                    <LinkContainer to={{
+                        pathname: '/synchAuction',
+                        state: {userName: sessionStorage.getItem("userName")}
+                    }}>
+                        <Nav.Link className="navButtons">Synch Auction</Nav.Link>
+                    </LinkContainer>
+
                     <LinkContainer to='/logout'>
                         <Nav.Link className="navButtons">Logout</Nav.Link>
                     </LinkContainer>
-                    
+
                 </React.Fragment>}
                 
                 </Nav>
