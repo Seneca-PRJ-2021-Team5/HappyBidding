@@ -2,6 +2,8 @@
 import React, {useState} from 'react';              //read react
 /* CSS */
 import '../../css/sideBar.css';
+import { withRouter } from 'react-router-dom';
+import { Col } from 'react-bootstrap'
 
 
 //function component
@@ -17,7 +19,7 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleOverViewClick(){
         props.history.push({
-            pathname: '/overView',
+            pathname: '/profile',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
@@ -50,27 +52,20 @@ function Sidebar(props){
         });
     }
 
-    function AuctioneerMenu(){
-        return (
-            <React.Fragment>
-            <div onClick={handleCreateAuctionClick}>Create Auction</div>
-            <div onClick={handleNotificationClick}>Notification</div>
-            </React.Fragment>
-        );
-    }
-  //return page body
-  //min-width: 768px => for PC
    return (
-        <div className="SideBar">
-            <div id="SideBarMenu">
-                <div onClick={handleOverViewClick}>Overview</div>
-                <div onClick={handleManageAuctionClick}>Manage Auction</div>
-                {(values.usertype!="user"?<AuctioneerMenu/>: null)}
-            </div>
-
-        </div>
+    <>
+        <div className="sideBarButton" onClick={handleOverViewClick}>Profile Overview</div>
+        <div className="sideBarButton" onClick={handleManageAuctionClick}>Manage Auction</div>
+        {values.userType == "auctioneer" && 
+        (
+            <>
+                <div className="sideBarButton" onClick={handleCreateAuctionClick}>Create Auction</div>
+                <div className="sideBarButton" onClick={handleNotificationClick}>Notification</div>
+            </>
+        )}
+    </>
     );
 }
 
  
-export default Sidebar;  
+export default withRouter(Sidebar);  
