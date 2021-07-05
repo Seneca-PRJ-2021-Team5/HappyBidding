@@ -32,7 +32,7 @@ app.use(clientSessions({
 io.on("connection", socket => { 
     console.log("new client connected!")
 
-    socket.on('sendMessage', (message, callback) => {
+    socket.on('sendMessage', (messageInfo, callback) => {
         //io.emit('message', { text: message });
 
         currentDate = new Date();
@@ -40,9 +40,9 @@ io.on("connection", socket => {
         io.emit('message', 
         {
             position: 'left', 
-            title: 'User', 
+            title: messageInfo.userName, 
             type: 'text', 
-            text: message, 
+            text: messageInfo.message, 
             date: currentDate
         });
         callback();
