@@ -29,9 +29,8 @@ function Profile(props){
     const [disableEdit, setDisableEdit] = useState(true)
 
     const [values, setValues] = useState({
-        userType: "user",
-        userName: props.location.state.username,
-        password: "",
+        userInfo: props.location.state.userInfo,
+        paymentInfo: props.location.state.paymentInfo,
         showError: false,
         eMessage: ""
     });
@@ -47,48 +46,13 @@ function Profile(props){
         // })
     // },[disableEdit])
 
-    //it change value when user input value
-    function handleInputChange(event){
-        const name = event.target.name;
-        const value = event.target.value;
-        setValues({ ...values, [name]: value });
-    }
+    // //it change value when user input value
+    // function handleInputChange(event){
+    //     const name = event.target.name;
+    //     const value = event.target.value;
+    //     setValues({ ...values, [name]: value });
+    // }
 
-    //it works if user click "Trouble logging in?"
-    function handleOverViewClick(){
-        props.history.push({
-            pathname: '/overView',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
-        });
-    }
-
-    //it works if user click "Trouble logging in?"
-    function handleCreateAuctionClick(){
-        props.history.push({
-            pathname: '/createAuction',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
-        });
-    }
-
-    //it works if user click "Trouble logging in?"
-    function handleManageAuctionClick(){
-        props.history.push({
-            pathname: '/manageAuction',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
-        });
-    }
-
-    //it works if user click "Trouble logging in?"
-    function handleNotificationClick(){
-        props.history.push({
-            pathname: '/notification',
-            //this.props.location.state.username on dashboard.js
-            state: { userName: values.userName }
-        });
-    }
 
     function editOnClick()
     {
@@ -136,7 +100,7 @@ function Profile(props){
                             {/* <Form.Group controlId="userAddress"> */}
                             <Col Style="margin-top: 30px;">
                                 <h4>Street Name</h4>
-                                <Form.Control name="streetName" type="text" placeholder="" value="" readOnly={disableEdit} />
+                                <Form.Control name="streetName" type="text" placeholder="" value={values.userInfo.address.streetName} readOnly={disableEdit} />
                             </Col>
                             {/* </Form.Group> */}
                         </Row>
@@ -144,26 +108,26 @@ function Profile(props){
                         <Row className="profileOverviewRow">
                             <Col>
                                 <h4>Street Number</h4>
-                                <Form.Control name="streetNumber" type="text" placeholder="" value="" readOnly={disableEdit} />
+                                <Form.Control name="streetNumber" type="text" placeholder="" value={values.userInfo.address.streetNumber} readOnly={disableEdit} />
                             </Col>
                             <Col>
                                 <h4>City</h4>
-                                <Form.Control name="city" type="text" placeholder="" value="" readOnly={disableEdit} />
+                                <Form.Control name="city" type="text" placeholder="" value={values.userInfo.address.city} readOnly={disableEdit} />
                             </Col>
                             <Col>
                                 <h4>Postal Code</h4>
-                                <Form.Control name="postalCode" type="text" placeholder="" value="" readOnly={disableEdit} />
+                                <Form.Control name="postalCode" type="text" placeholder="" value={values.userInfo.address.postalCode} readOnly={disableEdit} />
                             </Col>
                             <Col>
                                 <h4>Country</h4>
-                                <Form.Control name="country" type="text" placeholder="" value="" readOnly={disableEdit} />
+                                <Form.Control name="country" type="text" placeholder="" value={values.userInfo.address.country} readOnly={disableEdit} />
                             </Col>
                         </Row>
 
                         <Row className="profileOverviewRow">
                             <Col>
                                 <h4>First Name</h4>
-                                <Form.Control name="firstName" type="text" placeholder="" value="" readOnly={disableEdit}/>
+                                <Form.Control name="firstName" type="text" placeholder="" value={values.userInfo.userName} readOnly={disableEdit}/>
                             </Col>
                             <Col>
                                 <h4>Last Name</h4>
@@ -174,11 +138,11 @@ function Profile(props){
                         <Row className="profileOverviewRow">
                             <Col>
                                 <h4>Email</h4>
-                                <Form.Control name="emailAddress" type="email" placeholder="" value={values.userName} readOnly={disableEdit}/>
+                                <Form.Control name="emailAddress" type="email" placeholder="" value={values.userInfo.emailAddress} readOnly={disableEdit}/>
                             </Col>
                             <Col>
                                 <h4>Current Password</h4>
-                                <Form.Control name="password" type="password" placeholder="" value={values.password} readOnly={disableEdit}/>
+                                <Form.Control name="password" type="password" placeholder="" value={values.userInfo.password} readOnly={disableEdit}/>
                             </Col>
                         </Row>
 
@@ -210,9 +174,9 @@ function Profile(props){
                     
                     <img src={cardPic} />
                     <label className="number_title">card number</label>
-                    <p className="cardNum">6698 1236 7899 3301</p>
+                    <p className="cardNum">{values.paymentInfo.cardNumber}</p>
                     <label className="expiry_title">expiry date</label>
-                    <p className="expiryDate">22/07</p>
+                    <p className="expiryDate">{values.paymentInfo.expiryDate}</p>
 
                     <label className="title">Recent Auction Transactions </label><br/>
                     <div>
