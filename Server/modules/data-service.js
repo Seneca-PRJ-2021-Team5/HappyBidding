@@ -205,6 +205,43 @@ const addCreditCard = (data, res) => {
     })
 }
 
+
+const updateUser = (data, userID, res) => {
+    User.findById(userID)
+    .then((user)=>
+    {
+        user.address.streetName = data.streetName
+        user.address.streetNumber = data.streetNumber
+        user.address.city = data.city
+        user.address.postalCode = data.postalCode
+        user.address.country = data.country
+        user.firstName = data.firstName
+        user.lastName = data.lastName
+        user.password = data.password
+        
+        User.findOne({emailAddress: data.emailAddress}) // CHECK IN DATABASE IF AN EMAIL ALREADY EXISTS
+        .then(userForEmail=>
+        {
+            if(userForEmail == null) // if email does not exists, then go check if username exists
+            {
+                user.emailAddress = data.emailAddress
+                user.save()
+                .then(() => {
+                    res.json({message:`USER UPDATED SUCCESSFULLY !`, user: user})
+                })
+                .catch((err) => {
+                    res.json({message: `Error: ${err}`});
+                });
+            }
+
+        })
+        .catch((err) => {
+            res.json({message: `Error: ${err}`});
+        });
+
+    })
+}
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
@@ -213,5 +250,6 @@ module.exports = {
     getAllAuctions : getAllAuctions,
     addNewAuction: addNewAuction,
     addCreditCard: addCreditCard,
+    updateUser: updateUser, 
     getSpecificUserWithDetails: getSpecificUserWithDetails
 }
