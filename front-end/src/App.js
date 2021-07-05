@@ -15,6 +15,7 @@ import UserManageAuction from './UserManageAuction'
 import NotFound from './NotFound'
 import SynchAuction from './synchAuction'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/navigationBar.css'
 
 function App (props){
 
@@ -47,22 +48,23 @@ function App (props){
           {/* -------------------- START LINKS TO NAVBAR ---------------------- */}
           <Navbar bg="light" expand="lg">
             <LinkContainer to="/">
-                <Navbar.Brand>&#10084;HappyBidding</Navbar.Brand>
+                <Navbar.Brand><h2>&#10084;HappyBidding</h2></Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 
                     <LinkContainer to="/">
-                        <Nav.Link>HOME</Nav.Link>
+                        <Nav.Link className="navButtons">HOME</Nav.Link>
                     </LinkContainer>
 
-                {!userStatus && <React.Fragment>
+                {!userStatus && 
+                <React.Fragment>
                     <LinkContainer to="/login">
-                        <Nav.Link>Login</Nav.Link>
+                        <Nav.Link className="navButtons">Login</Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/signup">
-                        <Nav.Link>SignUp</Nav.Link>
+                        <Nav.Link className="navButtons">SignUp</Nav.Link>
                     </LinkContainer>
                 </React.Fragment>}
                 
@@ -71,11 +73,13 @@ function App (props){
                         pathname: '/profile',
                         state: {username:""}
                     }}>
-                        <Nav.Link>Profile</Nav.Link>
+                        <Nav.Link className="navButtons">Profile</Nav.Link>
                     </LinkContainer>
+
                     <LinkContainer to='/logout'>
-                        <Nav.Link>Logout</Nav.Link>
+                        <Nav.Link className="navButtons">Logout</Nav.Link>
                     </LinkContainer>
+                    
                 </React.Fragment>}
                 
                 </Nav>
