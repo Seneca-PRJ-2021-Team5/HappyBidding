@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 function Login(props){ 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     const [values, setValues] = useState({
-        username: "",
+        emailAddress: "",
         password: "",
         type:"",
         showError: false,
@@ -31,7 +31,7 @@ function Login(props){
         props.history.push({
         pathname: '/recoveryAccount',
         //this.props.location.state.username on dashboard.js
-        state: { username: values.username }
+        state: { emailAddress: values.emailAddress }
     });
 
   }
@@ -43,27 +43,48 @@ function Login(props){
 
   //it work when user submit a form
   function handleSubmit(event){
-    console.log(values.username)
+    console.log(values.emailAddress)
     console.log(values.password)
 
-    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.username}&password=${values.password}`)
+    // fetch for user information
+    fetch(`https://happybiddingserve.herokuapp.com/api/user?emailAddress=${values.emailAddress}&password=${values.password}`)
     .then((res) => {
         return res.json();
     })
     .then(data => {  //data = res.json
             if(data.message.includes("SUCCESS")){  
+                console.log(data)
                 setValues({ ...values, showError:false });
-                props.setUserLoginStatus(data.userType, values)
-                props.history.push({
-                    pathname: '/profile',
-                    //this.props.location.state.username on dashboard.js
-                    state: { username: values.username}
-                });
+
+                sessionStorage.setItem('emailAddress', data.user.emailAddress); // userName
+                sessionStorage.setItem('sessionId', data.user.currentSessionKey);
+                sessionStorage.setItem('userName', data.user.userName);
+                
+                console.log(sessionStorage.getItem("emailAddress"))
+
+                // fetch for user`s payment information
+                fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${sessionStorage.getItem("emailAddress")}&sessionId=${sessionStorage.getItem("sessionId")}`)
+                .then((res) => {
+                    return res.json();
+                })
+                .then(userInfoNPayment => {  //data = res.json
+                    console.log(userInfoNPayment)
+                    props.setUserLoginStatus(data.userType, values)
+                    props.history.push({
+                        pathname: '/profile',
+                        //this.props.location.state.username on dashboard.js
+                        state: { 
+                            userInfo: userInfoNPayment.user,
+                            paymentInfo: userInfoNPayment.creditCard
+                        }
+                    });
+                })
+
             }else{
-                setValues({ showError: true, username: '', password: '', eMessage: "Username or Password is wrong."  });
+                setValues({ showError: true, emailAddress: '', password: '', eMessage: "Username or Password is wrong."  });
             }
         }).catch(()=>{
-            setValues({ showError: true, username: '', password: '', eMessage: "Username or Password is wrong."  });
+            setValues({ showError: true, emailAddress: '', password: '', eMessage: "Username or Password is wrong."  });
         });
 
         event.preventDefault();
@@ -85,7 +106,7 @@ function Login(props){
                         { values.showError ?  <span id="errorTextArea">{values.eMessage}</span> :  <span id="noErrorArea"></span> }
  
                         <label> <div className="login_label">User Name</div><br />
-                            <input  className="login_inputarea" name="username" placeholder="username" type="text" value={values.username} onChange={handleInputChange} />
+                            <input  className="login_inputarea" name="emailAddress" placeholder="email" type="text" value={values.username} onChange={handleInputChange} />
                         </label> <br />
                         <label><div className="login_label"> Password</div><br />
                             <input className="login_inputarea" name="password" placeholder="password" type="password" value={values.password} onChange={handleInputChange} />
