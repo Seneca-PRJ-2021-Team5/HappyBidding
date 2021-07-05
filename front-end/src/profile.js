@@ -3,10 +3,14 @@ import React, {useEffect, useState} from 'react';              //read react
 import { useMediaQuery } from "react-responsive";
 import Cookies from 'js-cookie'; //using js-cookie to save the cookies
 /* CSS */
+//import './css/reset.css'; //reset browser's default css
 import './css/profilePC.css';
 import './css/overViewPC.css';
 import './css/utility.css';
-//import './css/reset.css'; //reset browser's default css
+import './css/sideBar.css';
+
+import './css/profileOverview.css';
+
 /* Component */
 import ProfilePC from './components/profile/profilePC';
 import ProfileMobile from './components/profile/profileMobile';
@@ -16,38 +20,93 @@ import logoPic from './img/logo.png';
 import userPic from './img/userImage.png';
 import cardPic from './img/creditCard.png';
 import { Card, Button, Container, Row, Col, Form } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom';
 
 //function component
 function Profile(props){ 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
 
     const [disableEdit, setDisableEdit] = useState(true)
+
     const [values, setValues] = useState({
-        userType: "",
+        userType: "user",
         userName: props.location.state.username,
         password: "",
         showError: false,
         eMessage: ""
     });
 
-    /*
-    useEffect(() => {
-        fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${values.username}`)
-        .then((res) => {
-            return res.json();
-        }).then((data)=>{
-            console.log("PROFILE PAGGGGGGGGGE")
-            console.log(data)
-            setValues({...values, userType: data.userType, userName: data.userName, password: data.password})
-        })
-    },[values.userName])
-    */
+    // useEffect(() => {
+        // fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${values.username}`)
+        // .then((res) => {
+        //     return res.json();
+        // }).then((data)=>{
+        //     console.log("PROFILE PAGGGGGGGGGE")
+        //     console.log(data)
+        //     setValues({...values, userType: data.userType, userName: data.userName, password: data.password})
+        // })
+    // },[disableEdit])
 
     //it change value when user input value
     function handleInputChange(event){
         const name = event.target.name;
         const value = event.target.value;
         setValues({ ...values, [name]: value });
+    }
+
+    //it works if user click "Trouble logging in?"
+    function handleOverViewClick(){
+        props.history.push({
+            pathname: '/overView',
+            //this.props.location.state.username on dashboard.js
+            state: { username: values.username }
+        });
+    }
+
+    //it works if user click "Trouble logging in?"
+    function handleCreateAuctionClick(){
+        props.history.push({
+            pathname: '/createAuction',
+            //this.props.location.state.username on dashboard.js
+            state: { username: values.username }
+        });
+    }
+
+    //it works if user click "Trouble logging in?"
+    function handleManageAuctionClick(){
+        props.history.push({
+            pathname: '/manageAuction',
+            //this.props.location.state.username on dashboard.js
+            state: { username: values.username }
+        });
+    }
+
+    //it works if user click "Trouble logging in?"
+    function handleNotificationClick(){
+        props.history.push({
+            pathname: '/notification',
+            //this.props.location.state.username on dashboard.js
+            state: { userName: values.userName }
+        });
+    }
+
+    function editOnClick()
+    {
+        console.log("AAAAAAAAAAHHHHHHH!!!!!")
+        setDisableEdit((disableEdit)=>!disableEdit)
+    }
+
+    
+    function saveChanges(event)
+    {   
+        // NEED TO US
+        // fetch('https://happybiddingserve.herokuapp.com/api/user', {
+        //     method: "POST",
+        //     body: JSON.stringify(userData),
+        //     headers: {"Content-type": "application/json; charset=UTF-8"}
+        // })
+        setDisableEdit((disableEdit)=>!disableEdit)
+        event.preventDefault();
     }
 
   //return page body
@@ -57,58 +116,92 @@ function Profile(props){
         // <div className="profile">
         //     <h1>{console.log(values.username)}</h1>{isTabletOrMobile? <ProfileMobile userInfo={values}/> : < ProfilePC userInfo={values}/>}
         // </div>
-        <Container>
+        <Container fluid>
             <Row>
         {/* ---------------- SIDEBAR ------------------------- */}
-                <Col Style="border:solid red 1px">
+                <Col className="SideBar2" sm={2}>
                     <SideMenu/>
+
                 </Col>
 
         {/* ---------------- OVERVIEW PROFILE ---------------- */}
-                <Col Style="border:solid black 1px">
-                    <div className="overview_logoArea_pc">
+                <Col sm={6}>
+                    {/* <div className="overview_logoArea_pc">
                         <img src={logoPic}/>
-                    </div>
-                    <h2>Overview</h2>
+                    </div> */}
+                    <h2 Style="text-align: center; margin-botton: 30px;">Profile Overview</h2>
                     <Form>
-                        <Row>
+                        <Row className="profileOverviewRow">
                             <h4>Current Mailing Address</h4>
-                            <Form.Group controlId="userAddress">
-                                <Form.Control type="text" placeholder="" value="" readOnly={disableEdit} />
-                            </Form.Group>
+                            {/* <Form.Group controlId="userAddress"> */}
+                            <Col Style="margin-top: 30px;">
+                                <h4>Street Name</h4>
+                                <Form.Control name="streetName" type="text" placeholder="" value="" readOnly={disableEdit} />
+                            </Col>
+                            {/* </Form.Group> */}
                         </Row>
 
-                        <Row>
+                        <Row className="profileOverviewRow">
+                            <Col>
+                                <h4>Street Number</h4>
+                                <Form.Control name="streetNumber" type="text" placeholder="" value="" readOnly={disableEdit} />
+                            </Col>
+                            <Col>
+                                <h4>City</h4>
+                                <Form.Control name="city" type="text" placeholder="" value="" readOnly={disableEdit} />
+                            </Col>
+                            <Col>
+                                <h4>Postal Code</h4>
+                                <Form.Control name="postalCode" type="text" placeholder="" value="" readOnly={disableEdit} />
+                            </Col>
+                            <Col>
+                                <h4>Country</h4>
+                                <Form.Control name="country" type="text" placeholder="" value="" readOnly={disableEdit} />
+                            </Col>
+                        </Row>
+
+                        <Row className="profileOverviewRow">
                             <Col>
                                 <h4>First Name</h4>
-                                <Form.Control type="text" placeholder="" value="" readOnly={disableEdit}/>
+                                <Form.Control name="firstName" type="text" placeholder="" value="" readOnly={disableEdit}/>
                             </Col>
                             <Col>
                                 <h4>Last Name</h4>
-                                <Form.Control type="text" placeholder="" value="" readOnly={disableEdit}/>
+                                <Form.Control name="lastName" type="text" placeholder="" value="" readOnly={disableEdit}/>
                             </Col>
                         </Row>
 
-                        <Row>
+                        <Row className="profileOverviewRow">
                             <Col>
-                                <h4>Login User Name</h4>
-                                <Form.Control type="text" placeholder="" value={values.userName} readOnly={disableEdit}/>
+                                <h4>Email</h4>
+                                <Form.Control name="emailAddress" type="email" placeholder="" value={values.userName} readOnly={disableEdit}/>
                             </Col>
                             <Col>
                                 <h4>Current Password</h4>
-                                <Form.Control type="password" placeholder="" value={values.password} readOnly={disableEdit}/>
+                                <Form.Control name="password" type="password" placeholder="" value={values.password} readOnly={disableEdit}/>
                             </Col>
                         </Row>
 
-                        <Button variant="primary" type="submit">
-                            Edit Profile
-                        </Button>
+                        <Row className="profileOverviewRow">
+                            <Col>
+                                <Button variant="primary" onClick={editOnClick} disabled={!disableEdit}>
+                                    Edit Profile
+                                </Button>
+                            </Col>
+
+                            <Col>
+                                <Button variant="warning" type="submit" onClick={saveChanges} className="" hidden={disableEdit}>
+                                    Save Changes
+                                </Button>
+                            </Col>
+                        </Row>
+
                     </Form>
 
                 </Col>
 
         {/* ---------------- PAYMENT PROFILE ----------------- */}
-                <Col Style="border:solid purple 1px">
+                <Col  sm={4}>
                     <img src={userPic} /><br/>
                     <label>User Name</label><br/>
                     <span>Edit Profile</span>
@@ -137,7 +230,7 @@ function Profile(props){
     );
 }
 
-export default Profile; 
+export default withRouter(Profile); 
 
 // Code from the other components
 /* <div className="profile">
