@@ -37,7 +37,7 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleManageAuctionClick(){
         props.history.push({
-            pathname: '/manageAuction',
+            pathname: '/userauction',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
