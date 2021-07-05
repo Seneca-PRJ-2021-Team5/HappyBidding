@@ -35,9 +35,11 @@ export default function UserManageAuctions() {
   const classes = useStyles();
 
   return (
-    <Container>
+    <Container fluid>
       <Row>
-        <Col xs={3} className="SideBar2" ><SideBar ></SideBar></Col>
+        <Col xs={3} className="SideBar2" >
+          <SideBar ></SideBar>
+        </Col>
         
         <Col>
 
