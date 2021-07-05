@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';  //read react
 import { MessageList } from 'react-chat-elements';
 import 'react-chat-elements/dist/main.css';
 import socketIOClient from "socket.io-client";
+import { withRouter } from 'react-router-dom';
 
 const ENDPOINT = "http://localhost:5000" // the host that the server is running on
 
@@ -10,7 +11,7 @@ let socket;
 
 function SynchAuctionChat(props){ 
 
-    const [response, setResponse] = useState("");
+    const [userName, setUserName] = useState(props.location.state.userName);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
 
@@ -32,8 +33,14 @@ function SynchAuctionChat(props){
     const sendMessage = (event) => {
         event.preventDefault();
     
-        if(message) {
-          socket.emit('sendMessage', message, () => setMessage(""));
+        if(message) 
+        {
+            const messageInfo = {
+                message: message,
+                userName: userName
+            }
+            console.log(messageInfo)
+            socket.emit('sendMessage', messageInfo.message, () => setMessage(""));
         }
     }
 
@@ -57,4 +64,4 @@ function SynchAuctionChat(props){
     );
 }
 
-export default SynchAuctionChat;
+export default withRouter(SynchAuctionChat);
