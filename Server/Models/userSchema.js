@@ -29,6 +29,7 @@ let userSchema = new Schema({
         required: true
     },
     manageAuction: [{
+        auctionId: String,
         auctionName: String,
         productName: String,
         auctionStatus: String
