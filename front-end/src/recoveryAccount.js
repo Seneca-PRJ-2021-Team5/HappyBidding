@@ -13,10 +13,10 @@ class recoveryAccount extends React.Component {   //inherit react.component to t
     
     render() {                          //declare render to display
         return (
-            <div class="recoveryAccountContainer">
+            
 
-                THIS IS recoveryAccount PAGE!
-            </div>
+            <h1>THIS IS recoveryAccount PAGE!</h1>
+            
         );
     }
 }
