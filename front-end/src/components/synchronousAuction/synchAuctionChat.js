@@ -5,8 +5,7 @@ import 'react-chat-elements/dist/main.css';
 import socketIOClient from "socket.io-client";
 import { withRouter } from 'react-router-dom';
 
-const ENDPOINT = "http://localhost:5000" // the host that the server is running on
-//const ENDPOINT = "https://happybiddingchat.herokuapp.com/"
+const ENDPOINT = "https://happybiddingchat.herokuapp.com/" // the host that the server is running on
 let socket;
 
 function SynchAuctionChat(props){ 
@@ -14,15 +13,6 @@ function SynchAuctionChat(props){
     const [userName, setUserName] = useState(props.location.state.userName);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-
-    // useEffect(() => {
-    //     socket = socketIOClient(ENDPOINT, {
-    //         withCredentials: true,
-    //         extraHeaders: {
-    //             "my-custom-header": "abcd"
-    //         }
-    //     });
-    // }, [ENDPOINT]);
 
     useEffect(() => {
         socket = socketIOClient(ENDPOINT);
@@ -50,7 +40,6 @@ function SynchAuctionChat(props){
                 message: message,
                 userName: userName
             }
-            console.log(messageInfo)
             socket.emit('sendMessage', messageInfo, () => setMessage(""));
         }
     }
