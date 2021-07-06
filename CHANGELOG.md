@@ -28,8 +28,8 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 \- moved the user image and name from payment side to ovewview side in the profile component      
 
 #### 2021/07/05 - Leonel
-\- User manage auction backend completed
-\- Added route in server.js which will be called everytime a user registers to an auction.
+\- User manage auction backend completed.<br>
+\- Added route in server.js which will be called everytime a user registers to an auction.<br>
 \- Worked on POST "auctionAddToUSerList" function which will add auction to user auctions list once user regiisters to auction.
 
 #### 2021/07/04 - Arhur    
