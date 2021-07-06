@@ -29,9 +29,9 @@ const HomePage = (props)=>
         .then((res) => {
             return res.json();
         })
-        .then(data => {
-            //setProducts(data)
-            console.log(data)
+        .then(auctions => {
+            setProducts(auctions)
+            console.log(auctions)
         })
 
     }, []);

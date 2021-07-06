@@ -55,24 +55,29 @@ function SynchAuctionChat(props){
         }
     }
 
-    return(
-            <React.Fragment>
-                <div id="chatScreen">
-                    <MessageList
-                        toBottomHeight={'100%'}
-                        lockable={true}
-                        dataSource={messages} />
-                </div>
-                <div id="chatForm">
-                    <form class="input-group" onSubmit={handleSubmit}>
-                        <input type="text" class="form-control" placeholder="Text to chat" value={message} onChange={({ target: { value } }) => setMessage(value)}/>
-                        <div class="input-group-append">
-                            <input class="btn btn-outline-info" type="submit" value="Send" onClick={e => sendMessage(e)} />
-                        </div>
-                    </form>
-                </div>
-            </React.Fragment>
-    );
+    if(sessionStorage.getItem("userName")){
+        return(
+                <React.Fragment>
+                    <div id="chatScreen">
+                        <MessageList
+                            toBottomHeight={'100%'}
+                            lockable={true}
+                            dataSource={messages} />
+                    </div>
+                    <div id="chatForm">
+                        <form class="input-group" onSubmit={handleSubmit}>
+                            <input type="text" class="form-control" placeholder="Text to chat" value={message} onChange={({ target: { value } }) => setMessage(value)}/>
+                            <div class="input-group-append">
+                                <input class="btn btn-outline-info" type="submit" value="Send" onClick={e => sendMessage(e)} />
+                            </div>
+                        </form>
+                    </div>
+                </React.Fragment>
+        )
+    }
+    else{
+        return(<>{props.history.push('/login')}</>) 
+    }
 }
 
 export default withRouter(SynchAuctionChat);

@@ -13,6 +13,37 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/06 - Arhur 
+\- added css for card and user image in the profile component    
+\- added createNewAuction to the route listing in App component          
+\- created createNewAuction component to allow user to create a new Auction     
+\- Set the HomePage component to display the Auctions listed in database, instead of Static data      
+\- protected routes from the App component to be accessed by users not logged in the system       
+\- added function in the server side to allow user to register to an auction listed in the home page      
+\- added auctionId as part of manageAuction array in the user Schema    
+\- added validation for the auctionAddToUSerList function in the server side    
+
+#### 2021/07/05 - Arhur 
+\- TOP Navbar fixed on the top. Footer added on the bottom     
+\- moved the user image and name from payment side to ovewview side in the profile component        
+
+
+#### 2021/07/04 - Arhur    
+\- Added call back funttion from App.js to be called in case that the user wants to logout from the system     
+\- Changed the attribute class to className, and changed id attribute to className (same id name was being called more than 1 time). set the showError state function to be used for triggering the error text box. Call back funtion from App.js is called to pass data to App.js about the user who just logged in. Added withRouter for Login component in order to let it be allowed to pass data to profile component by using props.history.push        
+\- Added Sidebar, Overview Profile, and Payment Profile components into profile.js component using React Bootstrap (still need adjustments for the visual).      
+\- adjusted some spacing in the code (visual still needs to be adjusted using bootstrap)       
+\- Deleted NavigationBar.js component      
+\- Organized the code structure and changed the class attribute to be className (React style needed)                   
+\- changed the "login_label" and "login_inputarea" from id to class, because they are being used more than once in the code (IDs should only be used in one place, class can be used more than one time)      
+\- removed unecessary routes    
+\- added css for sidebar buttons    
+\- added css for profile overview rows    
+\- created css file for TOP navivation bar buttons size     
+\- created some css for App.js component      
+\- implemented Bootstrap for profile page and SideBar component     
+\- created PUT request route to update user profile    
+
 #### 2021/06/22 - Adam
 \- Created server side for synchronous auction's live chat
 

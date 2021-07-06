@@ -17,6 +17,8 @@ let userSchema = new Schema({
         type: String, 
         required: true
     }, 
+    firstName: String,
+    lastName: String,
     phoneNumber: String, 
     emailAddress: {
         type: String, 
@@ -26,6 +28,12 @@ let userSchema = new Schema({
         type: String, 
         required: true
     },
+    manageAuction: [{
+        auctionId: String,
+        auctionName: String,
+        productName: String,
+        auctionStatus: String
+    }], 
     currentSessionKey: String
 }) 
 

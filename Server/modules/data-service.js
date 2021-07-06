@@ -137,6 +137,12 @@ const getAllAuctions = (req, res) => {
     .then((auctions) => {
         res.json(auctions)
     })
+    .catch((e) =>
+    {
+        console.log(chalk.magenta(`No Auctions Found:`),chalk.red(` ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        res.json({message:`ERROR: ${err} !`}); 
+    })
 
 }
 
@@ -166,29 +172,47 @@ const addNewAuction = (data,res) => {
         }
         else
         {
+            console.log(chalk.magenta(`Auction:`),chalk.red(` ALREADY ADDED!`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
             res.json({message:`AUCTION ALREADY ADDED `});
         }
     })
+    .catch(err=>{
+        console.log(chalk.magenta(`Auction Not Found:`),chalk.red(` ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        res.json({message:`ERROR: ${err} !`});    
+    });
 }
 
 const getSpecificUserWithDetails = (req, res) => {
     User.findOne({emailAddress: req.query.emailAddress})
     .then(user => {
         if(user.currentSessionKey != req.query.sessionId){
+            console.log(chalk.magenta(`Session Key:`),chalk.red(` INVALID`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
             res.json({message: "Your session key is invalid"});
         }
         else{
             CreditCard.findOne({userEmail: user.emailAddress})
             .then(creditCard => {
+
                 res.json({
                     user: user,
                     creditCard: creditCard
                 })
             })
-            .catch(err=>console.log(`Error with credit card call: ${err}`));
+            .catch(err=>{
+                console.log(chalk.magenta(`Credit Card Not Found:`),chalk.red(` ERROR ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                res.json({message:`ERROR: ${err} !`});    
+            });
         }
     })    
-    .catch(err=>console.log(`Error with User call: ${err}`));
+    .catch(err=>{
+        console.log(chalk.magenta(`User Not Found:`),chalk.red(` ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        res.json({message:`ERROR: ${err} !`});    
+    });
 }
 
 
@@ -196,12 +220,14 @@ const addCreditCard = (data, res) => {
     let newCard = new CreditCard(data);
     newCard.save()
     .then(() => {
-        console.log("Added credit card")
-        res.json({message: "Success"})
+        console.log(chalk.magenta(`CREDIT CARD ADDED:`),chalk.green(` New Credit Card was added in database!`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        res.json({message:`USER UPDATED SUCCESSFULLY !`})
     })
     .catch((err) => {
-        console.log(err);
-        res.json({message: "ERROR"})
+        console.log(chalk.magenta(`New Credit Card:`),chalk.red(` ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        res.json({message:`ERROR: ${err} !`}); 
     })
 }
 
@@ -227,20 +253,145 @@ const updateUser = (data, userID, res) => {
                 user.emailAddress = data.emailAddress
                 user.save()
                 .then(() => {
-                    res.json({message:`USER UPDATED SUCCESSFULLY !`, user: user})
+                    console.log(chalk.magenta(`User Updated:`),chalk.green(` User was updated in database!`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                    res.json({message:`USER UPDATED SUCCESSFULLY !`})
                 })
                 .catch((err) => {
-                    res.json({message: `Error: ${err}`});
+                    console.log(chalk.magenta(`User Update:`),chalk.red(` ERROR ${err}`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                    res.json({message:`ERROR: ${err} !`}); 
                 });
             }
 
         })
         .catch((err) => {
-            res.json({message: `Error: ${err}`});
+            console.log(chalk.magenta(`User Update:`),chalk.red(` ERROR ${err}`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            res.json({message:`ERROR: ${err} !`}); 
         });
 
     })
 }
+
+//Get user auctions
+const getUserAuctions = (req, res) => {
+    User.findOne({emailAddress: req.query.emailAddress})
+    .then(user => {
+        if(user.currentSessionKey != req.query.sessionId){
+            console.log(chalk.magenta(`Session Key:`),chalk.red(` INVALID`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            res.json({message: "Your session key is invalid"});
+        }
+        else{
+                res.json({
+                    user: user
+                })
+            }
+    })    
+    .catch(err=>{
+        console.log(chalk.magenta(`User Not Found:`),chalk.red(` ERROR ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        res.json({message:`ERROR: ${err} !`});    
+    });
+}
+
+//PUT auction to users auctions list
+const auctionAddToUSerList = (req, res) => {
+    //console.log(req.query.id, req.query.emailAddress)
+   Auction.findOne({_id: req.query.id})
+   .then( auction => {
+       User.findOne({emailAddress: req.query.emailAddress})
+       .then(user => 
+        {
+           let hasUser = false
+           let hasAuction = false
+
+           //add data from user to auction object 
+           for(let i = 0; i < auction.userList.length && !hasUser; i++)
+           {
+                if(auction.userList[i].emailAddress == user.emailAddress){
+                    hasUser = true
+                }
+           }
+
+           for(let i = 0; i < user.manageAuction.length && !hasAuction; i++)
+           {
+                if(user.manageAuction[i].auctionId == auction._id){
+                    hasAuction = true
+                }
+           }
+
+           if(!hasUser)
+           {
+               auction.userList.push({
+                  userName: user.userName, 
+                  emailAddress: user.emailAddress
+               })
+               user.save()
+                .then(()=> {
+                    console.log(chalk.magenta(`Auction Details Updated:`),chalk.green(` Auction was updated in database!`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                })
+                .catch(err=>{
+                    console.log(chalk.magenta(`Auction Not Saved:`),chalk.red(` ERROR ${err}`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                    res.json({message:`ERROR: ${err} !`}); 
+                });
+            }
+            else {
+                console.log(chalk.magenta(`Auction Not Updated:`),chalk.red(` AUCTION ALREADY EXISTS IN THE USER LIST !`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            }
+
+        
+           if(!hasAuction)
+           {
+                //add data from auction to user object 
+                user.manageAuction.push({
+                    auctionId: auction._id,
+                    auctionName: auction.title,
+                    productName: auction.product.name,
+                    auctionStatus: auction.status
+                })
+
+                auction.save()
+                .then(()=> {
+                    console.log(chalk.magenta(`User Updated:`),chalk.green(` User was updated in database!`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                   })
+                   .catch(err=>{
+                    console.log(chalk.magenta(`User Not Saved:`),chalk.red(` ERROR ${err}`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                    res.json({message:`ERROR: ${err} !`});    
+                    });
+            }
+            else {
+                    console.log(chalk.magenta(`User Not Updated:`),chalk.red(` USER ALREADY EXISTS IN THE AUCTION !`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            }
+
+           res.json({auction: auction, user: user})
+       })
+       .catch(err=>console.log(`ERROR: Could not find user: ${err}`));
+   })
+   .catch(err=>console.log(`ERROR: Could not find auction: ${err}`));
+}
+
+
+//POST user auction problem - reportAuctionProblem
+// const reportAuctionProblem = (data, res) => {
+//     let problem = new AuctionProblem(data);
+//     problem.save()
+//     .then(() => {
+//         console.log("Problem submitted")
+//         res.json({message: "Success"})
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//         res.json({message: "ERROR"})
+//     })
+// }
 
 module.exports = {
     initialize: initialize,
@@ -251,5 +402,7 @@ module.exports = {
     addNewAuction: addNewAuction,
     addCreditCard: addCreditCard,
     updateUser: updateUser, 
-    getSpecificUserWithDetails: getSpecificUserWithDetails
+    getSpecificUserWithDetails: getSpecificUserWithDetails,
+    getUserAuctions : getUserAuctions,
+    auctionAddToUSerList : auctionAddToUSerList
 }
