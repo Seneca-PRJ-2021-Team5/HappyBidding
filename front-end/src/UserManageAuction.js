@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useStyles, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,73 +13,96 @@ import { Button, Container, Row, Col } from 'react-bootstrap';
 import './css/sideBar.css'
 import UserInfo from './components/profile/userInfo';
 import { propTypes } from 'react-bootstrap/esm/Image';
+import { withRouter } from 'react-router-dom';
 
 
 
+function UserManageAuctions(props) 
+{
 
-const useStyles = makeStyles({
-  table: {
-    minWidth: 650,
-  },
-});
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 650,
+    },
+  });
 
-function createData(auctionName, productName, status, payment, report) {
-  return { auctionName, productName, status, payment, report };
-}
-
-const rows = [
-  createData('Happy Racing', 'Ferrari 812 GTS', 'Done', 'Pay', 'Report'),
-  createData('Happy Gaming', 'Sony PS5', 'Done', 'Pay', 'Report'),
-  createData('Happy Reading', 'GOT Collection', 'Ongoing', 'Pay', 'Report'),
-];
-
-export default function UserManageAuctions(props) {
   const classes = useStyles();
-  const [values, setValues] = useState({
-    userInfo: props.location.state.userInfo
-  })
+  
+  const [userInfo, setUserInfo] = useState({
+        address: {
+            city: "",
+            country: "",
+            postalCode: "",
+            streetName: "",
+            streetNumber: null,
+        },
+        currentSessionKey: "",
+        emailAddress: "",
+        manageAuction: [],
+        password: "",
+        phoneNumber: "",
+        userName: "",
+        userType: ""
+    })
 
-  return (
-    <Container fluid>
-      <Row>
-        <Col xs={3} className="SideBar2" >
-          <SideBar ></SideBar>
-        </Col>
-        
-        <Col>
+  useEffect(()=>{
+    if(sessionStorage.getItem("emailAddress"))
+    {
+      console.log("USER MANAGE AUCTION PAGGGGGGGGGE")
+      fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${sessionStorage.getItem("emailAddress")}&sessionId=${sessionStorage.getItem("sessionId")}`)
+          .then((res) => {
+              return res.json();
+          }).then((data)=>{
+              console.log(data)
+              setUserInfo(data.user)
+          })
+    }
+  },[])
+  
+  if(sessionStorage.getItem("userName")){
+      return (
+        <Container fluid>
+          <Row>
+            <Col xs={3} className="SideBar2" >
+              <SideBar ></SideBar>
+            </Col>
+            
+            <Col className="p-0">
+                <TableContainer component={Paper}>
+                  <Table className={classes.table} aria-label="simple table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell><h4>AUCTION NAME</h4></TableCell>
+                        <TableCell align="right"><h4>PRODUCT NAME</h4></TableCell>
+                        <TableCell align="right"><h4>STATUS</h4></TableCell>
+                        <TableCell align="right"></TableCell>
+                        <TableCell align="right"></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {userInfo.manageAuction.map((auction) => (
+                        <TableRow key={auction._id}>
+                          <TableCell component="th" scope="row" Style="font-size: 18px">
+                            {auction.auctionName}
+                          </TableCell>
+                          <TableCell align="right" Style="font-size: 18px">{auction.productName}</TableCell>
+                          <TableCell align="right" Style="font-size: 18px">{auction.auctionStatus}</TableCell>
+                          <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell>
+                          <TableCell align="right"><Button variant="danger">Report Problem</Button></TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+              </TableContainer>
+            </Col>
+          </Row>
 
-            <UserInfo className="mt-4" lg ></UserInfo>
-            <TableContainer component={Paper}>
-              <Table className={classes.table} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Auction Name</TableCell>
-                    <TableCell align="right">Product Name</TableCell>
-                    <TableCell align="right">Status</TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right"></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {values.userInfo.manageAuction.map((auction) => (
-                    <TableRow key={auction._id}>
-                      <TableCell component="th" scope="row">
-                        {auction.auctionName}
-                      </TableCell>
-                      <TableCell align="right">{auction.productName}</TableCell>
-                      <TableCell align="right">{auction.auctionStatus}</TableCell>
-                      <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell>
-                      <TableCell align="right"><Button variant="danger">Report Problem</Button></TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-          </TableContainer>
-        </Col>
-      </Row>
-
-</Container>
-    
-    
-  );
+    </Container>
+    )
+  }
+  else{
+      return(<>{props.history.push('/login')}</>) 
+  }
 }
+
+export default withRouter(UserManageAuctions);
