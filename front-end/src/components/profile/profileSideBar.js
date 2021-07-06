@@ -28,7 +28,7 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleCreateAuctionClick(){
         props.history.push({
-            pathname: '/createAuction',
+            pathname: '/createNewAuction',
             //this.props.location.state.username on dashboard.js
             state: { username: values.username }
         });
@@ -56,10 +56,10 @@ function Sidebar(props){
     <>
         <div className="sideBarButton" onClick={handleOverViewClick}>Profile Overview</div>
         <div className="sideBarButton" onClick={handleManageAuctionClick}>Manage Auction</div>
-        {values.userType == "auctioneer" && 
+        {values.userType != "auctioneer" && 
         (
             <>
-                <div className="sideBarButton" onClick={handleCreateAuctionClick}>Create Auction</div>
+                <div className="sideBarButton" onClick={handleCreateAuctionClick}>Create New Auction</div>
                 <div className="sideBarButton" onClick={handleNotificationClick}>Notification</div>
             </>
         )}
