@@ -95,7 +95,7 @@ function Profile(props){
                     </div> */}
                     <Form>
                         <h2 className="text-center" Style="margin-botton: 30px;">Profile Overview</h2>
-                        <Image width={180} height={180} Style="" src={userPic}/>
+                        <Image className="image-center" width={180} height={180} Style="" src={userPic}/>
                         <br/>
                         <Row className="text-center">
                             <Col>
@@ -105,14 +105,14 @@ function Profile(props){
                                 </Button>
                             </Col>
                         </Row>
+
                         <Row className="profileOverviewRow">
                             <h4>Current Mailing Address</h4>
-                            {/* <Form.Group controlId="userAddress"> */}
                             <Col Style="margin-top: 30px;">
                                 <h4>Street Name</h4>
                                 <Form.Control name="streetName" type="text" placeholder="" value={values.userInfo.address.streetName} readOnly={disableEdit} />
                             </Col>
-                            {/* </Form.Group> */}
+                            
                         </Row>
 
                         <Row className="profileOverviewRow">
@@ -177,11 +177,17 @@ function Profile(props){
 
                     <label>Cards Saved </label> <span>Update payment information</span>
                     
-                    <img src={cardPic} />
-                    <label className="number_title">card number</label>
-                    <p className="cardNum">{values.paymentInfo.cardNumber}</p>
-                    <label className="expiry_title">expiry date</label>
-                    <p className="expiryDate">{values.paymentInfo.expiryDate}</p>
+                    <div className="card-override">
+                        <div className="card-logo">.</div>
+                        <div>
+                            <label className="number_title">card number</label>
+                            <p className="cardNum">{values.paymentInfo.cardNumber}</p>
+                            <label className="expiry_title">expiry date</label>
+                            <p className="expiryDate">{values.paymentInfo.expiryDate}</p>
+                            <label className="">CVV</label>
+                            <p className="">{values.paymentInfo.verificationNumber}</p>
+                        </div>
+                    </div>
 
                     <label className="title">Recent Auction Transactions </label><br/>
                     <div>
