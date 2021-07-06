@@ -109,6 +109,25 @@ app.put("/api/user/:id",(req,res)=>
     dataService.updateUser(req.body, req.params.id, res);
 })
 
+//-------------------------------------------------------
+// GET user auctions
+app.get("/api/user/auctions", (req, res) => {
+    dataService.getUserAuctions(req, res);
+});
+
+// POST user auction problem
+app.post("/api/user/auctionproblem", (req, res) => {
+    dataService.reportAuctionProblem(req.body, res);
+})
+
+//PUT auction to user (route called once user registers to an auction)
+app.post("/api/user/auction", (req, res) =>{
+    dataService.auctionAddToUSerList(req, res);
+})
+
+
+//--------------------------------------------------------
+
 // ------------------- CONNECTIVITY PART
 //
 // ************* Initialize the Service & Start the Server

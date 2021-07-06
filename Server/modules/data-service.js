@@ -169,6 +169,7 @@ const addNewAuction = (data,res) => {
             res.json({message:`AUCTION ALREADY ADDED `});
         }
     })
+    .catch(err=>console.log(`Error:Auction not found ${err}`));
 }
 
 const getSpecificUserWithDetails = (req, res) => {
@@ -242,6 +243,71 @@ const updateUser = (data, userID, res) => {
     })
 }
 
+//Get user auctions
+const getUserAuctions = (req, res) => {
+    User.findOne({emailAddress: req.query.emailAddress})
+    .then(user => {
+        if(user.currentSessionKey != req.query.sessionId){
+            res.json({message: "Your session key is invalid"});
+        }
+        else{
+                res.json({
+                    user: user
+                })
+            }
+    })    
+    .catch(err=>console.log(`Error with User call: ${err}`));
+}
+
+//PUT auction to users auctions list
+const auctionAddToUSerList = (req, res) => {
+    //console.log(req.query.id, req.query.emailAddress)
+   Auction.findOne({_id: req.query.id})
+   .then( auction => {
+       User.findOne({emailAddress: req.query.emailAddress})
+       .then(user => {
+           
+           //add data from user to auction object 
+           auction.userList.push({
+               userName: user.userName, 
+               emailAddress: user.emailAddress})
+        
+           //add data from auction to user object 
+           user.manageAuction.push({
+               auctionName: auction.title,
+               productName: auction.product.name,
+               auctionStatus: auction.status
+            })
+
+            auction.save()
+            .then(()=> console.log("success"))
+            .catch(err=>console.log(`ERROR: Did not succeded: ${err}`));
+
+            user.save()
+            .then(()=> console.log("success"))
+            .catch(err=>console.log(`ERROR: Did not succeded: ${err}`));
+           res.json({auction: auction, user: user})
+       })
+       .catch(err=>console.log(`ERROR: Could not find user: ${err}`));
+   })
+   .catch(err=>console.log(`ERROR: Could not find auction: ${err}`));
+}
+
+
+//POST user auction problem - reportAuctionProblem
+// const reportAuctionProblem = (data, res) => {
+//     let problem = new AuctionProblem(data);
+//     problem.save()
+//     .then(() => {
+//         console.log("Problem submitted")
+//         res.json({message: "Success"})
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//         res.json({message: "ERROR"})
+//     })
+// }
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
@@ -251,5 +317,7 @@ module.exports = {
     addNewAuction: addNewAuction,
     addCreditCard: addCreditCard,
     updateUser: updateUser, 
-    getSpecificUserWithDetails: getSpecificUserWithDetails
+    getSpecificUserWithDetails: getSpecificUserWithDetails,
+    getUserAuctions : getUserAuctions,
+    auctionAddToUSerList : auctionAddToUSerList
 }

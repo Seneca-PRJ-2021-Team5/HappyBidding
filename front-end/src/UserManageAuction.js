@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +12,7 @@ import SideBar from './components/profile/profileSideBar';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import './css/sideBar.css'
 import UserInfo from './components/profile/userInfo';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 
 
@@ -31,8 +33,11 @@ const rows = [
   createData('Happy Reading', 'GOT Collection', 'Ongoing', 'Pay', 'Report'),
 ];
 
-export default function UserManageAuctions() {
+export default function UserManageAuctions(props) {
   const classes = useStyles();
+  const [values, setValues] = useState({
+    userInfo: props.location.state.userInfo
+  })
 
   return (
     <Container fluid>
@@ -56,13 +61,13 @@ export default function UserManageAuctions() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
-                    <TableRow key={row.auctionName}>
+                  {values.userInfo.manageAuction.map((auction) => (
+                    <TableRow key={auction._id}>
                       <TableCell component="th" scope="row">
-                        {row.auctionName}
+                        {auction.auctionName}
                       </TableCell>
-                      <TableCell align="right">{row.productName}</TableCell>
-                      <TableCell align="right">{row.status}</TableCell>
+                      <TableCell align="right">{auction.productName}</TableCell>
+                      <TableCell align="right">{auction.auctionStatus}</TableCell>
                       <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell>
                       <TableCell align="right"><Button variant="danger">Report Problem</Button></TableCell>
                     </TableRow>

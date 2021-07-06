@@ -39,7 +39,7 @@ function Sidebar(props){
         props.history.push({
             pathname: '/userauction',
             //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
+            state: { username: values.username, userInfo: props.userInfo }
         });
     }
 

@@ -84,8 +84,7 @@ function Profile(props){
             <Row>
         {/* ---------------- SIDEBAR ------------------------- */}
                 <Col className="SideBar2" sm={2}>
-                    <SideMenu/>
-
+                    <SideMenu userInfo={values.userInfo}/>
                 </Col>
 
         {/* ---------------- OVERVIEW PROFILE ---------------- */}
