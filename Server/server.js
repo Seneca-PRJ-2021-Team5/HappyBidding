@@ -120,7 +120,7 @@ app.post("/api/user/auctionproblem", (req, res) => {
     dataService.reportAuctionProblem(req.body, res);
 })
 
-//PUT auction to user (route called once user registers to an auction)
+//POST auction to user (route called once user registers to an auction)
 app.post("/api/user/auction", (req, res) =>{
     dataService.auctionAddToUSerList(req, res);
 })
