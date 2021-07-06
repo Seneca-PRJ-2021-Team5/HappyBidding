@@ -14,6 +14,7 @@ import HomePage from './HomePage'
 import UserManageAuction from './UserManageAuction'
 import NotFound from './NotFound'
 import SynchAuction from './synchAuction'
+import CreateNewAuction from './CreateNewAuction'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/navigationBar.css'
 import './css/App.css'
@@ -36,6 +37,7 @@ function App (props){
   {
     setUserStatus(false)
     setUserType("")
+    sessionStorage.clear()
   }
 
   useEffect(() => {
@@ -116,6 +118,7 @@ function App (props){
             <Route exact path="/synchAuction" component={SynchAuction}/>
             <Route exact path="/userauction" component={UserManageAuction} />
             <Route exact path="/recoveryAccount" component={RecoveryAccount} />
+            <Route exact path="/createNewAuction" component={CreateNewAuction} />
             <Route exact path="/logout">
                 <HomePage userStatus={true} setLogOut={setLogOut}/>
             </Route>
