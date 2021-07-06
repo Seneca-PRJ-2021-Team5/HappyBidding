@@ -25,8 +25,12 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 
 #### 2021/07/05 - Arhur 
 \- TOP Navbar fixed on the top. Footer added on the bottom     
-\- moved the user image and name from payment side to ovewview side in the profile component        
+\- moved the user image and name from payment side to ovewview side in the profile component      
 
+#### 2021/07/05 - Leonel
+\- User manage auction backend completed
+\- Added route in server.js which will be called everytime a user registers to an auction.
+\- Worked on POST "auctionAddToUSerList" function which will add auction to user auctions list once user regiisters to auction.
 
 #### 2021/07/04 - Arhur    
 \- Added call back funttion from App.js to be called in case that the user wants to logout from the system     
