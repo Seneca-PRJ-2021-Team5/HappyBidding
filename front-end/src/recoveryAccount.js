@@ -1,24 +1,52 @@
-import React from 'react';              //read react
-import './css/login.css';
-class recoveryAccount extends React.Component {   //inherit react.component to this page
-    constructor(props) {
-        super(props);/* 
-        this.state = {
-            username: "username",
-            password: "password"
-        }; */
-      }
+/* Library */
+import React, {useState } from 'react';              //read react
+import { withRouter } from 'react-router-dom';
+/* CSS */
+import './css/recoveryAccount.css';
 
-    
-    
-    render() {                          //declare render to display
-        return (
-            
 
-            <h1>THIS IS recoveryAccount PAGE!</h1>
-            
-        );
+function RecoveryAccount(props){ 
+    const [values, setValues] = useState({
+        emailAddress: ""
+    });
+
+    //it change value when user input value
+    function handleInputChange(event){
+        console.log(values.emailAddress)
+        const name = event.target.name;
+        const value = event.target.value;
+        setValues({ ...values, [name]: value });
     }
+  
+  //it work when user submit a form
+  function handleSubmit(event){
+    console.log(values.emailAddress)
+    props.history.push('/recoveryCompleted')
+    event.preventDefault();
+  }
+
+  //return page body
+  //min-width: 768px => for PC
+   return (
+        <div className="RAContainer ">
+                <div className="container card card-container  w-25" >
+                    <div className=" mt-4 mb-4">
+                    <h2>Recovery Your Account </h2><br/>
+                    did you forget your password? <br/>
+                    you can recovery your account here!
+
+                    </div>
+                    <form className="loginForm mb-4" onSubmit={handleSubmit}>
+                        <label> <div className="login_label">User Name</div><br />
+                            <input  className="login_inputarea" name="emailAddress" placeholder="email" type="text" value={values.username} onChange={handleInputChange} />
+                        </label> <br />
+
+ 
+                        <input id="login_sButton" type="submit" value="Submit" /><br />
+                    </form>
+            </div>
+        </div>
+    );
 }
  
-export default recoveryAccount;  
+export default withRouter(RecoveryAccount)

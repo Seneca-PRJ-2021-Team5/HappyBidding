@@ -8,6 +8,7 @@ import { Navbar, Nav, Jumbotron, Container, Row } from 'react-bootstrap';
 
 import Login from './login'; //import login.js 
 import RecoveryAccount from './recoveryAccount'; //import RecoveryAccount.js 
+import RecoveryCompleted from './recoveryCompleted'; 
 import Signup from './signup';
 import Profile from './profile';
 import HomePage from './HomePage'
@@ -118,6 +119,7 @@ function App (props){
             <Route exact path="/synchAuction" component={SynchAuction}/>
             <Route exact path="/userauction" component={UserManageAuction} />
             <Route exact path="/recoveryAccount" component={RecoveryAccount} />
+            <Route exact path="/recoveryCompleted" component={RecoveryCompleted} />
             <Route exact path="/createNewAuction" component={CreateNewAuction} />
             <Route exact path="/logout">
                 <HomePage userStatus={true} setLogOut={setLogOut}/>
