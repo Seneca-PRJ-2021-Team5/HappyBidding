@@ -8,6 +8,7 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 | @material-ui/core       | 2021/06/20    | Frontend  | npm install  @material-ui/core        | UserManageAuction  |
 | react-chat-elements     | 2021/06/21    | Frontend  | npm install react-chat-elements       | synchAuctionChat   |
 | socket.io-client        | 2021/06/21    | Frontend  | npm install socket.io-client          | synchAuctionChat   |
+| gmail-send              | 2021/07/13    | Backend   | npm install --save gmail-send         | data-service.js    |
 
 ## Notes
 ### ABOUT CSS in react
@@ -19,6 +20,15 @@ If you add the same name in diff files, page will load diff file's css.
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/13 - Arhur   
+\- created POST route to update user       
+\- installed gmail-send to send emails to users        
+\- set default values to creditCard schema      
+\- created updateUser function, created accountRecover function         
+\- created recovery account component         
+\- created the functionality to allow the user to update its profile     
+
+
 #### 2021/07/12 - Megumi
 \- Created Recovery Account page and Recovery Completed page(to display notification message to send email for user.)   
 \- Created css for Recovery Account page.  
