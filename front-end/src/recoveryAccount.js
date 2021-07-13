@@ -21,7 +21,17 @@ function RecoveryAccount(props){
   //it work when user submit a form
   function handleSubmit(event){
     console.log(values.emailAddress)
-    props.history.push('/recoveryCompleted')
+    fetch(`https://happybiddingserve.herokuapp.com/api/user/recover/${values.emailAddress}`, {
+            method: "POST",
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+        .then(response => response.json()) 
+        .then(json => {
+            console.log(json)
+            props.history.push('/recoveryCompleted')
+        })
+        .catch(err => console.log(err));
+
     event.preventDefault();
   }
 
