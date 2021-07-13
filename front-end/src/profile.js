@@ -41,16 +41,42 @@ function Profile(props){
             userType: ""
         },
         paymentInfo: {
-            cardNumber: null,
+            cardNumber: "",
             cardType: "",
             expiryDate: "",
             nameOnCard: "",
             userEmail: "",
-            verificationNumber: null
+            verificationNumber: ""
         },
         showError: false,
         eMessage: ""
     });
+
+    const [userInfo, setUserInfo] = useState({
+        id: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        streetName: "",
+        streetNumber: null,
+        currentSessionKey: "",
+        emailAddress: "",
+        manageAuction: [],
+        password: "",
+        phoneNumber: "",
+        userName: "",
+        firstName: "",
+        lastName: "",
+        userType: "",
+        cardNumber: "",
+        cardType: "",
+        expiryDate: "",
+        nameOnCard: "",
+        userEmail: "",
+        verificationNumber: "",
+        showError: false,
+        eMessage: ""
+    })
 
     useEffect(() => {
         fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${sessionStorage.getItem("emailAddress")}&sessionId=${sessionStorage.getItem("sessionId")}`)
@@ -59,7 +85,25 @@ function Profile(props){
         }).then((data)=>{
             console.log("PROFILE PAGGGGGGGGGE")
             console.log(data)
-            setValues({...values, userInfo: data.user, paymentInfo: data.creditCard})
+            //setValues({...values, userInfo: data.user, paymentInfo: data.creditCard})
+
+            setUserInfo({...userInfo,
+                id: data.user._id,
+                streetName: data.user.address.streetName,
+                streetNumber: data.user.address.streetNumber,
+                city: data.user.address.city,
+                postalCode: data.user.address.postalCode,
+                country: data.user.address.country,
+                firstName: data.user.firstName,
+                lastName: data.user.lastName,
+                emailAddress: data.user.emailAddress,
+                password: data.user.password,
+                cardNumber: data.creditCard.cardNumber,
+                cardType: data.creditCard.cardType,
+                expiryDate: data.creditCard.expiryDate,
+                nameOnCard: data.creditCard.nameOnCard,
+                verificationNumber: data.creditCard.verificationNumber
+            })
         })
         return function cleanup() {
             console.log("CLEAN UP")
@@ -72,15 +116,20 @@ function Profile(props){
         setDisableEdit((disableEdit)=>!disableEdit)
     }
 
+    const handleChange =(event) =>{
+        const name = event.target.name;
+        const value = event.target.value;
+        setUserInfo({ ...userInfo, [name]: value });
+    }
+
     
     function saveChanges(event)
     {   
-        // NEED TO US
-        // fetch('https://happybiddingserve.herokuapp.com/api/user', {
-        //     method: "POST",
-        //     body: JSON.stringify(userData),
-        //     headers: {"Content-type": "application/json; charset=UTF-8"}
-        // })
+        fetch('https://happybiddingserve.herokuapp.com/api/user/update', {
+            method: "POST",
+            body: JSON.stringify(userInfo),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
         setDisableEdit((disableEdit)=>!disableEdit)
         event.preventDefault();
     }
@@ -117,7 +166,7 @@ function Profile(props){
                                 <h4>Current Mailing Address</h4>
                                 <Col Style="margin-top: 30px;">
                                     <h4>Street Name</h4>
-                                    <Form.Control name="streetName" type="text" placeholder="" value={values.userInfo.address.streetName} readOnly={disableEdit} />
+                                    <Form.Control name="streetName" type="text" placeholder="" value={userInfo.streetName} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                                 
                             </Row>
@@ -125,41 +174,41 @@ function Profile(props){
                             <Row className="profileOverviewRow">
                                 <Col>
                                     <h4>Street Number</h4>
-                                    <Form.Control name="streetNumber" type="text" placeholder="" value={values.userInfo.address.streetNumber} readOnly={disableEdit} />
+                                    <Form.Control name="streetNumber" type="text" placeholder="" value={userInfo.streetNumber} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                                 <Col>
                                     <h4>City</h4>
-                                    <Form.Control name="city" type="text" placeholder="" value={values.userInfo.address.city} readOnly={disableEdit} />
+                                    <Form.Control name="city" type="text" placeholder="" value={userInfo.city} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                                 <Col>
                                     <h4>Postal Code</h4>
-                                    <Form.Control name="postalCode" type="text" placeholder="" value={values.userInfo.address.postalCode} readOnly={disableEdit} />
+                                    <Form.Control name="postalCode" type="text" placeholder="" value={userInfo.postalCode} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                                 <Col>
                                     <h4>Country</h4>
-                                    <Form.Control name="country" type="text" placeholder="" value={values.userInfo.address.country} readOnly={disableEdit} />
+                                    <Form.Control name="country" type="text" placeholder="" value={userInfo.country} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                             </Row>
 
                             <Row className="profileOverviewRow">
                                 <Col>
                                     <h4>First Name</h4>
-                                    <Form.Control name="firstName" type="text" placeholder="" value={values.userInfo.userName} readOnly={disableEdit}/>
+                                    <Form.Control name="firstName" type="text" placeholder="" value={userInfo.firstName} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                                 <Col>
                                     <h4>Last Name</h4>
-                                    <Form.Control name="lastName" type="text" placeholder="" value="" readOnly={disableEdit}/>
+                                    <Form.Control name="lastName" type="text" placeholder="" value={userInfo.lastName} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                             </Row>
 
                             <Row className="profileOverviewRow">
                                 <Col>
                                     <h4>Email</h4>
-                                    <Form.Control name="emailAddress" type="email" placeholder="" value={values.userInfo.emailAddress} readOnly={disableEdit}/>
+                                    <Form.Control name="emailAddress" type="email" placeholder="" value={userInfo.emailAddress} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                                 <Col>
                                     <h4>Current Password</h4>
-                                    <Form.Control name="password" type="password" placeholder="" value={values.userInfo.password} readOnly={disableEdit}/>
+                                    <Form.Control name="password" type="password" placeholder="" value={userInfo.password} readOnly={disableEdit} onChange={handleChange}/>
                                 </Col>
                             </Row>
 
@@ -188,11 +237,11 @@ function Profile(props){
                             <div className="card-logo">.</div>
                             <div>
                                 <label className="number_title">card number</label>
-                                <p className="cardNum">{values.paymentInfo.cardNumber}</p>
+                                <p className="cardNum">{userInfo.cardNumber}</p>
                                 <label className="expiry_title">expiry date</label>
-                                <p className="expiryDate">{values.paymentInfo.expiryDate}</p>
+                                <p className="expiryDate">{userInfo.expiryDate}</p>
                                 <label className="">CVV</label>
-                                <p className="">{values.paymentInfo.verificationNumber}</p>
+                                <p className="">{userInfo.verificationNumber}</p>
                             </div>
                         </div>
 
