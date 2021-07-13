@@ -13,6 +13,8 @@ function Signup(props){
     //it is equals with this.state on function component 
     const [values, setValues] = useState({
         userName: "",
+        firstName: "",
+        lastName: "",
         phoneNumber: "",
         emailAddress: "",
         password: "",
@@ -33,6 +35,8 @@ function Signup(props){
     //this function works to insert user info to MondoDB after user submit form
     //if inserting info is success, then redirect to login page.
     function handleSubmit(event){
+        console.log( values.firstName)
+        console.log( values.firstName)
         const userData = {
             address:{
                 streetNumber: values.streetNumber,
@@ -42,6 +46,8 @@ function Signup(props){
                 country: values.country
             },
             userName: values.userName,
+            firstName: values.firstName,
+            lastName: values.lastName,
             phoneNumber: values.phoneNumber,
             emailAddress: values.emailAddress,
             password: values.password,
@@ -72,33 +78,40 @@ function Signup(props){
 
             <form onSubmit={handleSubmit}>
                 <div class="cp_iptxt">
-                <input type="text" placeholder="User Name" id="userName" name="userName" value={values.userName} onChange={handleChange}/>
+                <input type="text" placeholder="Usre Name" name="userName" value={values.userName} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="text" placeholder="Phone Number" id="phoneNumber" name="phoneNumber" value={values.phoneNumber} onChange={handleChange}/>
+                <input type="text" placeholder="First Name" name="firstName" value={values.firstName} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="email" id="email"  placeholder="Email" name="emailAddress" value={values.emailAddress} onChange={handleChange}/>
+                <input type="text" placeholder="Last Name" name="lastName" value={values.lastName} onChange={handleChange}/>
+                </div>
+
+                <div class="cp_iptxt">
+                <input type="text" placeholder="Phone Number" name="phoneNumber" value={values.phoneNumber} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="password" id="password" placeholder="Password" name="password" value={values.password} onChange={handleChange}/>
+                <input type="email"  placeholder="Email" name="emailAddress" value={values.emailAddress} onChange={handleChange}/>
+                </div>
+                <div class="cp_iptxt">
+                <input type="password" placeholder="Password" name="password" value={values.password} onChange={handleChange}/>
                 </div>
 
 
                 <div class="cp_iptxt">
-                <input type="number" id="streetNumber" placeholder="Street Number" name="streetNumber" value={values.streetNumber} onChange={handleChange}/>
+                <input type="number" placeholder="Street Number" name="streetNumber" value={values.streetNumber} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="text" id="streetName" placeholder="Street Name" name="streetName" value={values.streetName} onChange={handleChange}/>
+                <input type="text" placeholder="Street Name" name="streetName" value={values.streetName} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="text" id="city" name="city" placeholder="City" value={values.city} onChange={handleChange}/>
+                <input type="text" name="city" placeholder="City" value={values.city} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="text" id="postalCode" placeholder="Postal Code" name="postalCode" value={values.postalCode} onChange={handleChange}/>
+                <input type="text" placeholder="Postal Code" name="postalCode" value={values.postalCode} onChange={handleChange}/>
                 </div>
                 <div class="cp_iptxt">
-                <input type="text" id="country"  placeholder="Country" name="country" value={values.country} onChange={handleChange}/>
+                <input type="text"  placeholder="Country" name="country" value={values.country} onChange={handleChange}/>
                 </div>
                 <br/>
                 <input id="signup_sButton" type="submit" value="Submit"/>
