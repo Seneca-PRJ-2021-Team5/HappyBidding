@@ -9,10 +9,24 @@ BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 | react-chat-elements     | 2021/06/21    | Frontend  | npm install react-chat-elements       | synchAuctionChat   |
 | socket.io-client        | 2021/06/21    | Frontend  | npm install socket.io-client          | synchAuctionChat   |
 
+## Notes
+### ABOUT CSS in react
+All components see all css.  
+React couldn't have any function to choose specific css for specific component.  
+That means be careful to decide id and class name.  
+If you add the same name in diff files, page will load diff file's css.   
 <br>
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/12 - Megumi
+\- Created Recovery Account page and Recovery Completed page(to display notification message to send email for user.)   
+\- Created css for Recovery Account page.  
+\- Added First name and Last name column in Signup page.  
+\- Removed id from all columns in signup page cuz css never uses these ids.  
+\- Added Routes for Recovery Account and Recovery Completed page in App.js  
+\- Add Notes in this page.  
+
 #### 2021/07/06 - Arhur 
 \- added css for card and user image in the profile component    
 \- added createNewAuction to the route listing in App component          
