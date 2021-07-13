@@ -15,12 +15,11 @@ import './css/profileOverview.css';
 import SideMenu from './components/profile/profileSideBar';
 import userPic from './img/userImage.png';
 import { Button, Container, Row, Col, Form, Image } from 'react-bootstrap'
-import { withRouter } from 'react-router-dom';
+import { withRouter, useLocation } from 'react-router-dom';
 
 //function component
 function Profile(props){ 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
-
     const [disableEdit, setDisableEdit] = useState(true)
 
     const [values, setValues] = useState({
@@ -67,7 +66,7 @@ function Profile(props){
         userName: "",
         firstName: "",
         lastName: "",
-        userType: "",
+        userType: props.location.state.userInfo.userType,
         cardNumber: "",
         cardType: "",
         expiryDate: "",
@@ -102,7 +101,8 @@ function Profile(props){
                 cardType: data.creditCard.cardType,
                 expiryDate: data.creditCard.expiryDate,
                 nameOnCard: data.creditCard.nameOnCard,
-                verificationNumber: data.creditCard.verificationNumber
+                verificationNumber: data.creditCard.verificationNumber,
+                userType: data.user.userType
             })
         })
         return function cleanup() {
@@ -141,7 +141,7 @@ function Profile(props){
                 <Row>
             {/* ---------------- SIDEBAR ------------------------- */}
                     <Col className="SideBar2" sm={2}>
-                        <SideMenu userInfo={values.userInfo}/>
+                        <SideMenu userInfo={userInfo}/>
                     </Col>
 
             {/* ---------------- OVERVIEW PROFILE ---------------- */}
