@@ -9,7 +9,7 @@ import { Col } from 'react-bootstrap'
 //function component
 function Sidebar(props){ 
     const [values, setValues] = useState({
-        usertype: "",
+        userType: props.userInfo.userType,
         username: "",
         password: "",
         showError: false,
@@ -56,7 +56,7 @@ function Sidebar(props){
     <>
         <div className="sideBarButton" onClick={handleOverViewClick}>Profile Overview</div>
         <div className="sideBarButton" onClick={handleManageAuctionClick}>Manage Auction</div>
-        {values.userType != "auctioneer" && 
+        {values.userType == "auctioneer" && 
         (
             <>
                 <div className="sideBarButton" onClick={handleCreateAuctionClick}>Create New Auction</div>
