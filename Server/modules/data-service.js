@@ -6,6 +6,8 @@ const app = express();
 const chalk = require('chalk'); // to style console.log texts
 // const keys = require("./keys.js");
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
+const nodemailer = require("nodemailer");
 
 const User = require("../Models/userSchema");
 const CreditCard = require("../Models/creditCardSchema");
@@ -39,37 +41,67 @@ const addNewUser = (data, res)=> {
     {
         if(userForEmail == null) // if email does not exists, then go check if username exists
         { 
-            User.findOne({userName: data.userName}) // CHECK IN DATABASE IF A USERNAME ALREADY EXISTS
-            .then(user=>
-            {
-                if(user == null) // if userName does not exists yet, then persist data to database
-                { 
-                    let salt = bcrypt.genSaltSync(10);
-                    let hash = bcrypt.hashSync(data.password, salt);
-                    data.password = hash
+
+            let salt = bcrypt.genSaltSync(10);
+            let hash = bcrypt.hashSync(data.password, salt);
+            data.password = hash
+
+            let newUser = new User(data);
+
+            // set session key to empty string
+            newUser.currentSessionKey = "";
+            newUser.save()
+            .then(() =>
+            {                  
+                
+                let newCard = new CreditCard({
+                    userEmail: data.emailAddress
+                });
+                newCard.save()
+                .then(() => {
+                    console.log(chalk.magenta(`CREDIT CARD ADDED:`),chalk.green(` New Credit Card was added in database!`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                })
+                .catch((err) => {
+                    console.log(chalk.magenta(`New Credit Card:`),chalk.red(` ERROR ${err}`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                    res.json({message:`ERROR: ${err} !`}); 
+                })
+
+                // Send an Email confirmation
+                const send = require('gmail-send')(
+                {
+                    user: process.env.MAIL_FROM,
+                    pass: process.env.MAIL_PASSWORD,
+                    to:   data.emailAddress,
+                    subject: `HappyBidding - Sign Up Confirmation`,
+                    text:    `Hello ${data.emailAddress}\nThis is a friendly confirmation that you have successfully signed up!\n\nRegards from HappyBidding Team!`
+                });
         
-                    let newUser = new User(data);
-        
-                    // set session key to empty string
-                    newUser.currentSessionKey = "";
-                    newUser.save()
-                    .then(() =>
-                    {                  
-                        console.log(chalk.magenta(`User registration:`),chalk.green(` Registration completed and database's document created!`));
-                        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-                        res.json({message:`USER REGISTERED SUCCESSFULLY !`})
-                    })
-                    .catch((err)=>
-                    {
-                        console.log(chalk.magenta(`User registration:`),chalk.red(` ERROR ${err}`));
-                        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-                        res.json({message:`ERROR: ${err} !`});
-                    })
-                }
-                else {
-                    res.json({message:`USERNAME ALREADY REGISTERED`})
-                }
+                send()
+                .then(()=>
+                {
+                    console.log(chalk.magenta(`Email Confirmation:`),chalk.green(`Email Sent to recovery!`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                })
+                .catch((err)=>{
+                    console.log(chalk.magenta(`Email Confirmation:`),chalk.red(` ERROR: ${err}`));
+                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                });
+                // -------------
+
+                console.log(chalk.magenta(`User registration:`),chalk.green(` Registration completed and database's document created!`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                res.json({message:`USER REGISTERED SUCCESSFULLY !`})
             })
+            .catch((err)=>
+            {
+                console.log(chalk.magenta(`User registration:`),chalk.red(` ERROR ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                res.json({message:`ERROR: ${err} !`});
+            })
+
+            
 
         }
         else {
@@ -103,7 +135,6 @@ const getSpecificUser =(req, res)=>
             {
                 // passwords match
                 // create session id key
-                const crypto = require('crypto');
                 let sess_id = crypto.randomBytes(20).toString('hex');
 
                 user.currentSessionKey = sess_id;
@@ -232,47 +263,62 @@ const addCreditCard = (data, res) => {
 }
 
 
-const updateUser = (data, userID, res) => {
-    User.findById(userID)
+const updateUser = (req, res) => {
+    console.log(req.body)
+    User.findById(req.body.id)
     .then((user)=>
     {
-        user.address.streetName = data.streetName
-        user.address.streetNumber = data.streetNumber
-        user.address.city = data.city
-        user.address.postalCode = data.postalCode
-        user.address.country = data.country
-        user.firstName = data.firstName
-        user.lastName = data.lastName
-        user.password = data.password
-        
-        User.findOne({emailAddress: data.emailAddress}) // CHECK IN DATABASE IF AN EMAIL ALREADY EXISTS
-        .then(userForEmail=>
-        {
-            if(userForEmail == null) // if email does not exists, then go check if username exists
-            {
-                user.emailAddress = data.emailAddress
-                user.save()
-                .then(() => {
-                    console.log(chalk.magenta(`User Updated:`),chalk.green(` User was updated in database!`));
-                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-                    res.json({message:`USER UPDATED SUCCESSFULLY !`})
-                })
-                .catch((err) => {
-                    console.log(chalk.magenta(`User Update:`),chalk.red(` ERROR ${err}`));
-                    console.log(chalk.blue(`------------------------------------------------------------------------------------`));
-                    res.json({message:`ERROR: ${err} !`}); 
-                });
-            }
+        user.address.streetName = req.body.streetName
+        user.address.streetNumber = req.body.streetNumber
+        user.address.city = req.body.city
+        user.address.postalCode = req.body.postalCode
+        user.address.country = req.body.country
+        user.firstName = req.body.firstName
+        user.lastName = req.body.lastName
 
+        if(req.body.password != user.password)
+        {
+            console.log("NOT EQUAL PASSWORDS!!!")
+            let salt = bcrypt.genSaltSync(10);
+            let hash = bcrypt.hashSync(req.body.password, salt);
+    
+            user.password = hash
+        }
+
+        if(user.emailAddress != req.body.emailAddress)
+        {
+            User.findOne({emailAddress: req.body.emailAddress}) // CHECK IN DATABASE IF AN EMAIL ALREADY EXISTS
+            .then(userForEmail=>
+            {
+                if(userForEmail == null) // if email does not exists, then go check if username exists
+                {
+                    user.emailAddress = req.body.emailAddress
+                }
+
+            })
+            .catch((err) => {
+                console.log(chalk.magenta(`User Update:`),chalk.red(` ERROR ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+                //res.json({message:`ERROR: ${err} !`}); 
+            });
+        }
+
+        user.save()
+        .then(() => {
+            console.log(chalk.magenta(`User Updated:`),chalk.green(` User was updated in database!`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            res.json({message:`USER UPDATED SUCCESSFULLY !`})
         })
         .catch((err) => {
             console.log(chalk.magenta(`User Update:`),chalk.red(` ERROR ${err}`));
             console.log(chalk.blue(`------------------------------------------------------------------------------------`));
             res.json({message:`ERROR: ${err} !`}); 
         });
+        
 
     })
 }
+
 
 //Get user auctions
 const getUserAuctions = (req, res) => {
@@ -378,20 +424,59 @@ const auctionAddToUSerList = (req, res) => {
    .catch(err=>console.log(`ERROR: Could not find auction: ${err}`));
 }
 
+// POST Recover account req.params
+const accountRecover = (req,res) =>{
+    console.log(req.params.email)
+    User.findOne({emailAddress: req.params.email})
+    .then((user)=>{
 
-//POST user auction problem - reportAuctionProblem
-// const reportAuctionProblem = (data, res) => {
-//     let problem = new AuctionProblem(data);
-//     problem.save()
-//     .then(() => {
-//         console.log("Problem submitted")
-//         res.json({message: "Success"})
-//     })
-//     .catch((err) => {
-//         console.log(err);
-//         res.json({message: "ERROR"})
-//     })
-// }
+        let new_password = crypto.randomBytes(8).toString('hex');
+
+        let salt = bcrypt.genSaltSync(10);
+        let hash = bcrypt.hashSync(new_password, salt);
+        user.password = hash
+
+        user.save()
+        .then(()=>
+        {
+            console.log(chalk.magenta(`Password Change:`),chalk.green(`Password changed and persisted to database!`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+
+            const send = require('gmail-send')(
+            {
+                user: process.env.MAIL_FROM,
+                pass: process.env.MAIL_PASSWORD,
+                to:   req.params.email,
+                subject: `HappyBidding - Password Change`,
+                text:    `Hello ${user.firstName} ${user.lastName}\nHere is your new password: ${new_password}\nPlease, login with it and change it in your profile overview page!\n\nRegards from HappyBidding Team!`
+            });
+    
+            send()
+            .then(()=>
+            {
+                console.log(chalk.magenta(`Email Confirmation:`),chalk.green(`Email Sent to recovery!`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            })
+            .catch((err)=>{
+                console.log(chalk.magenta(`Email Confirmation:`),chalk.red(` ERROR: ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            });
+
+            // DO RES.JSON ------------------------------------------
+
+        })
+        .catch((err)=>{
+            console.log(chalk.magenta(`Password Change:`),chalk.red(` ERROR: ${err}`));
+            console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+        });
+
+    })
+    .catch(()=>{
+        res.json({message:"ERROR: USER NOT FOUND"})
+        console.log(chalk.magenta(`User Not Found:`),chalk.red(` USER DOES NOT EXISTS IN THE DATABASE !`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    })
+}
 
 module.exports = {
     initialize: initialize,
@@ -404,5 +489,6 @@ module.exports = {
     updateUser: updateUser, 
     getSpecificUserWithDetails: getSpecificUserWithDetails,
     getUserAuctions : getUserAuctions,
-    auctionAddToUSerList : auctionAddToUSerList
+    auctionAddToUSerList : auctionAddToUSerList,
+    accountRecover: accountRecover
 }
