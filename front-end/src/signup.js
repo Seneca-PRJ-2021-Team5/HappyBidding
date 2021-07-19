@@ -98,40 +98,61 @@ function Signup(props){
 
         if(isOk)
         {
-            const userData = {
-                address:{
-                    streetNumber: values.streetNumber,
-                    streetName: values.streetName,
-                    city: values.city,
-                    postalCode: values.postalCode,
-                    country: values.country
-                },
-                userName: values.userName,
-                firstName: values.firstName,
-                lastName: values.lastName,
-                phoneNumber: values.phoneNumber,
-                emailAddress: values.emailAddress,
-                password: values.password,
+            const regex = "[{}<>!~*%$]"
+            
+            if(values.userName.search(regex) != -1 || 
+            values.firstName.search(regex) != -1 || 
+            values.lastName.search(regex) != -1 || 
+            values.phoneNumber.search(regex) != -1 || 
+            values.emailAddress.search(regex) != -1 || 
+            values.password.search(regex) != -1 || 
+            values.streetNumber.search(regex) != -1 || 
+            values.streetName.search(regex) != -1 ||
+            values.city.search(regex) != -1 || 
+            values.postalCode.search(regex) != -1 || 
+            values.country.search(regex) != -1)
+            {
+                setError("Characters not allowed: {}<>!~*%$");
+                setShow(true)
+                isOk = false
             }
-
-            fetch('https://happybiddingserve.herokuapp.com/api/user', {
-                method: "POST",
-                body: JSON.stringify(userData),
-                headers: {"Content-type": "application/json; charset=UTF-8"}
-            })
-            .then(response => response.json()) 
-            .then(data => {
-                if(data.message.includes("SUCCESSFULLY")){
-                    console.log(data)
-                    props.history.push("/login")
+            else
+            {
+                const userData = {
+                    address:{
+                        streetNumber: values.streetNumber,
+                        streetName: values.streetName,
+                        city: values.city,
+                        postalCode: values.postalCode,
+                        country: values.country
+                    },
+                    userName: values.userName,
+                    firstName: values.firstName,
+                    lastName: values.lastName,
+                    phoneNumber: values.phoneNumber,
+                    emailAddress: values.emailAddress,
+                    password: values.password,
                 }
-                else {
-                    console.log(data)
-                    setError(data.message);
-                    setShow(true)
-                }
-            })
-            .catch(err => console.log(err));
+    
+                fetch('https://happybiddingserve.herokuapp.com/api/user', {
+                    method: "POST",
+                    body: JSON.stringify(userData),
+                    headers: {"Content-type": "application/json; charset=UTF-8"}
+                })
+                .then(response => response.json()) 
+                .then(data => {
+                    if(data.message.includes("SUCCESSFULLY")){
+                        console.log(data)
+                        props.history.push("/login")
+                    }
+                    else {
+                        console.log(data)
+                        setError(data.message);
+                        setShow(true)
+                    }
+                })
+                .catch(err => console.log(err));
+            }
         }
 
         event.preventDefault();
@@ -146,7 +167,7 @@ function Signup(props){
     return(
         <>
             <div id="signupContainer">
-                
+
                 <Modal show={showError} onHide={closeErrorMEssage}>
                     <Modal.Header closeButton>
                         <Modal.Title>Error Message</Modal.Title>
