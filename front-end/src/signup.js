@@ -99,7 +99,7 @@ function Signup(props){
         if(isOk)
         {
             const regex = "[{}<>!~*%$]"
-            
+
             if(values.userName.search(regex) != -1 || 
             values.firstName.search(regex) != -1 || 
             values.lastName.search(regex) != -1 || 
