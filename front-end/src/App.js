@@ -3,7 +3,7 @@ import { useState, useEffect} from 'react'
 //import react-router-dom to use BrowserRouter, route, switch to move page
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Jumbotron, Container, Row } from 'react-bootstrap';
+import { Navbar, Nav, Jumbotron, Container} from 'react-bootstrap';
 
 
 import Login from './login'; //import login.js 
@@ -16,22 +16,20 @@ import UserManageAuction from './UserManageAuction'
 import NotFound from './NotFound'
 import SynchAuction from './synchAuction'
 import CreateNewAuction from './CreateNewAuction'
+import Notifications from './Notifications'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './css/navigationBar.css'
 import './css/App.css'
-import { NativeError } from 'mongoose';
 
 function App (props){
 
   const [ userStatus, setUserStatus ] = useState(false);
   const [ userType, setUserType ] = useState("");
-  const [ values, setValues ] = useState({});
 
   const getUserLoginStatus=(type, loginState)=>
   {
     setUserStatus(true)
     setUserType(type)
-    setValues(loginState)
   }
 
   const setLogOut=()=>
@@ -67,7 +65,7 @@ function App (props){
                       <Nav.Link className="navButtons">HOME</Nav.Link>
                   </LinkContainer>
 
-                  {!userStatus && 
+                  {sessionStorage.getItem('userStatus') == null && 
                   <React.Fragment>
                       <LinkContainer to="/login">
                           <Nav.Link className="navButtons">Login</Nav.Link>
@@ -77,7 +75,7 @@ function App (props){
                       </LinkContainer>
                   </React.Fragment>}
                   
-                  {userStatus && 
+                  {sessionStorage.getItem('userStatus') != null && 
                   <React.Fragment>
                       <LinkContainer to={{
                           pathname: '/profile',
@@ -100,7 +98,7 @@ function App (props){
                 
                 </Nav>
             </Navbar.Collapse>
-            {userStatus &&
+            {sessionStorage.getItem('userStatus') != null &&
               <p className="navButtons">Welcome {sessionStorage.getItem("userName")}</p>
             }
           </Navbar>
@@ -121,6 +119,7 @@ function App (props){
             <Route exact path="/recoveryAccount" component={RecoveryAccount} />
             <Route exact path="/recoveryCompleted" component={RecoveryCompleted} />
             <Route exact path="/createNewAuction" component={CreateNewAuction} />
+            <Route exact path="/notifications" component={Notifications} />
             <Route exact path="/logout">
                 <HomePage userStatus={true} setLogOut={setLogOut}/>
             </Route>
@@ -133,10 +132,9 @@ function App (props){
         {/* ------------------------ START FOOTER ----------------------- */}
         <Jumbotron className='jumbotron-override bg-dark text-white' fluid>
           <Container>
-            <h1>Fluid jumbotron</h1>
+            <h1>Happy Bidding</h1>
             <p>
-              This is a modified jumbotron that occupies the entire horizontal space of
-              its parent.
+              -- Be the change that you want to see in the world --
             </p>
             <p>&copy; Copyright 2021, HappyBidding</p>
           </Container>
