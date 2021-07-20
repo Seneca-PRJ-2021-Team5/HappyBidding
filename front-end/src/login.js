@@ -59,6 +59,11 @@ function Login(props){
                 sessionStorage.setItem('emailAddress', data.user.emailAddress); // userName
                 sessionStorage.setItem('sessionId', data.user.currentSessionKey);
                 sessionStorage.setItem('userName', data.user.userName);
+                sessionStorage.setItem('userType', data.user.userType);
+                sessionStorage.setItem('userFirstName', data.user.firstName);
+                sessionStorage.setItem('userLastName', data.user.lastName);
+                sessionStorage.setItem('userStatus', 'on')
+
                 
                 console.log(sessionStorage.getItem("emailAddress"))
 
@@ -71,12 +76,7 @@ function Login(props){
                     console.log(userInfoNPayment)
                     props.setUserLoginStatus(data.userType, values)
                     props.history.push({
-                        pathname: '/profile',
-                        //this.props.location.state.username on dashboard.js
-                        state: { 
-                            userInfo: userInfoNPayment.user,
-                            paymentInfo: userInfoNPayment.creditCard
-                        }
+                        pathname: '/'
                     });
                 })
 
