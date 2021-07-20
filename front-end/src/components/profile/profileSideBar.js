@@ -1,5 +1,5 @@
 /* Library */
-import React, {useState} from 'react';              //read react
+import React, {useState, useEffect} from 'react';              //read react
 /* CSS */
 import '../../css/sideBar.css';
 import { withRouter } from 'react-router-dom';
@@ -9,46 +9,48 @@ import { Col } from 'react-bootstrap'
 //function component
 function Sidebar(props){ 
     const [values, setValues] = useState({
-        userType: props.userInfo.userType,
-        username: "",
-        password: "",
+        userType: "",
+        userName: "",
         showError: false,
         eMessage: ""
     });
+
+    useEffect(() => {
+        console.log("USER INFO DATA FROM SIDEBAR:")
+        console.log(props.userInfo)
+
+        setValues({...values,
+        userType: sessionStorage.getItem("userType"),
+        userName: sessionStorage.getItem("userName")
+    })
+    },[values.userType])
 
     //it works if user click "Trouble logging in?"
     function handleOverViewClick(){
         props.history.push({
             pathname: '/profile',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
+
         });
     }
 
     //it works if user click "Trouble logging in?"
     function handleCreateAuctionClick(){
         props.history.push({
-            pathname: '/createNewAuction',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
+            pathname: '/createNewAuction'
         });
     }
 
     //it works if user click "Trouble logging in?"
     function handleManageAuctionClick(){
         props.history.push({
-            pathname: '/userauction',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username, userInfo: props.userInfo }
+            pathname: '/userauction'
         });
     }
 
     //it works if user click "Trouble logging in?"
     function handleNotificationClick(){
         props.history.push({
-            pathname: '/notification',
-            //this.props.location.state.username on dashboard.js
-            state: { username: values.username }
+            pathname: '/notifications'
         });
     }
 
@@ -60,7 +62,7 @@ function Sidebar(props){
         (
             <>
                 <div className="sideBarButton" onClick={handleCreateAuctionClick}>Create New Auction</div>
-                <div className="sideBarButton" onClick={handleNotificationClick}>Notification</div>
+                <div className="sideBarButton" onClick={handleNotificationClick}>Notifications</div>
             </>
         )}
     </>
