@@ -21,41 +21,41 @@ If you add the same name in diff files, page will load diff file's css.
 
 ## CHANGELOG HISTORY
 #### 2021/07/20 - Arhur
-\- __Notifications.js:__      
+\- Notifications.js:      
 Component created to display the problems regarding Auctions     
 
-\- __App.js:__      
+\- App.js:      
 Added Notification component to the route list, and start using Sessions Cookies in the page     
 
-\- __HomePage.js:__        
+\- HomePage.js:        
 Added Alert Welcome Message for Users who are logged in the system     
 
-\- __login.js:__       
+\- login.js:       
 Added more cookie creation to the sessions, and changed the login redirection to Home page instead of user profile       
 
-\- __profile.js:__        
+\- profile.js:        
 Removed unecessary code        
 
-\- __signup.js:__        
+\- signup.js:        
 Fixed Validation for signup        
 
-\- __UserManageAuction.js:__        
+\- UserManageAuction.js:        
 Fixed auction listing        
 
-\- __profileSideBar.js:__         
+\- profileSideBar.js:         
 Removed unecessary code, and added useEffect to load the component        
 
-\- __server.js:__         
+\- server.js:         
 Created route to allow user to report a problem regarding an auction        
 
-\- __auctionSchema.js:__         
+\- auctionSchema.js:         
 Added user first name, last name and email addres to the problem list field        
 
-\- __data-service.js:__          
+\- data-service.js:          
 Created reportProblem function to allow users to report problems regarding specific auctions       
 
 #### 2021/07/19 - Arhur
-\- __signup.js:__        
+\- signup.js:        
 fixed validation form. pop up error message created     
 Added validation for filtering special characters      
 
