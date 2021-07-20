@@ -133,6 +133,10 @@ app.post("/api/user/update",(req,res)=>{
     dataService.updateUser(req,res)
 })
 
+app.post("/api/user/reportProblem/:id",(req,res)=>{
+    dataService.reportProblem(req.body,req.params.id,res)
+})
+
 
 //--------------------------------------------------------
 
