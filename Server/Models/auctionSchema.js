@@ -24,6 +24,9 @@ let auctionSchema = new Schema({
         required: true
     },
     problemList: [{
+        userFirstName: String,
+        userLastName: String,
+        userEmailAddress: String,
         problemDescription: String,
         reportDate: Date
     }], 
