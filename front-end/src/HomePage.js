@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Carousel } from 'react-bootstrap'
+import { Alert, Button} from 'react-bootstrap'
 import Slider from './components/homepage/Slider'
 import ProductCard from './components/homepage/ProductCard'
 
@@ -31,13 +31,22 @@ const HomePage = (props)=>
         })
         .then(auctions => {
             setProducts(auctions)
-            console.log(auctions)
         })
 
     }, []);
 
     return(
         <>
+            <Alert show={sessionStorage.getItem('userStatus')} variant="success" className="text-center">
+                <Alert.Heading>WELCOME {sessionStorage.getItem("userFirstName")} {sessionStorage.getItem("userLastName")}</Alert.Heading>
+                <hr />
+                <p>
+                    Now you are allowed to select some auctions to participate.<br/>
+                    Feel free to chose one and let's help the people in need!<br/>
+                    <b>HAPPY BIDDING!</b>
+                </p>
+            </Alert>
+
             {props.userStatus && props.setLogOut()}
             <Slider products={products}/>
             <ProductCard products={products}/>
