@@ -4,17 +4,17 @@ import { useMediaQuery } from "react-responsive";
 import {Container, Row, Col} from 'react-bootstrap';
 /* CSS */
 import './css/reset.css'; 
-import './css/synchAuction.css';
+import './css/asynchAuction.css';
 import './css/utility.css';
 /* Component */
-import LiveStreaming from './components/synchronousAuction/liveStreaming';
 import Description from './components/synchronousAuction/description';
 import TopBid from './components/synchronousAuction/topBid';
 import Bid from './components/synchronousAuction/bid';
-import Chat from './components/synchronousAuction/synchAuctionChat';
+import TimeLimit from './components/asynchAuction/DisplayTimeLimit';
+
 
 //function component
-function SynchronousAuction(props){ 
+function AsynchronousAuction(props){ 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     const [values, setValues] = useState({
         usertype: "",
@@ -24,24 +24,17 @@ function SynchronousAuction(props){
         eMessage: ""
     });
 
-
-  //return page body
-  //min-width: 768px => for PC
-  //{isTabletOrMobile? <ProfileMobile /> : < ProfilePC />}
    return (
-       <div id="synchAuctionContainer">
+       <div id="asynchAuctionContainer">
         <Container>
             <Row>
-                <Col md={3} class="test">  
+                <Col md={8} class="test">  
                     <Description />
                 </Col>
-                <Col id="liveStreamingContainer" class="test">
-                    <Row>
-                        <LiveStreaming />
-                    </Row>
-                    <Row><Chat /></Row>
-                </Col>
-                <Col md={3} class="test">
+                <Col md={4} class="test">
+                    <React.StrictMode>
+                        <Row class="top-margin-10"><TimeLimit /></Row>
+                    </React.StrictMode>
                     <Row><TopBid /></Row>
                     <Row><Bid /></Row>
                 </Col>
@@ -52,4 +45,4 @@ function SynchronousAuction(props){
 }
 
  
-export default SynchronousAuction; 
+export default AsynchronousAuction; 

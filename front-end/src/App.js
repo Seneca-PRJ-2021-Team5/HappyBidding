@@ -15,6 +15,7 @@ import HomePage from './HomePage'
 import UserManageAuction from './UserManageAuction'
 import NotFound from './NotFound'
 import SynchAuction from './synchAuction'
+import AsynchAuction from './asynchAuction'
 import CreateNewAuction from './CreateNewAuction'
 import Notifications from './Notifications'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -91,6 +92,13 @@ function App (props){
                           <Nav.Link className="navButtons">Synch Auction</Nav.Link>
                       </LinkContainer>
 
+                      <LinkContainer to={{
+                          pathname: '/asynchAuction',
+                          state: {userName: sessionStorage.getItem("userName")}
+                      }}>
+                          <Nav.Link className="navButtons">Asynch Auction</Nav.Link>
+                      </LinkContainer>
+
                       <LinkContainer to='/logout'>
                           <Nav.Link className="navButtons">Logout</Nav.Link>
                       </LinkContainer>
@@ -115,6 +123,7 @@ function App (props){
             <Route exact path="/signup" component={Signup}/>
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/synchAuction" component={SynchAuction}/>
+            <Route exact path="/asynchAuction" component={AsynchAuction}/>
             <Route exact path="/userauction" component={UserManageAuction} />
             <Route exact path="/recoveryAccount" component={RecoveryAccount} />
             <Route exact path="/recoveryCompleted" component={RecoveryCompleted} />

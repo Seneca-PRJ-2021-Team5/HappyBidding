@@ -22,17 +22,9 @@ function LiveStreaming(props){
   //src will get from db
    return (
        //560 315
-        <div id="liveStreamingContainer">
-            <iframe width="620" height="405" 
-               //src="https://www.youtube.com/embed/YzXoH8Lsetc" 
-               //src="https://www.youtube.com/embed/GRmgX94UHPY"
-               src="https://www.youtube.com/embed/yNE9t567_lY"
-               title="YouTube video player" 
-               frameborder="0" 
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-               allowFullScreen>
-            </iframe>
-        </div>
+            <div class="embed-responsive embed-responsive-4by3">
+                <iframe width="100%" height="360px" class="embed-responsive-item" src="https://www.youtube.com/embed/yNE9t567_lY" allowfullscreen></iframe>
+            </div>
     );
 }
 
