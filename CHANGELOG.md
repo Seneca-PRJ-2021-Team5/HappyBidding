@@ -20,6 +20,45 @@ If you add the same name in diff files, page will load diff file's css.
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/20 - Arhur
+\- __Notifications.js:__      
+Component created to display the problems regarding Auctions     
+
+\- __App.js:__      
+Added Notification component to the route list, and start using Sessions Cookies in the page     
+
+\- __HomePage.js:__        
+Added Alert Welcome Message for Users who are logged in the system     
+
+\- __login.js:__       
+Added more cookie creation to the sessions, and changed the login redirection to Home page instead of user profile       
+
+\- __profile.js:__        
+Removed unecessary code        
+
+\- __signup.js:__        
+Fixed Validation for signup        
+
+\- __UserManageAuction.js:__        
+Fixed auction listing        
+
+\- __profileSideBar.js:__         
+Removed unecessary code, and added useEffect to load the component        
+
+\- __server.js:__         
+Created route to allow user to report a problem regarding an auction        
+
+\- __auctionSchema.js:__         
+Added user first name, last name and email addres to the problem list field        
+
+\- __data-service.js:__          
+Created reportProblem function to allow users to report problems regarding specific auctions       
+
+#### 2021/07/19 - Arhur
+\- __signup.js:__        
+fixed validation form. pop up error message created     
+Added validation for filtering special characters      
+
 #### 2021/07/13 - Arhur   
 \- created POST route to update user       
 \- installed gmail-send to send emails to users        
