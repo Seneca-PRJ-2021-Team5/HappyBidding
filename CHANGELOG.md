@@ -23,6 +23,7 @@ If you add the same name in diff files, page will load diff file's css.
 #### 2021/07/20 - Arhur
 \- Notifications.js:      
 Component created to display the problems regarding Auctions     
+__OBS:.__ Notification page has an issue that is not displaying the data that is fetched. __IT NEEDS TO BE FIXED__       
 
 \- App.js:      
 Added Notification component to the route list, and start using Sessions Cookies in the page     
