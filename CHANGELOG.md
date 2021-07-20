@@ -20,6 +20,23 @@ If you add the same name in diff files, page will load diff file's css.
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/20 - Megumi
+\- asyncAuction.js:      
+added to display asyncAuction, but only layout.
+
+\- DisplayTimeLimit.js
+added it to display time limit in asyncAuction.
+
+\- asyncAuction.css
+added for asyncAuction's css 
+
+\- App.js
+Added asyncAuction to the menu bar and route
+
+\- Clock.png
+Using for asyncAuction Time limit. it is in img folder.
+
+
 #### 2021/07/20 - Arhur
 \- Notifications.js:      
 Component created to display the problems regarding Auctions     
