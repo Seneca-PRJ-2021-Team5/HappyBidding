@@ -22,34 +22,7 @@ function Profile(props){
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     const [disableEdit, setDisableEdit] = useState(true)
 
-    const [values, setValues] = useState({
-        userInfo: {
-            address: {
-                city: "",
-                country: "",
-                postalCode: "",
-                streetName: "",
-                streetNumber: null,
-            },
-            currentSessionKey: "",
-            emailAddress: "",
-            manageAuction: [],
-            password: "",
-            phoneNumber: "",
-            userName: "",
-            userType: ""
-        },
-        paymentInfo: {
-            cardNumber: "",
-            cardType: "",
-            expiryDate: "",
-            nameOnCard: "",
-            userEmail: "",
-            verificationNumber: ""
-        },
-        showError: false,
-        eMessage: ""
-    });
+
 
     const [userInfo, setUserInfo] = useState({
         id: "",
@@ -66,7 +39,7 @@ function Profile(props){
         userName: "",
         firstName: "",
         lastName: "",
-        userType: props.location.state.userInfo.userType,
+        userType: "",
         cardNumber: "",
         cardType: "",
         expiryDate: "",
@@ -83,8 +56,7 @@ function Profile(props){
             return res.json();
         }).then((data)=>{
             console.log("PROFILE PAGGGGGGGGGE")
-            console.log(data)
-            //setValues({...values, userInfo: data.user, paymentInfo: data.creditCard})
+            console.log(data.user._id)
 
             setUserInfo({...userInfo,
                 id: data.user._id,
@@ -105,10 +77,13 @@ function Profile(props){
                 userType: data.user.userType
             })
         })
+        console.log("USER INFO DATA:")
+        console.log(userInfo)
         return function cleanup() {
             console.log("CLEAN UP")
         };
-    },[])
+
+    }, [userInfo.id])
 
     function editOnClick()
     {
@@ -146,16 +121,14 @@ function Profile(props){
 
             {/* ---------------- OVERVIEW PROFILE ---------------- */}
                     <Col sm={6} className="mt-5">
-                        {/* <div className="overview_logoArea_pc">
-                            <img src={logoPic}/>
-                        </div> */}
+
                         <Form>
                             <h2 className="text-center" Style="margin-botton: 30px;">Profile Overview</h2>
                             <Image className="image-center" width={180} height={180} Style="" src={userPic}/>
                             <br/>
                             <Row className="text-center">
                                 <Col>
-                                    <label>{values.userInfo.userName}</label><br/>
+                                    <label>{userInfo.firstName} {userInfo.lastName}</label><br/>
                                     <Button variant="primary" onClick={editOnClick} disabled={!disableEdit}>
                                         Edit Profile
                                     </Button>
