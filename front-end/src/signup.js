@@ -1,7 +1,7 @@
 /* Library */
 import React, {useState} from 'react'
 import { useMediaQuery } from "react-responsive";
-import { Alert, Modal, Button } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 /* CSS */
 import './css/signup.css'
 /* Picture */
@@ -100,17 +100,17 @@ function Signup(props){
         {
             const regex = "[{}<>!~*%$]"
 
-            if(values.userName.search(regex) != -1 || 
-            values.firstName.search(regex) != -1 || 
-            values.lastName.search(regex) != -1 || 
-            values.phoneNumber.search(regex) != -1 || 
-            values.emailAddress.search(regex) != -1 || 
-            values.password.search(regex) != -1 || 
-            values.streetNumber.search(regex) != -1 || 
-            values.streetName.search(regex) != -1 ||
-            values.city.search(regex) != -1 || 
-            values.postalCode.search(regex) != -1 || 
-            values.country.search(regex) != -1)
+            if(values.userName.search(regex) !== -1 || 
+            values.firstName.search(regex) !== -1 || 
+            values.lastName.search(regex) !== -1 || 
+            values.phoneNumber.search(regex) !== -1 || 
+            values.emailAddress.search(regex) !== -1 || 
+            values.password.search(regex) !== -1 || 
+            values.streetNumber.search(regex) !== -1 || 
+            values.streetName.search(regex) !== -1 ||
+            values.city.search(regex) !== -1 || 
+            values.postalCode.search(regex) !== -1 || 
+            values.country.search(regex) !== -1)
             {
                 setError("Characters not allowed: {}<>!~*%$");
                 setShow(true)
