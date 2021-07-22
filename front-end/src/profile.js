@@ -22,8 +22,6 @@ function Profile(props){
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     const [disableEdit, setDisableEdit] = useState(true)
 
-
-
     const [userInfo, setUserInfo] = useState({
         id: "",
         city: "",
@@ -49,6 +47,9 @@ function Profile(props){
         showError: false,
         eMessage: ""
     })
+
+    const [problemList, setProblemList] = useState([])
+    const [allAuctions, setAuctions] = useState([])
 
     useEffect(() => {
         fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${sessionStorage.getItem("emailAddress")}&sessionId=${sessionStorage.getItem("sessionId")}`)
@@ -79,6 +80,40 @@ function Profile(props){
         })
         console.log("USER INFO DATA:")
         console.log(userInfo)
+
+
+        fetch(`https://happybiddingserve.herokuapp.com/api/auctions`)
+        .then((res) => {
+            return res.json();
+        })
+        .then((auctions)=>
+        {
+            setAuctions(auctions)
+        })
+
+        var local_problems = [];
+        allAuctions.map(auction=>
+        {
+            if(auction.problemList.length)
+            {
+                auction.problemList.map(problem=>
+                {
+                    local_problems.push({
+                        arrayIdentifier: problem._id,
+                        auctionId: auction._id,
+                        auctionTitle: auction.title,
+                        problemDescription: problem.problemDescription,
+                        userFirstName: problem.userFirstName,
+                        userLastName:  problem.userLastName,
+                        userEmailAddress: problem.userEmailAddress
+                    })
+                })
+                setProblemList(local_problems)
+                console.log(local_problems)
+            }
+        })
+
+
         return function cleanup() {
             console.log("CLEAN UP")
         };
@@ -116,7 +151,7 @@ function Profile(props){
                 <Row>
             {/* ---------------- SIDEBAR ------------------------- */}
                     <Col className="SideBar2" sm={2}>
-                        <SideMenu userInfo={userInfo}/>
+                        <SideMenu userInfo={userInfo} problemList={problemList}/>
                     </Col>
 
             {/* ---------------- OVERVIEW PROFILE ---------------- */}
