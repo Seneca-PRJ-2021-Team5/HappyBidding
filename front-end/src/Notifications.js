@@ -6,62 +6,131 @@ import { withRouter } from 'react-router-dom';
 
 const Notifications= ()=>
 {
-    const [problemList, setProblemList] = useState([{}])
-    const [allAuctions, setAuctions] = useState([])
+    const [problemList, setProblemList] = useState([])
 
-    useEffect(() => {
+    const [allAuctions, setAuctions] = useState([])
+    const [allUsers, setUsers] = useState([])
+
+    useEffect(() => 
+    {
         fetch(`https://happybiddingserve.herokuapp.com/api/auctions`)
         .then((res) => {
             return res.json();
-        }).then((auctions)=>{
-            console.log("ALL AUCTIONS:")
-            // setAuctions(auctions)
-            setAuctions([...allAuctions, auctions])
+        })
+        .then((auctions)=>
+        {
+            setAuctions(auctions)
         })
 
-        console.log(allAuctions)
-        
+        var local_problems = [];
+        allAuctions.map(auction=>
+        {
+            if(auction.problemList.length)
+            {
+                auction.problemList.map(problem=>
+                {
+                    local_problems.push({
+                        auctionId: auction._id,
+                        auctionTitle: auction.title,
+                        problemDescription: problem.problemDescription,
+                        userFirstName: problem.userFirstName,
+                        userLastName:  problem.userLastName,
+                        userEmailAddress: problem.userEmailAddress
+                    })
+                })
+                setProblemList(local_problems)
+            }
+        })
+
         return function cleanup() {
             console.log("CLEAN UP")
         };
+        
+        ///////////////////////////////////////////////////////////////////////////////////
+        // TODO: Still need to work on the code to make data to be dinamic
+        // - Meaning that the user should be able to see changed in the notifications list
+        // in the auctioneer manage auction page
+        // - In case the user changes his/her information, then the table in the 
+        // auctioneer manage auction should update the user information as well...
+        ///////////////////////////////////////////////////////////////////////////////////
 
-    },[allAuctions.lenght])
+        // The route still need to be protected
+        // fetch(`https://happybiddingserve.herokuapp.com/api/users`) 
+        // .then((res) => {
+        //     return res.json();
+        // })
+        // .then((users)=>
+        // {
+        //     setUsers(users)
+        // })
+
+
+        // The route still need to be protected
+        // fetch(`https://happybiddingserve.herokuapp.com/api/auctions`)
+        // .then((res) => {
+        //     return res.json();
+        // })
+        // .then((auctions)=>
+        // {
+        //     setAuctions(auctions)
+        // })
+
+        // var local_problems = [];
+        // allAuctions.map(auction=>
+        // {
+        //     if(auction.problemList.length)
+        //     {
+        //         auction.problemList.map(problem=>
+        //         {
+        //             let userFound = allUsers.find((user) => user._id === problem.userId )
+
+        //             if(userFound)
+        //             {
+        //                 local_problems.push({
+        //                     auctionId: auction._id,
+        //                     auctionTitle: auction.title,
+        //                     problemDescription: problem.problemDescription,
+        //                     userFirstName: userFound.firstName,
+        //                     userLastName: userFound.lastName,
+        //                     userEmailAddress: userFound.emailAddress
+        //                 })
+
+        //             }
+
+                        
+        //         })
+
+        //     }
+        // })
+
+        // console.log(local_problems)
+        // setProblemList(local_problems)
+
+    },[])
 
     const getProblemList=() =>
     {
+        console.log("ALL AUCTIONS:")
+        console.log(allAuctions)
+
         if(allAuctions.length > 0)
         {
-            let auctionsWithProblems = allAuctions.filter(auction=> auction.problemList.length > 0)
-
-            if(auctionsWithProblems.length > 0)
+            allAuctions.map(auction=>
             {
-                auctionsWithProblems.map(auction=>
+                if(auction.problemList.length > 0)
                 {
-                    let auctionId = auction._id
-                    let auctionTitle = auction.title
-
-                    console.log(auctionId, auctionTitle)
-
-                    // console.log("PROBLEM LIST, ONE BY ONE:")
                     auction.problemList.map(problem=>
                     {
-                        // console.log(problem)
+                        setProblemList([...problemList, problem])
 
-                        setProblemList([...problemList, {
-                            auctionTitle: auctionTitle,
-                            auctionId: auctionId,
-                            userFirstName: problem.userFirstName,
-                            userLastName: problem.userLastName,
-                            userEmailAddress: problem.userEmailAddress,
-                            problemDescription: problem.problemDescription,
-                            reportDate: problem.reportDate
-                        }])
                     })
-                })
-
-            }
+                }
+            })
 
         }
+
+        console.log("PROBLEM LIST:")
+        console.log(problemList)
     }
 
     if(sessionStorage.getItem("userName")){
@@ -71,7 +140,7 @@ const Notifications= ()=>
                 <Col xs={3} className="SideBar2" >
                     <SideBar ></SideBar>
                 </Col>
-                
+
                 <Col className="p-0">
                     <Table responsive="sm">
                         <thead>
@@ -85,7 +154,6 @@ const Notifications= ()=>
                         <tbody>
 
                             {problemList.map(problem=>{
-                                console.log(problem)
                                 return (<tr key={problem.auctionId}>
                                     <td>{problem.auctionTitle}</td>
                                     <td>{problem.problemDescription}</td>
