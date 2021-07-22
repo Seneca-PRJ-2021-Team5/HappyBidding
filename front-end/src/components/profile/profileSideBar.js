@@ -50,7 +50,8 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleNotificationClick(){
         props.history.push({
-            pathname: '/notifications'
+            pathname: '/notifications',
+            state: {problemList: props.problemList}
         });
     }
 
