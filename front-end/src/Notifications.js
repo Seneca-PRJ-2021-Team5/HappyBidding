@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import { Table, Button, Container, Row, Col, Modal, Form } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
-const Notifications= ()=>
+const Notifications= (props)=>
 {
     const [problemList, setProblemList] = useState([])
 
@@ -13,34 +13,8 @@ const Notifications= ()=>
 
     useEffect(() => 
     {
-        fetch(`https://happybiddingserve.herokuapp.com/api/auctions`)
-        .then((res) => {
-            return res.json();
-        })
-        .then((auctions)=>
-        {
-            setAuctions(auctions)
-        })
-
-        var local_problems = [];
-        allAuctions.map(auction=>
-        {
-            if(auction.problemList.length)
-            {
-                auction.problemList.map(problem=>
-                {
-                    local_problems.push({
-                        auctionId: auction._id,
-                        auctionTitle: auction.title,
-                        problemDescription: problem.problemDescription,
-                        userFirstName: problem.userFirstName,
-                        userLastName:  problem.userLastName,
-                        userEmailAddress: problem.userEmailAddress
-                    })
-                })
-                setProblemList(local_problems)
-            }
-        })
+        setProblemList(props.history.location.state.problemList)
+        console.log(problemList)
 
         return function cleanup() {
             console.log("CLEAN UP")
@@ -108,30 +82,6 @@ const Notifications= ()=>
 
     },[])
 
-    const getProblemList=() =>
-    {
-        console.log("ALL AUCTIONS:")
-        console.log(allAuctions)
-
-        if(allAuctions.length > 0)
-        {
-            allAuctions.map(auction=>
-            {
-                if(auction.problemList.length > 0)
-                {
-                    auction.problemList.map(problem=>
-                    {
-                        setProblemList([...problemList, problem])
-
-                    })
-                }
-            })
-
-        }
-
-        console.log("PROBLEM LIST:")
-        console.log(problemList)
-    }
 
     if(sessionStorage.getItem("userName")){
         return (
@@ -154,7 +104,7 @@ const Notifications= ()=>
                         <tbody>
 
                             {problemList.map(problem=>{
-                                return (<tr key={problem.auctionId}>
+                                return (<tr key={problem.arrayIdentifier}>
                                     <td>{problem.auctionTitle}</td>
                                     <td>{problem.problemDescription}</td>
                                     <td>{problem.userFirstName} {problem.userLastName}</td>
