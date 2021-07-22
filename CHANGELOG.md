@@ -20,6 +20,63 @@ If you add the same name in diff files, page will load diff file's css.
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/20 - Megumi
+\- asyncAuction.js:        
+added to display asyncAuction, but only layout.
+
+\- DisplayTimeLimit.js:  
+added it to display time limit in asyncAuction.  
+
+\- asyncAuction.css:  
+added for asyncAuction's css   
+
+\- App.js:  
+Added asyncAuction to the menu bar and route  
+
+\- Clock.png:  
+Using for asyncAuction Time limit. it is in img folder.  
+
+
+#### 2021/07/20 - Arhur
+\- Notifications.js:      
+Component created to display the problems regarding Auctions     
+__OBS:.__ Notification page has an issue that is not displaying the data that is fetched. __IT NEEDS TO BE FIXED__       
+
+\- App.js:      
+Added Notification component to the route list, and start using Sessions Cookies in the page     
+
+\- HomePage.js:        
+Added Alert Welcome Message for Users who are logged in the system     
+
+\- login.js:       
+Added more cookie creation to the sessions, and changed the login redirection to Home page instead of user profile       
+
+\- profile.js:        
+Removed unecessary code        
+
+\- signup.js:        
+Fixed Validation for signup        
+
+\- UserManageAuction.js:        
+Fixed auction listing        
+
+\- profileSideBar.js:         
+Removed unecessary code, and added useEffect to load the component        
+
+\- server.js:         
+Created route to allow user to report a problem regarding an auction        
+
+\- auctionSchema.js:         
+Added user first name, last name and email addres to the problem list field        
+
+\- data-service.js:          
+Created reportProblem function to allow users to report problems regarding specific auctions       
+
+#### 2021/07/19 - Arhur
+\- signup.js:        
+fixed validation form. pop up error message created     
+Added validation for filtering special characters      
+
 #### 2021/07/13 - Arhur   
 \- created POST route to update user       
 \- installed gmail-send to send emails to users        
