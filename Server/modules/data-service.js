@@ -495,6 +495,11 @@ const reportProblem=(data, auctionId,res)=>
             auction.save()
         }
    })
+   .then(()=>
+   {
+       console.log(chalk.magenta(`Problem Report Confirmation:`),chalk.green(`Problem Reported SUCCESSFULLY`));
+       console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+   })
 }
 
 module.exports = {
