@@ -1,9 +1,7 @@
 /* Library */
 import React, {useEffect, useState} from 'react';              //read react
-import { useMediaQuery } from "react-responsive";
 import {Container, Row, Col} from 'react-bootstrap';
 /* CSS */
-import './css/reset.css'; 
 import './css/asynchAuction.css';
 import './css/utility.css';
 /* Component */
@@ -15,7 +13,6 @@ import TimeLimit from './components/asynchAuction/DisplayTimeLimit';
 
 //function component
 function AsynchronousAuction(props){ 
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     const [values, setValues] = useState({
         usertype: "",
         username: "", //props.location.state.username,
@@ -33,7 +30,9 @@ function AsynchronousAuction(props){
                 </Col>
                 <Col md={4} class="test">
                     <React.StrictMode>
-                        <Row class="top-margin-10"><TimeLimit /></Row>
+                        <Row class="top-margin-10">
+                            <TimeLimit />
+                        </Row>
                     </React.StrictMode>
                     <Row><TopBid /></Row>
                     <Row><Bid /></Row>

@@ -9,25 +9,58 @@ function BidHistory(props){
         bidHistory: ""
     });
 
+    const [counter, setCounter] = useState(0);
+    const [newBid, setNewBid] = useState(0);
+    const [bids, setBids] = useState({
+        firstBid: 0,
+        secondBid: 0,
+        thirdBid: 0,
+        fourthBid: 0,
+        fifthBid: 0
+    });
 
-        //it change value when user input value
-        function handleInputChange(event){
-            const name = event.target.name;
-            const value = event.target.value;
-            setValues({ ...values, [name]: value });
+    // counter for bid
+    var bidArray = Array(6);
+    bidArray.fill(0.0);
+
+    //sort by descending
+    function compareFunc(a, b) {
+        return b - a;
+    }
+
+    function sendBid(event){
+        console.log(newBid);
+        console.log(bidArray);
+        var count  = counter;
+        if(counter < 5){
+            console.log(counter)
+            bidArray[count]= newBid;
+        }else{
+            bidArray[5]=newBid;
         }
-        function handleSubmit(event){
-            console.log(values.username)
-            console.log(values.password)
+
+        if(counter >= 1){
+            bidArray.sort(compareFunc)
         }
-        //it works if user click "Trouble logging in?"
-        function handleClick(){
-            props.history.push({
-                pathname: '/recoveryAccount',
-                //this.props.location.state.username on dashboard.js
-                state: { username: values.username }
-            });
-        }
+
+        setBids({ 
+            firstBid: bidArray[0],
+            secondBid: bidArray[1],
+            thirdBid: bidArray[2],
+            fourthBid: bidArray[3],
+            fifthBid:bidArray[4] 
+        });
+
+        console.log(bidArray);
+        setCounter(counter+1);
+        console.log(counter);
+    }
+    
+    function handleFakeSubmit(event){
+        event.preventDefault();
+        console.log("TEST")
+    }
+
 
     return(
             <React.Fragment>
@@ -43,12 +76,12 @@ function BidHistory(props){
                     CAD  89,999.00 <br/>
                 </div>
             </div>
-            <form id="bidForm" class="input-group" onSubmit={handleSubmit}>
-                <input type="text" class="form-control" placeholder="Enter your bid" />
-                <div class="input-group-append">
-                    <input class="btn btn-outline-info" type="submit" value="Bid" />
+            <form id="bidForm" className="input-group" onSubmit={handleFakeSubmit}>
+                <input type="number" className="form-control" value={newBid} onChange={e => setNewBid(e.target.value)} placeholder="Enter your bid" />
+                <div className="input-group-append">
+                    <input className="btn btn-outline-info" type="submit" value="Bid" onClick={e => sendBid(e)}  />
                 </div>
-                    </form>
+            </form>
             </React.Fragment>
     );
 }
