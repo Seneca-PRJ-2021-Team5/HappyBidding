@@ -7,56 +7,62 @@ import { withRouter } from 'react-router-dom';
 const Notifications= ()=>
 {
     const [problemList, setProblemList] = useState([{}])
+    const [allAuctions, setAuctions] = useState([])
 
     useEffect(() => {
         fetch(`https://happybiddingserve.herokuapp.com/api/auctions`)
         .then((res) => {
             return res.json();
         }).then((auctions)=>{
-            console.log("AUCTIONS WITH NOTIFICATIONS:")
-            
-            if(auctions != null)
-            {
-                let auctionsWithProblems = auctions.filter(auction=> auction.problemList.length > 0)
-
-                if(auctionsWithProblems.length > 0)
-                {
-                    auctionsWithProblems.map(auction=>
-                    {
-                        let auctionId = auction._id
-                        let auctionTitle = auction.title
-
-                        console.log(auctionId, auctionTitle)
-
-                        console.log("PROBLEM LIST, ONE BY ONE:")
-                        auction.problemList.map(problem=>
-                        {
-                            console.log(problem)
-
-                            setProblemList([...problemList, {
-                                auctionTitle: auctionTitle,
-                                auctionId: auctionId,
-                                userFirstName: problem.userFirstName,
-                                userLastName: problem.userLastName,
-                                userEmailAddress: problem.userEmailAddress,
-                                problemDescription: problem.problemDescription,
-                                reportDate: problem.reportDate
-                            }])
-                        })
-                    })
-
-                }
-
-            }
+            console.log("ALL AUCTIONS:")
+            // setAuctions(auctions)
+            setAuctions([...allAuctions, auctions])
         })
-        console.log("PROBLEM LIST UPDATED:")
-        console.log(problemList)
 
+        console.log(allAuctions)
+        
         return function cleanup() {
             console.log("CLEAN UP")
         };
 
-    },[problemList.length])
+    },[allAuctions.lenght])
+
+    const getProblemList=() =>
+    {
+        if(allAuctions.length > 0)
+        {
+            let auctionsWithProblems = allAuctions.filter(auction=> auction.problemList.length > 0)
+
+            if(auctionsWithProblems.length > 0)
+            {
+                auctionsWithProblems.map(auction=>
+                {
+                    let auctionId = auction._id
+                    let auctionTitle = auction.title
+
+                    console.log(auctionId, auctionTitle)
+
+                    // console.log("PROBLEM LIST, ONE BY ONE:")
+                    auction.problemList.map(problem=>
+                    {
+                        // console.log(problem)
+
+                        setProblemList([...problemList, {
+                            auctionTitle: auctionTitle,
+                            auctionId: auctionId,
+                            userFirstName: problem.userFirstName,
+                            userLastName: problem.userLastName,
+                            userEmailAddress: problem.userEmailAddress,
+                            problemDescription: problem.problemDescription,
+                            reportDate: problem.reportDate
+                        }])
+                    })
+                })
+
+            }
+
+        }
+    }
 
     if(sessionStorage.getItem("userName")){
         return (
@@ -79,8 +85,8 @@ const Notifications= ()=>
                         <tbody>
 
                             {problemList.map(problem=>{
-                                // console.log(problem)
-                                (<tr key={problem.auctionId}>
+                                console.log(problem)
+                                return (<tr key={problem.auctionId}>
                                     <td>{problem.auctionTitle}</td>
                                     <td>{problem.problemDescription}</td>
                                     <td>{problem.userFirstName} {problem.userLastName}</td>
