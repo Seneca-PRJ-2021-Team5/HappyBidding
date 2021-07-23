@@ -37,7 +37,9 @@ function SynchronousAuction(props){
                 </Col>
                 <Col id="liveStreamingContainer" class="test">
                     <Row>
-                        <LiveStreaming />
+                        <React.StrictMode>
+                            <LiveStreaming />
+                        </React.StrictMode>
                     </Row>
                     <Row><Chat /></Row>
                 </Col>

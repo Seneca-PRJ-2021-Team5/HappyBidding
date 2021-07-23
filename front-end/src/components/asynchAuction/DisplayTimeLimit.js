@@ -10,7 +10,7 @@ function DisplayTimeLimit(props){
     const [timerMinutes, setTimerMinutes] = useState('00');
     const [timerSeconds, setTimerSeconds] = useState('00');
 
-    const deadLineDate = new Date('2021-07-22 23:59:59').getTime();
+    const deadLineDate = new Date('2021-07-22T23:59:59').getTime();
     console.log(deadLineDate);
     let interval = useRef();
     const startTimer = () =>{
