@@ -99,7 +99,7 @@ function Profile(props){
                 auction.problemList.map(problem=>
                 {
                     local_problems.push({
-                        arrayIdentifier: problem._id,
+                        problemId: problem._id,
                         auctionId: auction._id,
                         auctionTitle: auction.title,
                         problemDescription: problem.problemDescription,
