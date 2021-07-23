@@ -138,6 +138,11 @@ app.post("/api/user/reportProblem/:id",(req,res)=>{
 })
 
 
+app.post("/api/auctioneer/replyProblem/:id",(req,res)=>{
+    dataService.replyProblem(req.body,req.params.id,res)
+})
+
+
 //--------------------------------------------------------
 
 // ------------------- CONNECTIVITY PART
