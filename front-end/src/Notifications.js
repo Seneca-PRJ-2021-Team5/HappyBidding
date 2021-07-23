@@ -1,12 +1,23 @@
 import React from 'react';
 import SideBar from './components/profile/profileSideBar';
 import {useState, useEffect} from 'react';
-import { Table, Button, Container, Row, Col, Modal, Form } from 'react-bootstrap';
+import { Table, Button, Container, Row, Col, Modal, Form, FloatingLabel } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 
 const Notifications= (props)=>
 {
     const [problemList, setProblemList] = useState([])
+    const [replyDescription, setDescription] = useState("")
+    const [selectedProblem, setSelectedProblem] = useState({
+        problemId: "",
+        auctionId: "",
+        auctionTitle: "",
+        problemDescription: "",
+        userFirstName: "",
+        userLastName:  "",
+        userEmailAddress: ""
+    })
+    const [showReplyProblem, setShow] = useState(false)
 
     const [allAuctions, setAuctions] = useState([])
     const [allUsers, setUsers] = useState([])
@@ -82,41 +93,111 @@ const Notifications= (props)=>
 
     },[])
 
+    const closeReplyProblem =() => 
+    {
+        setShow(false)
+        setDescription("")
+    }
+
+    const handleChange =(event) =>{
+        setDescription(event.target.value);
+    }
+
+    const replyProblem =(problemSelected) =>
+    {
+        setSelectedProblem(problemSelected)
+        setShow(true)
+        
+    }
+    
+    const sendResponse =() =>
+    {
+        fetch(`https://happybiddingserve.herokuapp.com/api/auctioneer/replyProblem/${selectedProblem.auctionId}`, {
+        //fetch(`http://localhost:5000/api/auctioneer/replyProblem/${selectedProblem.auctionId}`, {
+            method: "POST",
+            body: JSON.stringify({
+                problemId: selectedProblem.problemId,
+                auctionId: selectedProblem.auctionId,
+                auctionTitle: selectedProblem.auctionTitle,
+                problemDescription: selectedProblem.problemDescription,
+                userFirstName: selectedProblem.userFirstName,
+                userLastName:  selectedProblem.userLastName,
+                userEmailAddress: selectedProblem.userEmailAddress,
+                replyDescription: replyDescription
+            }),
+            headers: {"Content-type": "application/json; charset=UTF-8"}
+        })
+
+        closeReplyProblem()
+    }
+
 
     if(sessionStorage.getItem("userName")){
         return (
-            <Container fluid>
-                <Row>
-                <Col xs={3} className="SideBar2" >
-                    <SideBar ></SideBar>
-                </Col>
+            <>
+                 <Modal show={showReplyProblem} onHide={closeReplyProblem} centered size="lg">
+                    <Modal.Header closeButton>
+                        <Modal.Title>PROBLEM DETAILS</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <p><b>From:</b> {selectedProblem.userFirstName} {selectedProblem.userLastName}</p>
+                        <p><b>Email:</b> {selectedProblem.userEmailAddress}</p>
+                        <p><b>Regarding:</b> {selectedProblem.auctionTitle}</p>
+                        <p><b>Problem Description:</b></p>
+                        <p>{selectedProblem.problemDescription}</p>
+                        <br/>
+                        <hr/>
+                        <Form>
+                            <Row>
+                                <Col>
+                                    <Form.Control name="replyDescription" as="textarea" placeholder="Type your reply" value={replyDescription} onChange={handleChange}/>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={()=>{sendResponse()}}>
+                            Send Response
+                        </Button>
+                        <Button variant="secondary" onClick={closeReplyProblem}>
+                            Close
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
 
-                <Col className="p-0">
-                    <Table responsive="sm">
-                        <thead>
-                            <tr>
-                                <th><h4>Auction Title</h4></th>
-                                <th><h4>Problem Description</h4></th>
-                                <th><h4>User Full Name</h4></th>
-                                <th><h4></h4></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            {problemList.map(problem=>{
-                                return (<tr key={problem.arrayIdentifier}>
-                                    <td>{problem.auctionTitle}</td>
-                                    <td>{problem.problemDescription}</td>
-                                    <td>{problem.userFirstName} {problem.userLastName}</td>
-                                    <td><Button variant="info">Reply Problem</Button></td>
-                                </tr>)
-                            })}
-
-                        </tbody>
-                    </Table>
+                <Container fluid>
+                    <Row>
+                    <Col xs={3} className="SideBar2" >
+                        <SideBar ></SideBar>
                     </Col>
-                </Row>
-            </Container>
+
+                    <Col className="p-0">
+                        <Table responsive="sm">
+                            <thead>
+                                <tr>
+                                    <th><h4>Auction Title</h4></th>
+                                    <th><h4>Problem Description</h4></th>
+                                    <th><h4>User Full Name</h4></th>
+                                    <th><h4></h4></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {problemList.map(problem=>{
+                                    return (<tr key={problem.problemId}>
+                                        <td>{problem.auctionTitle}</td>
+                                        <td>{problem.problemDescription}</td>
+                                        <td>{problem.userFirstName} {problem.userLastName}</td>
+                                        <td><Button variant="info" onClick={()=>{replyProblem(problem)}}>Reply Problem</Button></td>
+                                    </tr>)
+                                })}
+
+                            </tbody>
+                        </Table>
+                        </Col>
+                    </Row>
+                </Container>
+            </>
         )
     }
 }
