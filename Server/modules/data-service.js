@@ -502,6 +502,47 @@ const reportProblem=(data, auctionId,res)=>
    })
 }
 
+
+const replyProblem=(data, auctionId,res)=>
+{ 
+    Auction.findOne({_id: auctionId})
+   .then( auction => {
+        if(auction != null)
+        {
+            const send = require('gmail-send')(
+            {
+                user: process.env.MAIL_FROM,
+                pass: process.env.MAIL_PASSWORD,
+                to:   data.userEmailAddress,
+                subject: `Reply Regarding Auction ${data.auctionTitle}`,
+                text:    
+                `You Sent The Following:
+                \n${data.problemDescription}
+                \n---------------\n
+                \nOur Team Response:
+                \n${data.replyDescription}
+                \n\n-------------------------------
+                \nRegards from HappyBidding Team!`
+            });
+
+            send()
+            .then(()=>
+            {
+                console.log(chalk.magenta(`Reply Confirmation:`),chalk.green(`The Problem was Replied SUCCESSFULLY`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            })
+            .catch((err)=>{
+                console.log(chalk.magenta(`Reply ERROR:`),chalk.red(` ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            });
+
+            // Remove the desired element from the array
+            auction.problemList.splice(auction.problemList.findIndex(problem => problem._id == data.problemId), 1)
+            auction.save()
+        }
+   })
+}
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
@@ -515,5 +556,6 @@ module.exports = {
     getUserAuctions : getUserAuctions,
     auctionAddToUSerList : auctionAddToUSerList,
     accountRecover: accountRecover,
-    reportProblem:reportProblem
+    reportProblem: reportProblem,
+    replyProblem: replyProblem
 }
