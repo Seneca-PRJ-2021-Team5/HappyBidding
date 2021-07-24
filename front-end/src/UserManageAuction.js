@@ -57,7 +57,8 @@ function UserManageAuctions(props)
 
   const [problemDescription, setDescription] = useState("")
   const [selectedAuction, setSelectedAuction] = useState("")
-  const [showReportProblem, setShow] = useState(false)
+  const [showReportProblem, setShowReport] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
 
   useEffect(() => {
     fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${sessionStorage.getItem("emailAddress")}&sessionId=${sessionStorage.getItem("sessionId")}`)
@@ -94,37 +95,54 @@ function UserManageAuctions(props)
         console.log("CLEAN UP")
     };
 
-}, [userInfo.id])
+  }, [userInfo.id])
 
-const handleChange =(event) =>{
-  setDescription(event.target.value);
-}
+  const handleChange =(event) =>{
+    setDescription(event.target.value);
+  }
 
-const closeReportProblem =() => 
-{
-    setShow(false)
+  const closeReportProblem =() => 
+  {
+    setShowReport(false)
     setDescription("")
-}
+  }
 
-const showReportProblemForm=(auctionSelected) =>
-{
-  setSelectedAuction(auctionSelected.auctionId)
-  setShow(true)
-}
+  const closeConfirmDeletion =() => 
+  {
+    setShowConfirm(false)
+  }
 
-const reportTheProblem =() =>
-{
-  fetch(`https://happybiddingserve.herokuapp.com/api/user/reportProblem/${selectedAuction}`, {
-    method: "POST",
-    body: JSON.stringify({
-      userInfo: userInfo,
-      problemDescription: problemDescription
-    }),
-    headers: {"Content-type": "application/json; charset=UTF-8"}
-  })
-  closeReportProblem()
-  
-}
+  const showReportProblemForm=(auctionSelected) =>
+  {
+    setSelectedAuction(auctionSelected.auctionId)
+    setShowReport(true)
+  }
+
+  const showConfirmDeletion=(auctionSelected)=>
+  {
+    setSelectedAuction(auctionSelected)
+    setShowConfirm(true)
+  }
+
+  const reportTheProblem =() =>
+  {
+    fetch(`https://happybiddingserve.herokuapp.com/api/user/reportProblem/${selectedAuction}`, {
+      method: "POST",
+      body: JSON.stringify({
+        userInfo: userInfo,
+        problemDescription: problemDescription
+      }),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    closeReportProblem()
+  }
+
+  const confirmDeletion = () =>
+  {
+    fetch(`http://localhost:5000/api/auctioneer/deleteAuction/${selectedAuction.auctionId}`, { method: 'DELETE' })
+    userInfo.manageAuction.splice(userInfo.manageAuction.findIndex(auction => auction.auctionId == selectedAuction.auctionId), 1)
+    closeConfirmDeletion()
+  }
   
   if(sessionStorage.getItem("userName")){
       return (
@@ -143,11 +161,29 @@ const reportTheProblem =() =>
                 </Form>
               </Modal.Body>
               <Modal.Footer>
+                  <Button variant="primary" onClick={()=>{reportTheProblem()}}>
+                    Confirm Deletion
+                  </Button>
                   <Button variant="secondary" onClick={closeReportProblem}>
                       Close
                   </Button>
-                  <Button variant="primary" onClick={()=>{reportTheProblem()}}>
-                    Report The Problem
+              </Modal.Footer>
+          </Modal>
+
+          <Modal show={showConfirm} centered size="lg">
+              <Modal.Header>
+                  <Modal.Title>Confirm Deletion</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <h3>Are you sure you want to delete the following auction?</h3>
+                <h2>{selectedAuction.auctionName}</h2>
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button variant="danger" onClick={()=>{confirmDeletion()}}>
+                    Delete Permanently
+                  </Button>
+                  <Button variant="secondary" onClick={closeConfirmDeletion}>
+                    Close
                   </Button>
               </Modal.Footer>
           </Modal>
@@ -187,7 +223,7 @@ const reportTheProblem =() =>
                             { sessionStorage.getItem('userType') === "auctioneer" &&
                               <React.Fragment>
                                 <TableCell align="right"><Button variant="warning">  Edit  </Button></TableCell>
-                                <TableCell align="right"><Button variant="danger" onClick={()=>showReportProblemForm(auction)}>  Delete  </Button></TableCell>
+                                <TableCell align="right"><Button variant="danger" onClick={()=>showConfirmDeletion(auction)}>  Delete  </Button></TableCell>
                               </React.Fragment>
                             }
                           </TableRow>
