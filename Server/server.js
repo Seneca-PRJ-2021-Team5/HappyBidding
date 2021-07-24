@@ -142,6 +142,9 @@ app.post("/api/auctioneer/replyProblem/:id",(req,res)=>{
     dataService.replyProblem(req.body,req.params.id,res)
 })
 
+app.delete('/api/auctioneer/deleteAuction/:id', function (req, res) {
+    dataService.deleteAuction(req.params.id,res)
+})
 
 //--------------------------------------------------------
 
