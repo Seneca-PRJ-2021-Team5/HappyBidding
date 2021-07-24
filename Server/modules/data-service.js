@@ -543,6 +543,20 @@ const replyProblem=(data, auctionId,res)=>
    })
 }
 
+const deleteAuction=(auctionId,res)=>
+{
+    Auction.deleteOne({_id: auctionId})
+    .then(()=>
+    {
+        console.log(chalk.magenta(`Deletion Confirmation:`),chalk.green(`The Auction was Deleted SUCCESSFULLY`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    })
+    .catch((err)=>{
+        console.log(chalk.magenta(`Deletion ERROR:`),chalk.red(` ${err}`));
+        console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+    });
+}
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
@@ -557,5 +571,6 @@ module.exports = {
     auctionAddToUSerList : auctionAddToUSerList,
     accountRecover: accountRecover,
     reportProblem: reportProblem,
-    replyProblem: replyProblem
+    replyProblem: replyProblem,
+    deleteAuction: deleteAuction
 }
