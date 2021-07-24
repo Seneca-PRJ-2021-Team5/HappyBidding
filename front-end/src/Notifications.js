@@ -91,7 +91,7 @@ const Notifications= (props)=>
         // console.log(local_problems)
         // setProblemList(local_problems)
 
-    },[])
+    },[problemList.length])
 
     const closeReplyProblem =() => 
     {
@@ -113,7 +113,6 @@ const Notifications= (props)=>
     const sendResponse =() =>
     {
         fetch(`https://happybiddingserve.herokuapp.com/api/auctioneer/replyProblem/${selectedProblem.auctionId}`, {
-        //fetch(`http://localhost:5000/api/auctioneer/replyProblem/${selectedProblem.auctionId}`, {
             method: "POST",
             body: JSON.stringify({
                 problemId: selectedProblem.problemId,
@@ -128,6 +127,7 @@ const Notifications= (props)=>
             headers: {"Content-type": "application/json; charset=UTF-8"}
         })
 
+        problemList.splice(problemList.findIndex(problem => problem.problemId == selectedProblem.problemId), 1)
         closeReplyProblem()
     }
 
