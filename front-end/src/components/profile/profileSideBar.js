@@ -43,7 +43,10 @@ function Sidebar(props){
     //it works if user click "Trouble logging in?"
     function handleManageAuctionClick(){
         props.history.push({
-            pathname: '/userauction'
+            pathname: '/userauction',
+            state: {
+                allAuctions: props.allAuctions
+            }
         });
     }
 
@@ -51,7 +54,9 @@ function Sidebar(props){
     function handleNotificationClick(){
         props.history.push({
             pathname: '/notifications',
-            state: {problemList: props.problemList}
+            state: {
+                problemList: props.problemList
+            }
         });
     }
 
