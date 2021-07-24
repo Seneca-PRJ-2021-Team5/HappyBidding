@@ -139,7 +139,7 @@ function UserManageAuctions(props)
 
   const confirmDeletion = () =>
   {
-    fetch(`http://localhost:5000/api/auctioneer/deleteAuction/${selectedAuction.auctionId}`, { method: 'DELETE' })
+    fetch(`https://happybiddingserve.herokuapp.com/api/auctioneer/deleteAuction/${selectedAuction.auctionId}`, { method: 'DELETE' })
     userInfo.manageAuction.splice(userInfo.manageAuction.findIndex(auction => auction.auctionId == selectedAuction.auctionId), 1)
     closeConfirmDeletion()
   }
