@@ -56,8 +56,6 @@ function Profile(props){
         .then((res) => {
             return res.json();
         }).then((data)=>{
-            console.log("PROFILE PAGGGGGGGGGE")
-            console.log(data.user._id)
 
             setUserInfo({...userInfo,
                 id: data.user._id,
@@ -78,8 +76,6 @@ function Profile(props){
                 userType: data.user.userType
             })
         })
-        console.log("USER INFO DATA:")
-        console.log(userInfo)
 
 
         fetch(`https://happybiddingserve.herokuapp.com/api/auctions`)
@@ -109,7 +105,6 @@ function Profile(props){
                     })
                 })
                 setProblemList(local_problems)
-                console.log(local_problems)
             }
         })
 
@@ -119,6 +114,8 @@ function Profile(props){
         };
 
     }, [userInfo.id])
+
+
 
     function editOnClick()
     {
