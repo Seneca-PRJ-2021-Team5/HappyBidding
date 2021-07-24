@@ -116,6 +116,11 @@ function Profile(props){
     }, [userInfo.id])
 
 
+    const updateAuctions=(updatedAuctionList)=>
+    {
+        setAuctions(updatedAuctionList)
+    }
+
 
     function editOnClick()
     {
@@ -148,7 +153,11 @@ function Profile(props){
                 <Row>
             {/* ---------------- SIDEBAR ------------------------- */}
                     <Col className="SideBar2" sm={2}>
-                        <SideMenu userInfo={userInfo} problemList={problemList}/>
+                        <SideMenu 
+                            userInfo={userInfo} 
+                            problemList={problemList} 
+                            updateAuctions={updateAuctions}
+                            allAuctions={allAuctions}/>
                     </Col>
 
             {/* ---------------- OVERVIEW PROFILE ---------------- */}
