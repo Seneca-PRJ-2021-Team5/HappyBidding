@@ -145,15 +145,17 @@ function PayInfo(props){
                 </div>
             </Form>
 
-            <div class="d-flex justify-content-center">
-                <div className="fs-3">Recent Auction Transactions </div>
-
-                <div>
-                    <p>
-                    Today <br/>
-                    <span className="purchasedItem_pc">Car</span><span className="purchasedPrice_pc">CA$ 2345.12</span><br/>
-
-                    </p>
+            <div>
+                <div className="d-flex justify-content-center fs-3">Recent Auction Transactions </div>
+                <div className="row  justify-content-between">
+                    <div className="col offset-md-2">
+                        <label>Yesterday </label><br/>
+                        <span className="purchasedItem_pc">Car</span><span className="purchasedPrice_pc">CA$ 2345.12</span><br/>
+                    </div>
+                    <div className="col  offset-md-2">
+                        <label>Today</label><br/>
+                        <span className="purchasedItem_pc">Bicycle</span><span className="purchasedPrice_pc">CA$ 3215.50</span>
+                    </div>
                 </div>
             </div>
 

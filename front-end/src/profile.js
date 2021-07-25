@@ -1,9 +1,7 @@
 /* Library */
 import React, {useEffect, useState} from 'react';              //read react
-import { useMediaQuery } from "react-responsive";
 
 /* CSS */
-//import './css/reset.css'; //reset browser's default css
 import './css/profilePC.css';
 import './css/overViewPC.css';
 import './css/utility.css';
@@ -13,13 +11,13 @@ import './css/profileOverview.css';
 
 /* Component */
 import SideMenu from './components/profile/profileSideBar';
-import userPic from './img/userImage.png';
-import { Button, Container, Row, Col, Form, Image } from 'react-bootstrap'
-import { withRouter, useLocation } from 'react-router-dom';
+import PayInfo from './components/profile/PayInfo';
+import OverView from './components/profile/Overview';
+import {  Container, Row, Col } from 'react-bootstrap'
+import { withRouter } from 'react-router-dom';
 
 //function component
 function Profile(props){ 
-    const isTabletOrMobile = useMediaQuery({ query: '(max-width: 767px)' })
     const [disableEdit, setDisableEdit] = useState(true)
 
     const [userInfo, setUserInfo] = useState({
@@ -119,7 +117,6 @@ function Profile(props){
 
     function editOnClick()
     {
-        console.log("AAAAAAAAAAHHHHHHH!!!!!")
         setDisableEdit((disableEdit)=>!disableEdit)
     }
 
@@ -153,113 +150,12 @@ function Profile(props){
 
             {/* ---------------- OVERVIEW PROFILE ---------------- */}
                     <Col sm={6} className="mt-5">
-
-                        <Form>
-                            <h2 className="text-center" Style="margin-botton: 30px;">Profile Overview</h2>
-                            <Image className="image-center" width={180} height={180} Style="" src={userPic}/>
-                            <br/>
-                            <Row className="text-center">
-                                <Col>
-                                    <label>{userInfo.firstName} {userInfo.lastName}</label><br/>
-                                    <Button variant="primary" onClick={editOnClick} disabled={!disableEdit}>
-                                        Edit Profile
-                                    </Button>
-                                </Col>
-                            </Row>
-
-                            <Row className="profileOverviewRow">
-                                <h4>Current Mailing Address</h4>
-                                <Col Style="margin-top: 30px;">
-                                    <h4>Street Name</h4>
-                                    <Form.Control name="streetName" type="text" placeholder="" value={userInfo.streetName} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                                
-                            </Row>
-
-                            <Row className="profileOverviewRow">
-                                <Col>
-                                    <h4>Street Number</h4>
-                                    <Form.Control name="streetNumber" type="text" placeholder="" value={userInfo.streetNumber} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                                <Col>
-                                    <h4>City</h4>
-                                    <Form.Control name="city" type="text" placeholder="" value={userInfo.city} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                                <Col>
-                                    <h4>Postal Code</h4>
-                                    <Form.Control name="postalCode" type="text" placeholder="" value={userInfo.postalCode} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                                <Col>
-                                    <h4>Country</h4>
-                                    <Form.Control name="country" type="text" placeholder="" value={userInfo.country} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                            </Row>
-
-                            <Row className="profileOverviewRow">
-                                <Col>
-                                    <h4>First Name</h4>
-                                    <Form.Control name="firstName" type="text" placeholder="" value={userInfo.firstName} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                                <Col>
-                                    <h4>Last Name</h4>
-                                    <Form.Control name="lastName" type="text" placeholder="" value={userInfo.lastName} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                            </Row>
-
-                            <Row className="profileOverviewRow">
-                                <Col>
-                                    <h4>Email</h4>
-                                    <Form.Control name="emailAddress" type="email" placeholder="" value={userInfo.emailAddress} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                                <Col>
-                                    <h4>Current Password</h4>
-                                    <Form.Control name="password" type="password" placeholder="" value={userInfo.password} readOnly={disableEdit} onChange={handleChange}/>
-                                </Col>
-                            </Row>
-
-                            <Row className="profileOverviewRow">
-                                <Col>
-                                    <Button variant="warning" type="submit" onClick={saveChanges} hidden={disableEdit}>
-                                        Save Changes
-                                    </Button>
-                                </Col>
-                                <br/>
-                                <br/>
-                            </Row>
-
-                        </Form>
-
+                        <OverView  userInfo={userInfo} />
                     </Col>
 
             {/* ---------------- PAYMENT PROFILE ----------------- */}
                     <Col  sm={4}>
-
-                        <span>Edit Profile</span>
-
-                        <label>Cards Saved </label> <span>Update payment information</span>
-                        
-                        <div className="card-override">
-                            <div className="card-logo">.</div>
-                            <div>
-                                <label className="number_title">card number</label>
-                                <p className="cardNum">{userInfo.cardNumber}</p>
-                                <label className="expiry_title">expiry date</label>
-                                <p className="expiryDate">{userInfo.expiryDate}</p>
-                                <label className="">CVV</label>
-                                <p className="">{userInfo.verificationNumber}</p>
-                            </div>
-                        </div>
-
-                        <label className="title">Recent Auction Transactions </label><br/>
-                        <div>
-                            <label>Today </label><br/>
-                            <span className="purchasedItem_pc">Car</span><span className="purchasedPrice_pc">CA$ 2345.12</span><br/>
-                        </div>
-                        <div>
-                            <label>Yesterday </label><br/>
-                            <span className="purchasedItem_pc">Bicycle</span><span className="purchasedPrice_pc">CA$ 3215.50</span>
-                        </div>
-
+                        <PayInfo userInfo={userInfo} />
                     </Col>
                 </Row>
             </Container>
