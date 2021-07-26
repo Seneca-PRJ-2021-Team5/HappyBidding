@@ -20,6 +20,10 @@ If you add the same name in diff files, page will load diff file's css.
 
 
 ## CHANGELOG HISTORY
+#### 2021/07/25 - Megumi  
+\- Profile.js -> Overview.js and PayInfo.js  
+sepalated Profile.js to 3 files (Profile.js, Overview.js and PayInfo.js)
+
 #### 2021/07/20 - Megumi
 \- asyncAuction.js:        
 added to display asyncAuction, but only layout.
