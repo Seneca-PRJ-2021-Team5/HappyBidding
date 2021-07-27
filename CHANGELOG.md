@@ -21,7 +21,7 @@ If you add the same name in diff files, page will load diff file's css.
 
 ## CHANGELOG HISTORY      
 #### 2021/07/27 - Arhur      
-\- UserManageAuction.js: Commented some code part. OBS:. THERE IS STILL PARTS TO BE FIXED ABOUT USER MANAGE AUCTIONS LIST       
+\- UserManageAuction.js: Commented some code part. Auctioneer is able to delete an auction from the auction list OBS:. THERE IS STILL PARTS TO BE FIXED ABOUT USER MANAGE AUCTIONS LIST       
        
 
 
