@@ -91,6 +91,10 @@ function UserManageAuctions(props)
     })
     console.log("USER INFO DATA FROM MANAGE AUCTION:")
     console.log(userInfo)
+
+    console.log("ALL AUCTIONS:")
+    console.log(props.location.state.allAuctions)
+
     return function cleanup() {
         console.log("CLEAN UP")
     };
@@ -140,7 +144,8 @@ function UserManageAuctions(props)
   const confirmDeletion = () =>
   {
     fetch(`https://happybiddingserve.herokuapp.com/api/auctioneer/deleteAuction/${selectedAuction.auctionId}`, { method: 'DELETE' })
-    userInfo.manageAuction.splice(userInfo.manageAuction.findIndex(auction => auction.auctionId == selectedAuction.auctionId), 1)
+    // props.location.state.allAuctions.splice(props.location.state.allAuctions.findIndex(auction => auction._id == selectedAuction.auctionId), 1)
+    // props.location.state.updateAuctions(props.location.state.allAuctions)
     closeConfirmDeletion()
   }
   
@@ -169,7 +174,7 @@ function UserManageAuctions(props)
                   </Button>
               </Modal.Footer>
           </Modal>
-
+          {/* ----------------------------------------------------------------------- */}
           <Modal show={showConfirm} centered size="lg">
               <Modal.Header>
                   <Modal.Title>Confirm Deletion</Modal.Title>
@@ -207,27 +212,36 @@ function UserManageAuctions(props)
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {userInfo.manageAuction.map((auction) => (
+                        
+                        { sessionStorage.getItem('userType') === "user" && userInfo.manageAuction.map((auction) => (
                           <TableRow key={auction.auctionId}>
                             <TableCell component="th" scope="row" Style="font-size: 18px">
                               {auction.auctionName}
                             </TableCell>
                             <TableCell align="right" Style="font-size: 18px">{auction.productName}</TableCell>
                             <TableCell align="right" Style="font-size: 18px">{auction.auctionStatus}</TableCell>
-                            { sessionStorage.getItem('userType') === "user" &&
                               <React.Fragment>
                                 <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell>
                                 <TableCell align="right"><Button variant="danger" onClick={()=>showReportProblemForm(auction)}>Report Problem</Button></TableCell>
                               </React.Fragment>
-                            }
-                            { sessionStorage.getItem('userType') === "auctioneer" &&
-                              <React.Fragment>
+                          </TableRow>
+                        ))
+                        }
+                        {sessionStorage.getItem('userType') === "auctioneer" && props.location.state.allAuctions.map((auction) => (
+                          <TableRow key={auction._id}>
+                            <TableCell component="th" scope="row" Style="font-size: 18px">
+                              {auction.title}
+                            </TableCell>
+                            <TableCell align="right" Style="font-size: 18px">{auction.product.name}</TableCell>
+                            <TableCell align="right" Style="font-size: 18px">{auction.status}</TableCell>
+                            <React.Fragment>
                                 <TableCell align="right"><Button variant="warning">  Edit  </Button></TableCell>
                                 <TableCell align="right"><Button variant="danger" onClick={()=>showConfirmDeletion(auction)}>  Delete  </Button></TableCell>
-                              </React.Fragment>
-                            }
+                            </React.Fragment>
                           </TableRow>
-                        ))}
+                        ))
+                        }
+
                       </TableBody>
                     </Table>
                 </TableContainer>
