@@ -19,7 +19,12 @@ If you add the same name in diff files, page will load diff file's css.
 <br>
 
 
-## CHANGELOG HISTORY      
+## CHANGELOG HISTORY     
+
+
+#### 2021/07/27 - Megumi  
+\- UserManageAuction.js: Fixed submit button in report problem's text to Send from close deletion  
+  
 #### 2021/07/27 - Arhur      
 \- UserManageAuction.js: Commented some code part. Auctioneer is able to delete an auction from the auction list OBS:. THERE IS STILL PARTS TO BE FIXED ABOUT USER MANAGE AUCTIONS LIST       
        
