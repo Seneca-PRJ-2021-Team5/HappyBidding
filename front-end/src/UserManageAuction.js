@@ -143,9 +143,10 @@ function UserManageAuctions(props)
 
   const confirmDeletion = () =>
   {
-    fetch(`https://happybiddingserve.herokuapp.com/api/auctioneer/deleteAuction/${selectedAuction.auctionId}`, { method: 'DELETE' })
-    // props.location.state.allAuctions.splice(props.location.state.allAuctions.findIndex(auction => auction._id == selectedAuction.auctionId), 1)
-    // props.location.state.updateAuctions(props.location.state.allAuctions)
+    console.log("SELECTED AUTION:")
+    console.log(selectedAuction)
+    fetch(`https://happybiddingserve.herokuapp.com/api/auctioneer/deleteAuction/${selectedAuction._id}`, { method: 'DELETE' })
+    props.location.state.allAuctions.splice(props.location.state.allAuctions.findIndex(auction => auction._id == selectedAuction.auctionId), 1)
     closeConfirmDeletion()
   }
   
