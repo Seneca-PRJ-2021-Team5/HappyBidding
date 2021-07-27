@@ -168,7 +168,7 @@ function UserManageAuctions(props)
               </Modal.Body>
               <Modal.Footer>
                   <Button variant="primary" onClick={()=>{reportTheProblem()}}>
-                    Confirm Deletion
+                    Send 
                   </Button>
                   <Button variant="secondary" onClick={closeReportProblem}>
                       Close
