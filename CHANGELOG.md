@@ -19,6 +19,7 @@ If you add the same name in diff files, page will load diff file's css.
 <br>
 
 
+
 ## CHANGELOG HISTORY      
 #### 2021/07/27 - Arhur      
 \- UserManageAuction.js: Commented some code part. OBS:. THERE IS STILL PARTS TO BE FIXED ABOUT USER MANAGE AUCTIONS LIST       
@@ -48,6 +49,12 @@ If you add the same name in diff files, page will load diff file's css.
 \- server.js: created post request to reply a problem        
 \- data-service.js: Added a message to be displayed in console.log for the reportProblem function, in order to confirm if a problem was successfully reported. Created replyProblem function to allow auctioneer to reply a problem from within Notification list       
 
+
+
+## CHANGELOG HISTORY
+#### 2021/07/25 - Megumi  
+\- Profile.js -> Overview.js and PayInfo.js  
+sepalated Profile.js to 3 files (Profile.js, Overview.js and PayInfo.js)
 
 
 #### 2021/07/20 - Megumi
