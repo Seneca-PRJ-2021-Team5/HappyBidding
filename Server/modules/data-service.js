@@ -545,7 +545,9 @@ const replyProblem=(data, auctionId,res)=>
 
 const deleteAuction=(auctionId,res)=>
 {
-    Auction.findOne({_id: auctionId}) // find the auction
+    // find the auction to read all users and remove the
+    // auction from their registered auction's list
+    Auction.findOne({_id: auctionId}) 
     .then((auction)=>
     {
         // check if the auction has any user registered to it
@@ -566,7 +568,8 @@ const deleteAuction=(auctionId,res)=>
             })
         }
     })
-    
+
+    // DRemove auction from Database
     Auction.deleteOne({_id: auctionId})
     .then(()=>
     {
