@@ -21,6 +21,9 @@ If you add the same name in diff files, page will load diff file's css.
 
 ## CHANGELOG HISTORY     
 
+#### 2021/07/31 - Arhur    
+\- data-service.js: Fixed auctoin deletion route. Now Users that are registered to the auction that is about to be deleted will have that auction removed from their auction manage list       
+        
 
 #### 2021/07/27 - Megumi  
 \- bid.js: Fixed array problem. I think it works correctly, but without DB yet   
