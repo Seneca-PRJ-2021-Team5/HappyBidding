@@ -1,6 +1,7 @@
 /* Library */
 import React, {useState } from 'react';              //read react
 import { useMediaQuery } from "react-responsive";
+import { Button } from 'react-bootstrap';
 /* CSS */
 import './css/login.css';
 /* Image */
@@ -111,8 +112,12 @@ function Login(props){
                         <label><div className="login_label"> Password</div><br />
                             <input className="login_inputarea" name="password" placeholder="password" type="password" value={values.password} onChange={handleInputChange} />
                         </label><br />
-                        <input id="login_sButton" type="submit" value="Sign in" /><br />
-                        <label onClick={handleClick}>Trouble logging in?</label>
+                        <input id="login_sButton" type="submit" value="Sign in" /><br /><br />
+                        <Button id="recoverAccount" variant="outline-secondary" onClick={handleClick}>
+                            <span id="recover">
+                                <span id="trouble">Trouble logging in?</span>
+                            </span>
+                        </Button>
 
                     </form>
                 </div>

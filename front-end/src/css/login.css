@@ -102,6 +102,19 @@
     color: #FFF;
   }
 
+  #recoverAccount
+  {
+    content: 'Trouble logging in?'
+  }
+
+  #recoverAccount:hover #trouble{
+    display: none;
+  }
+
+  #recoverAccount:hover #recover:after
+  {
+    content: '  Recover Account  '
+  }
 
   /*Responsible*/
   @media screen and (max-width: 767px) {
