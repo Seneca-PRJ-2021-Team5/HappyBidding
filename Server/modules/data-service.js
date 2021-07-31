@@ -545,6 +545,28 @@ const replyProblem=(data, auctionId,res)=>
 
 const deleteAuction=(auctionId,res)=>
 {
+    Auction.findOne({_id: auctionId}) // find the auction
+    .then((auction)=>
+    {
+        // check if the auction has any user registered to it
+        if(auction.userList.length > 0) 
+        {
+            // access each user email addres to fetch the information for each user
+            auction.userList.map((userInList)=>
+            {
+                // fetch each user's information in database 
+                User.findOne({emailAddress: userInList.emailAddress})
+                .then((user)=>
+                {
+                    // Remove the auction that will be deleted
+                    // from the users manage auction list
+                    user.manageAuction.splice(user.manageAuction.findIndex(auction => auction.auctionId == auctionId), 1)
+                    user.save()
+                })
+            })
+        }
+    })
+    
     Auction.deleteOne({_id: auctionId})
     .then(()=>
     {
@@ -555,6 +577,7 @@ const deleteAuction=(auctionId,res)=>
         console.log(chalk.magenta(`Deletion ERROR:`),chalk.red(` ${err}`));
         console.log(chalk.blue(`------------------------------------------------------------------------------------`));
     });
+    
 }
 
 module.exports = {
