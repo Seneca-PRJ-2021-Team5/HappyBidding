@@ -8,52 +8,13 @@ function BidHistory(props){
     const [values, setValues] = useState({
         bidHistory: ""
     });
-
-    const [counter, setCounter] = useState(0);
+    const [bidArray, setBidArray] = useState([]);
     const [newBid, setNewBid] = useState(0);
-    const [bids, setBids] = useState({
-        firstBid: 0,
-        secondBid: 0,
-        thirdBid: 0,
-        fourthBid: 0,
-        fifthBid: 0
-    });
-
-    // counter for bid
-    var bidArray = Array(6);
-    bidArray.fill(0.0);
-
-    //sort by descending
-    function compareFunc(a, b) {
-        return b - a;
-    }
 
     function sendBid(event){
-        console.log(newBid);
-        console.log(bidArray);
-        var count  = counter;
-        if(counter < 5){
-            console.log(counter)
-            bidArray[count]= newBid;
-        }else{
-            bidArray[5]=newBid;
-        }
-
-        if(counter >= 1){
-            bidArray.sort(compareFunc)
-        }
-
-        setBids({ 
-            firstBid: bidArray[0],
-            secondBid: bidArray[1],
-            thirdBid: bidArray[2],
-            fourthBid: bidArray[3],
-            fifthBid:bidArray[4] 
-        });
-
-        console.log(bidArray);
-        setCounter(counter+1);
-        console.log(counter);
+        setBidArray([...bidArray, parseFloat(newBid) ])  
+        bidArray.sort();
+        console.log(bidArray)
     }
     
     function handleFakeSubmit(event){
@@ -70,10 +31,10 @@ function BidHistory(props){
                     YOUR BID HISTORY
                 </h5>
                 <div id="top5thBidHistory">
-                    CAD 144,000.00 <br/>
-                    CAD 120,000.00 <br/>
-                    CAD  90,000.00 <br/>
-                    CAD  89,999.00 <br/>
+                    {bidArray[bidArray.length-1]} <br/>
+                    {bidArray[bidArray.length-2]}  <br/>
+                    {bidArray[bidArray.length-3]} <br/>
+                    {bidArray[bidArray.length-4]}  <br/>
                 </div>
             </div>
             <form id="bidForm" className="input-group" onSubmit={handleFakeSubmit}>
