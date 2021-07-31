@@ -23,6 +23,9 @@ If you add the same name in diff files, page will load diff file's css.
 
 
 #### 2021/07/27 - Megumi  
+\- bid.js: Fixed array problem. I think it works correctly, but without DB yet   
+
+#### 2021/07/27 - Megumi  
 \- UserManageAuction.js: Fixed submit button in report problem's text to Send from close deletion  
   
 #### 2021/07/27 - Arhur      
