@@ -48,94 +48,96 @@ function App (props){
 //class App extends React.Component {
     return(
       <>
-        <BrowserRouter>
-          {/* -------------------- START LINKS TO NAVBAR ---------------------- */}
-          <Navbar bg="light" expand="lg" fixed="top">
+        <main className="minHight">
+          <BrowserRouter>
+            {/* -------------------- START LINKS TO NAVBAR ---------------------- */}
+            <Navbar bg="light" expand="lg" fixed="top">
 
-            <LinkContainer to="/">
-                <Navbar.Brand>
-                  <h2>&#10084;HappyBidding</h2>
-                </Navbar.Brand>
-            </LinkContainer>
+              <LinkContainer to="/">
+                  <Navbar.Brand>
+                    <h2>&#10084;HappyBidding</h2>
+                  </Navbar.Brand>
+              </LinkContainer>
 
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-                <Nav>
+              <Navbar.Toggle aria-controls="basic-navbar-nav" />
+              <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav>
+                    
+                    <LinkContainer to="/">
+                        <Nav.Link className="navButtons">HOME</Nav.Link>
+                    </LinkContainer>
+
+                    {sessionStorage.getItem('userStatus') == null && 
+                    <React.Fragment>
+                        <LinkContainer to="/login">
+                            <Nav.Link className="navButtons">Login</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/signup">
+                            <Nav.Link className="navButtons">SignUp</Nav.Link>
+                        </LinkContainer>
+                    </React.Fragment>}
+                    
+                    {sessionStorage.getItem('userStatus') != null && 
+                    <React.Fragment>
+                        <LinkContainer to={{
+                            pathname: '/profile',
+                            state: {username:""}
+                        }}>
+                            <Nav.Link className="navButtons">Profile</Nav.Link>
+                        </LinkContainer>
+
+                        <LinkContainer to={{
+                            pathname: '/synchAuction',
+                            state: {userName: sessionStorage.getItem("userName")}
+                        }}>
+                            <Nav.Link className="navButtons">Synch Auction</Nav.Link>
+                        </LinkContainer>
+
+                        <LinkContainer to={{
+                            pathname: '/asynchAuction',
+                            state: {userName: sessionStorage.getItem("userName")}
+                        }}>
+                            <Nav.Link className="navButtons">Asynch Auction</Nav.Link>
+                        </LinkContainer>
+
+                        <LinkContainer to='/logout'>
+                            <Nav.Link className="navButtons">Logout</Nav.Link>
+                        </LinkContainer>
+                    </React.Fragment>}
                   
-                  <LinkContainer to="/">
-                      <Nav.Link className="navButtons">HOME</Nav.Link>
-                  </LinkContainer>
-
-                  {sessionStorage.getItem('userStatus') == null && 
-                  <React.Fragment>
-                      <LinkContainer to="/login">
-                          <Nav.Link className="navButtons">Login</Nav.Link>
-                      </LinkContainer>
-                      <LinkContainer to="/signup">
-                          <Nav.Link className="navButtons">SignUp</Nav.Link>
-                      </LinkContainer>
-                  </React.Fragment>}
-                  
-                  {sessionStorage.getItem('userStatus') != null && 
-                  <React.Fragment>
-                      <LinkContainer to={{
-                          pathname: '/profile',
-                          state: {username:""}
-                      }}>
-                          <Nav.Link className="navButtons">Profile</Nav.Link>
-                      </LinkContainer>
-
-                      <LinkContainer to={{
-                          pathname: '/synchAuction',
-                          state: {userName: sessionStorage.getItem("userName")}
-                      }}>
-                          <Nav.Link className="navButtons">Synch Auction</Nav.Link>
-                      </LinkContainer>
-
-                      <LinkContainer to={{
-                          pathname: '/asynchAuction',
-                          state: {userName: sessionStorage.getItem("userName")}
-                      }}>
-                          <Nav.Link className="navButtons">Asynch Auction</Nav.Link>
-                      </LinkContainer>
-
-                      <LinkContainer to='/logout'>
-                          <Nav.Link className="navButtons">Logout</Nav.Link>
-                      </LinkContainer>
-                  </React.Fragment>}
-                
-                </Nav>
-            </Navbar.Collapse>
-            {sessionStorage.getItem('userStatus') != null &&
-              <p className="navButtons">Welcome {sessionStorage.getItem("userName")}</p>
-            }
-          </Navbar>
-          <br/><br/><br/>
-          {/* -------------------- END LINKS TO NAVBAR ---------------------- */}
-          
-          {/* -------------------- START ROUTES OF NAVBAR ------------------- */}
-          <Switch>
-            <Route exact path="/" component={HomePage} />　
-            {/* <Route exact path="/login" component={Login} /> */}
-            <Route exact path="/login">
-                <Login setUserLoginStatus={getUserLoginStatus}/>
-            </Route>
-            <Route exact path="/signup" component={Signup}/>
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/synchAuction" component={SynchAuction}/>
-            <Route exact path="/asynchAuction" component={AsynchAuction}/>
-            <Route exact path="/userauction" component={UserManageAuction} />
-            <Route exact path="/recoveryAccount" component={RecoveryAccount} />
-            <Route exact path="/recoveryCompleted" component={RecoveryCompleted} />
-            <Route exact path="/createNewAuction" component={CreateNewAuction} />
-            <Route exact path="/notifications" component={Notifications} />
-            <Route exact path="/logout">
-                <HomePage userStatus={true} setLogOut={setLogOut}/>
-            </Route>
+                  </Nav>
+              </Navbar.Collapse>
+              {sessionStorage.getItem('userStatus') != null &&
+                <p className="navButtons">Welcome {sessionStorage.getItem("userName")}</p>
+              }
+            </Navbar>
+            <br/><br/><br/>
+            {/* -------------------- END LINKS TO NAVBAR ---------------------- */}
             
-            <Route component={NotFound} />
-          </Switch>
-        </BrowserRouter>
+            {/* -------------------- START ROUTES OF NAVBAR ------------------- */}
+            <Switch>
+              <Route exact path="/" component={HomePage} />　
+              {/* <Route exact path="/login" component={Login} /> */}
+              <Route exact path="/login">
+                  <Login setUserLoginStatus={getUserLoginStatus}/>
+              </Route>
+              <Route exact path="/signup" component={Signup}/>
+              <Route exact path="/profile" component={Profile} />
+              <Route exact path="/synchAuction" component={SynchAuction}/>
+              <Route exact path="/asynchAuction" component={AsynchAuction}/>
+              <Route exact path="/userauction" component={UserManageAuction} />
+              <Route exact path="/recoveryAccount" component={RecoveryAccount} />
+              <Route exact path="/recoveryCompleted" component={RecoveryCompleted} />
+              <Route exact path="/createNewAuction" component={CreateNewAuction} />
+              <Route exact path="/notifications" component={Notifications} />
+              <Route exact path="/logout">
+                  <HomePage userStatus={true} setLogOut={setLogOut}/>
+              </Route>
+              
+              <Route component={NotFound} />
+            </Switch>
+          </BrowserRouter>
+        </main>
         {/* -------------------- END ROUTES OF NAVBAR ------------------- */}
 
         {/* ------------------------ START FOOTER ----------------------- */}
