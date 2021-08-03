@@ -9,7 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import SideBar from './components/profile/profileSideBar';
-import { Button, Container, Row, Col, Modal, Form } from 'react-bootstrap';
+import { Button, Container, Row, Col, Modal, Form, InputGroup } from 'react-bootstrap';
 import './css/sideBar.css'
 import UserInfo from './components/profile/userInfo';
 import { propTypes } from 'react-bootstrap/esm/Image';
@@ -57,8 +57,22 @@ function UserManageAuctions(props)
 
   const [problemDescription, setDescription] = useState("")
   const [selectedAuction, setSelectedAuction] = useState("")
+  const [changesSelectedAuction, setChangesAuction] = useState({
+    _id:"",
+    title: "",
+    auctCategory:"",
+    description:"",
+    startDate:"",
+    endDate:"",
+    price:"",
+    productName:"",
+    productDescription:"",
+    status: ""
+  })
+
   const [showReportProblem, setShowReport] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showEditAuctionForm, setShowEditAuction] = useState(false)
 
   useEffect(() => {
     fetch(`https://happybiddingserve.herokuapp.com/api/user/profile?emailAddress=${sessionStorage.getItem("emailAddress")}&sessionId=${sessionStorage.getItem("sessionId")}`)
@@ -105,6 +119,10 @@ function UserManageAuctions(props)
     setDescription(event.target.value);
   }
 
+  const handleAuctionChange=(event) =>{
+    setChangesAuction(event.target.value);
+  }
+
   const closeReportProblem =() => 
   {
     setShowReport(false)
@@ -114,6 +132,11 @@ function UserManageAuctions(props)
   const closeConfirmDeletion =() => 
   {
     setShowConfirm(false)
+  }
+
+  const closeEditAuction =() => 
+  {
+    setShowEditAuction(false)
   }
 
   const showReportProblemForm=(auctionSelected) =>
@@ -126,6 +149,25 @@ function UserManageAuctions(props)
   {
     setSelectedAuction(auctionSelected)
     setShowConfirm(true)
+  }
+
+  const showEditAuction=(auctionSelected)=>
+  {
+    console.log(auctionSelected)
+    setChangesAuction({...changesSelectedAuction,
+      _id: auctionSelected._id,
+      title: auctionSelected.title,
+      auctCategory: auctionSelected.auctCategory,
+      description: auctionSelected.description,
+      startDate: auctionSelected.startDate,
+      endDate: auctionSelected.endDate,
+      price: auctionSelected.price,
+      productName: auctionSelected.product.name,
+      productDescription: auctionSelected.product.description,
+      status: auctionSelected.status
+
+    })
+    setShowEditAuction(true)
   }
 
   const reportTheProblem =() =>
@@ -149,10 +191,16 @@ function UserManageAuctions(props)
     props.location.state.allAuctions.splice(props.location.state.allAuctions.findIndex(auction => auction._id == selectedAuction.auctionId), 1)
     closeConfirmDeletion()
   }
+
+  const saveAuctionChanges = ()=>
+  {
+
+  }
   
   if(sessionStorage.getItem("userName")){
       return (
         <>
+          {/* ------------------------- REPORT A PROBLEM POPUP ---------------------------------------------- */}
           <Modal show={showReportProblem} onHide={closeReportProblem} centered size="lg">
               <Modal.Header closeButton>
                   <Modal.Title>Describe Your Problem</Modal.Title>
@@ -175,7 +223,8 @@ function UserManageAuctions(props)
                   </Button>
               </Modal.Footer>
           </Modal>
-          {/* ----------------------------------------------------------------------- */}
+
+          {/* --------------------- DELETE AUCTION POPUP -------------------------------------------------- */}
           <Modal show={showConfirm} centered size="lg">
               <Modal.Header>
                   <Modal.Title>Confirm Deletion</Modal.Title>
@@ -193,6 +242,98 @@ function UserManageAuctions(props)
                   </Button>
               </Modal.Footer>
           </Modal>
+
+          {/* --------------------- EDIT AUCTION POPUP -------------------------------------------------- */}
+          <Modal show={showEditAuctionForm} onHide={closeEditAuction} centered size="lg">
+              <Modal.Header closeButton>
+                  <Modal.Title>Edit Auction</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+
+                <Container>
+                    <Form onSubmit={saveAuctionChanges}>
+                        <Row>
+                            <h3>Auction Detail</h3>
+                            <Col>
+                                <Form.Label>Product Name</Form.Label>
+                                <Form.Control name="productName" type="text" value={changesSelectedAuction.productName} onChange={handleAuctionChange} />
+                            </Col>
+    
+                            <Col>
+                                <Form.Label>Product Description</Form.Label>
+                                <Form.Control name="productDescription" type="text" value={changesSelectedAuction.productDescription} onChange={handleAuctionChange} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <h3>Auction's Details</h3>
+                            <Col>
+                                <Form.Label>Auction's Title</Form.Label>
+                                <Form.Control name="title" type="text" value={changesSelectedAuction.title} onChange={handleAuctionChange} />
+                                {/* <Form.Label>Auction's Start Date</Form.Label>
+                                <Form.Control name="startDate" type="date" placeholder="choose start date" onChange={handleChange} /> */}
+                                <Form.Label>Auction's Status</Form.Label>
+                                <Form.Control name="status" as="select" defaultValue={changesSelectedAuction.status} onChange={handleAuctionChange}>
+                                    <option>Choose...</option>
+                                    <option>Ongoing</option>
+                                    <option>Done</option>
+                                </Form.Control>
+                            </Col>
+                            <Col>
+                                <Form.Label>Auction's Category</Form.Label>
+                                <Form.Control name="category" as="select" defaultValue={changesSelectedAuction.auctCategory} onChange={handleAuctionChange}>
+                                    <option>Choose...</option>
+                                    <option>Technology</option>
+                                    <option>Entertainment</option>
+                                    <option>Studies</option>
+                                    <option>Charity</option>
+                                    <option>Cuisine</option>
+                                    <option>Amenities</option>
+                                    <option>Games</option>
+                                    <option>Housing</option>
+                                    <option>Food</option>
+                                    <option>University</option>
+                                    <option>Donation</option>
+                                </Form.Control> 
+                                {/* <Form.Label>Auction's End Date</Form.Label>
+                                <Form.Control name="endDate" type="date" placeholder="type the title" onChange={handleChange} /> */}
+                            </Col>
+    
+                            <Col>
+                                <Form.Label>Auction's Description</Form.Label>
+                                <Form.Control name="description" type="text" value={changesSelectedAuction.description} onChange={handleAuctionChange} />
+                                <Form.Label>Auction's Initial Price</Form.Label>
+                                <InputGroup className="mb-3">
+                                    <InputGroup.Prepend>
+                                        <InputGroup.Text>$</InputGroup.Text>
+                                    </InputGroup.Prepend>
+                                    <Form.Control type="number" min="0" step="1" name="initialPrice" aria-label="Amount (to the nearest dollar)" value={changesSelectedAuction.price} onChange={handleAuctionChange} />
+                                    <InputGroup.Append>
+                                        <InputGroup.Text>.00</InputGroup.Text>
+                                    </InputGroup.Append>
+                                </InputGroup>
+                            </Col>
+    
+                        </Row>
+            
+                        {/* <Button variant="primary" type="submit">
+                            Submit
+                        </Button> */}
+                    </Form>
+                </Container>
+
+              </Modal.Body>
+              <Modal.Footer>
+                  <Button variant="primary" onClick={()=>{}}>
+                      Save Changes
+                  </Button>
+                  <Button variant="secondary" onClick={closeEditAuction}>
+                      Close
+                  </Button>
+              </Modal.Footer>
+          </Modal> 
+
+          {/* ----------------------------------------------------------------------- */}
+
 
           <Container fluid>
             <Row>
@@ -236,7 +377,7 @@ function UserManageAuctions(props)
                             <TableCell align="right" Style="font-size: 18px">{auction.product.name}</TableCell>
                             <TableCell align="right" Style="font-size: 18px">{auction.status}</TableCell>
                             <React.Fragment>
-                                <TableCell align="right"><Button variant="warning">  Edit  </Button></TableCell>
+                                <TableCell align="right"><Button variant="warning" onClick={()=>showEditAuction(auction)}>  Edit  </Button></TableCell>
                                 <TableCell align="right"><Button variant="danger" onClick={()=>showConfirmDeletion(auction)}>  Delete  </Button></TableCell>
                             </React.Fragment>
                           </TableRow>
