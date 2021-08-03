@@ -64,7 +64,7 @@ function UserManageAuctions(props)
     description:"",
     startDate:"",
     endDate:"",
-    price:"",
+    price:0,
     productName:"",
     productDescription:"",
     status: ""
@@ -120,7 +120,9 @@ function UserManageAuctions(props)
   }
 
   const handleAuctionChange=(event) =>{
-    setChangesAuction(event.target.value);
+    const name = event.target.name;
+    const value = event.target.value;
+    setChangesAuction({...changesSelectedAuction, [name]: value });
   }
 
   const closeReportProblem =() => 
@@ -154,13 +156,14 @@ function UserManageAuctions(props)
   const showEditAuction=(auctionSelected)=>
   {
     console.log(auctionSelected)
+
     setChangesAuction({...changesSelectedAuction,
       _id: auctionSelected._id,
       title: auctionSelected.title,
       auctCategory: auctionSelected.auctCategory,
       description: auctionSelected.description,
-      startDate: auctionSelected.startDate,
-      endDate: auctionSelected.endDate,
+      startDate: auctionSelected.startDate.replace(/T.*/gi, ''),
+      endDate: auctionSelected.endDate.replace(/T.*/gi, ''),
       price: auctionSelected.price,
       productName: auctionSelected.product.name,
       productDescription: auctionSelected.product.description,
@@ -194,7 +197,17 @@ function UserManageAuctions(props)
 
   const saveAuctionChanges = ()=>
   {
-
+    setChangesAuction({...changesSelectedAuction,
+      startDate: new Date(changesSelectedAuction.startDate),
+      endDate: new Date(changesSelectedAuction.endDate)
+    })
+    
+    fetch(`https://happybiddingserve.herokuapp.com/api/auction/${changesSelectedAuction._id}`, {
+      method: "POST",
+      body: JSON.stringify(changesSelectedAuction),
+      headers: {"Content-type": "application/json; charset=UTF-8"}
+    })
+    closeEditAuction()
   }
   
   if(sessionStorage.getItem("userName")){
@@ -269,8 +282,8 @@ function UserManageAuctions(props)
                             <Col>
                                 <Form.Label>Auction's Title</Form.Label>
                                 <Form.Control name="title" type="text" value={changesSelectedAuction.title} onChange={handleAuctionChange} />
-                                {/* <Form.Label>Auction's Start Date</Form.Label>
-                                <Form.Control name="startDate" type="date" placeholder="choose start date" onChange={handleChange} /> */}
+                                <Form.Label>Auction's Start Date</Form.Label>
+                                <Form.Control name="startDate" type="date" defaultValue={changesSelectedAuction.startDate} onChange={handleAuctionChange} />
                                 <Form.Label>Auction's Status</Form.Label>
                                 <Form.Control name="status" as="select" defaultValue={changesSelectedAuction.status} onChange={handleAuctionChange}>
                                     <option>Choose...</option>
@@ -294,8 +307,8 @@ function UserManageAuctions(props)
                                     <option>University</option>
                                     <option>Donation</option>
                                 </Form.Control> 
-                                {/* <Form.Label>Auction's End Date</Form.Label>
-                                <Form.Control name="endDate" type="date" placeholder="type the title" onChange={handleChange} /> */}
+                                <Form.Label>Auction's End Date</Form.Label>
+                                <Form.Control name="endDate" type="date" defaultValue={changesSelectedAuction.endDate} onChange={handleAuctionChange} />
                             </Col>
     
                             <Col>
@@ -306,7 +319,7 @@ function UserManageAuctions(props)
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>$</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control type="number" min="0" step="1" name="initialPrice" aria-label="Amount (to the nearest dollar)" value={changesSelectedAuction.price} onChange={handleAuctionChange} />
+                                    <Form.Control type="number" min="0" step="1" name="price" aria-label="Amount (to the nearest dollar)" value={changesSelectedAuction.price} onChange={handleAuctionChange} />
                                     <InputGroup.Append>
                                         <InputGroup.Text>.00</InputGroup.Text>
                                     </InputGroup.Append>
@@ -314,16 +327,13 @@ function UserManageAuctions(props)
                             </Col>
     
                         </Row>
-            
-                        {/* <Button variant="primary" type="submit">
-                            Submit
-                        </Button> */}
+
                     </Form>
                 </Container>
 
               </Modal.Body>
               <Modal.Footer>
-                  <Button variant="primary" onClick={()=>{}}>
+                  <Button variant="primary" onClick={saveAuctionChanges}>
                       Save Changes
                   </Button>
                   <Button variant="secondary" onClick={closeEditAuction}>
