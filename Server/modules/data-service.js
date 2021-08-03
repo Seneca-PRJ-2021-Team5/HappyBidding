@@ -583,6 +583,37 @@ const deleteAuction=(auctionId,res)=>
     
 }
 
+const updateAuction=(data, auctionId, res)=>
+{
+    Auction.findOne({_id: auctionId})
+   .then( auction => {
+        if(auction != null)
+        {
+            auction.title = data.title
+            auction.description = data.description
+            auction.price = data.price
+            auction.startDate = data.startDate
+            auction.endDate = data.endDate
+            auction.status = data.status
+            auction.auctCategory = data.auctCategory
+            auction.product.name = data.productName
+            auction.product.description = data.productDescription
+        
+            auction.save()
+            .then(()=>
+            {
+                console.log(chalk.magenta(`Auction UPDATE:`),chalk.green(`Auction Updated Successfully`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            })
+            .catch((err)=>{
+                console.log(chalk.magenta(`Auction ERROR:`),chalk.red(` ${err}`));
+                console.log(chalk.blue(`------------------------------------------------------------------------------------`));
+            });
+        }
+        
+   })
+}
+
 module.exports = {
     initialize: initialize,
     addNewUser: addNewUser,
@@ -598,5 +629,6 @@ module.exports = {
     accountRecover: accountRecover,
     reportProblem: reportProblem,
     replyProblem: replyProblem,
-    deleteAuction: deleteAuction
+    deleteAuction: deleteAuction,
+    updateAuction: updateAuction
 }
