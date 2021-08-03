@@ -1,7 +1,7 @@
 /* Library */
 import React, {useState } from 'react';              //read react
 import { useMediaQuery } from "react-responsive";
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col, Form } from 'react-bootstrap';
 /* CSS */
 import './css/login.css';
 /* Image */
@@ -105,13 +105,22 @@ function Login(props){
                <div>
                     <form className="loginForm" onSubmit={handleSubmit}>
                         { values.showError ?  <span id="errorTextArea">{values.eMessage}</span> :  <span id="noErrorArea"></span> }
- 
-                        <label> <div className="login_label">User Name</div><br />
-                            <input  className="login_inputarea" name="emailAddress" placeholder="email" type="text" value={values.username} onChange={handleInputChange} />
-                        </label> <br />
-                        <label><div className="login_label"> Password</div><br />
-                            <input className="login_inputarea" name="password" placeholder="password" type="password" value={values.password} onChange={handleInputChange} />
-                        </label><br />
+                        <Row>
+                            <Col>
+                                <div class="form-floating mb-3">
+                                    <Form.Control className="login_inputarea form-control-lg" name="emailAddress" placeholder="Enter your email" type="text" value={values.username} onChange={handleInputChange} />
+                                    <label for="floatingInput">Email address</label>
+                                </div>   
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div class="form-floating mb-3">
+                                    <Form.Control className="login_inputarea" name="password" placeholder="Enter your password" type="password" value={values.password} onChange={handleInputChange} />
+                                    <label for="floatingInput">Password</label>
+                                </div>   
+                            </Col>
+                        </Row>
                         <input id="login_sButton" type="submit" value="Sign in" /><br /><br />
                         <Button id="recoverAccount" variant="outline-secondary" onClick={handleClick}>
                             <span id="recover">
