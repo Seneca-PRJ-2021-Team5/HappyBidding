@@ -115,7 +115,20 @@ const CreateNewAuction= (props)=>
                             </Col>
                             <Col>
                                 <Form.Label>Auction's Category</Form.Label>
-                                <Form.Control name="category" type="text" placeholder="type the category" onChange={handleChange} />
+                                <Form.Control name="category" as="select" defaultValue="Choose..." placeholder="type the category" onChange={handleChange}>
+                                    <option>Choose...</option>
+                                    <option>Technology</option>
+                                    <option>Entertainment</option>
+                                    <option>Studies</option>
+                                    <option>Charity</option>
+                                    <option>Cuisine</option>
+                                    <option>Amenities</option>
+                                    <option>Games</option>
+                                    <option>Housing</option>
+                                    <option>Food</option>
+                                    <option>University</option>
+                                    <option>Donation</option>
+                                </Form.Control>  
                                 <Form.Label>Auction's End Date</Form.Label>
                                 <Form.Control name="endDate" type="date" placeholder="type the title" onChange={handleChange} />
                             </Col>
@@ -128,7 +141,7 @@ const CreateNewAuction= (props)=>
                                     <InputGroup.Prepend>
                                         <InputGroup.Text>$</InputGroup.Text>
                                     </InputGroup.Prepend>
-                                    <Form.Control name="initialPrice" aria-label="Amount (to the nearest dollar)" onChange={handleChange} />
+                                    <Form.Control type="number" min="0" step="1" name="initialPrice" aria-label="Amount (to the nearest dollar)" onChange={handleChange} />
                                     <InputGroup.Append>
                                         <InputGroup.Text>.00</InputGroup.Text>
                                     </InputGroup.Append>
