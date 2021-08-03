@@ -61,7 +61,7 @@ function Sidebar(props){
     }
 
    return (
-    <>
+    <div className="minHight">
         <div className="sideBarButton" onClick={handleOverViewClick}>Profile Overview</div>
         <div className="sideBarButton" onClick={handleManageAuctionClick}>Manage Auction</div>
         {values.userType == "auctioneer" && 
@@ -71,7 +71,7 @@ function Sidebar(props){
                 <div className="sideBarButton" onClick={handleNotificationClick}>Notifications</div>
             </>
         )}
-    </>
+    </div>
     );
 }
 
