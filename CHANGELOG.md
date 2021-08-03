@@ -21,9 +21,20 @@ If you add the same name in diff files, page will load diff file's css.
 
 ## CHANGELOG HISTORY     
 
+#### 2021/07/03 - Arhur      
+\- App.css: Fixed the position of the footer        
+\- profileSideBar.js: Added the side bar to have a minimum height in order to fix the footer on the bottom        
+\- login.js: Added Bootstraop to display ta dynamic label for the input fields          
+\- App.js: Added the class to set the minimum height to the page         
+\- CreateNewAuction.js: Added dropdown for auction cathegories, and restricted the price to be typed only with numbers        
+\- UserManageAuction.js: Created the functionality to allow the user to edit an auction, Created function to save auctions' changes and persist to database          
+\- server.js: Created route to save the changes from a specific auction            
+\- data-service.js: Created function to update Auctions' information into database         
+        
+        
 #### 2021/07/31 - Arhur    
 \- data-service.js: Fixed auctoin deletion route. Now Users that are registered to the auction that is about to be deleted will have that auction removed from their auction manage list       
-        
+\- login (.js, .css): made recover button to have more tendency to be pressed             
 
 #### 2021/07/27 - Megumi  
 \- bid.js: Fixed array problem. I think it works correctly, but without DB yet   
