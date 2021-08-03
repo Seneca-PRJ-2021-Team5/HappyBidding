@@ -146,6 +146,11 @@ app.delete('/api/auctioneer/deleteAuction/:id', function (req, res) {
     dataService.deleteAuction(req.params.id,res)
 })
 
+// UPDATE AN AUCTION INFORMATION
+app.post("/api/auction/:id", (req,res) => {
+    dataService.updateAuction(req.body, req.params.id, res)
+});
+
 //--------------------------------------------------------
 
 // ------------------- CONNECTIVITY PART
