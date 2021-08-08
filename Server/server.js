@@ -94,6 +94,11 @@ app.get("/api/auctions", (req, res) => {
     dataService.getAllAuctions(req, res)
 });
 
+// Get auction by id
+app.get("/api/auctions/:id", (req, res) => {
+    dataService.getAuctionById(req, res)
+})
+
 // GET /api/user/profile GET A SPECIFIC USER AND DETAIL INFO FOR PROFILE
 //app.get("/api/user/profile", ensureLogin, (req, res) => {
 app.get("/api/user/profile", (req, res) => {
