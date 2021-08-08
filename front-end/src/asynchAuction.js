@@ -21,12 +21,21 @@ function AsynchronousAuction(props){
         eMessage: ""
     });
 
+    const [description, setDescription] = useState({
+        product: {
+            name: "Porche Car",
+            description: "Brand new porche!!!"
+        },
+        title: "Support local orphanages",
+        description: "All procedes from winner, goes directly to supporting local orphanages"
+    })
+
    return (
        <div id="asynchAuctionContainer">
         <Container>
             <Row>
                 <Col md={8} class="test">  
-                    <Description />
+                    <Description descriptionInfo={description}/>
                 </Col>
                 <Col md={4} class="test">
                     <React.StrictMode>
