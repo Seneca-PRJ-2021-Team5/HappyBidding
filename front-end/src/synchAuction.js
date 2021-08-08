@@ -70,7 +70,7 @@ function SynchronousAuction(props){
                             <LiveStreaming />
                         </React.StrictMode>
                     </Row>
-                    <Row><Chat /></Row>
+                    <Row><Chat auctionId={props.auctionId}/></Row>
                 </Col>
                 <Col md={3} class="test">
                     <Row><TopBid /></Row>
