@@ -31,6 +31,9 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "globals": {
+      "paypal": "readonly"
+    },
     "extends": [
       "react-app",
       "react-app/jest"
