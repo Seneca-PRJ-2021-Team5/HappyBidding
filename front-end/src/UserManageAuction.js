@@ -9,17 +9,19 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import SideBar from './components/profile/profileSideBar';
+import SynchronousAuction from './synchAuction';
 import PaymentIntegration from './components/payment/PaymentIntegration';
 import { Button, Container, Row, Col, Modal, Form, InputGroup } from 'react-bootstrap';
 import './css/sideBar.css'
 import UserInfo from './components/profile/userInfo';
 import { propTypes } from 'react-bootstrap/esm/Image';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 
 
 
 function UserManageAuctions(props) 
 {
+  const history = useHistory();
 
   const useStyles = makeStyles({
     table: {
@@ -185,6 +187,13 @@ function UserManageAuctions(props)
       headers: {"Content-type": "application/json; charset=UTF-8"}
     })
     closeReportProblem()
+  }
+
+  const goToAuctionPage = (auctionId) => {
+    history.push({
+      pathname: '/synchAuction',
+      state: {userName: sessionStorage.getItem("userName"), auctionId: auctionId}
+    })
   }
 
   const confirmDeletion = () =>
@@ -375,7 +384,7 @@ function UserManageAuctions(props)
                             <TableCell align="right" Style="font-size: 18px">{auction.auctionStatus}</TableCell>
                               <React.Fragment>
                                 {/* <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell> */}
-                                <TableCell align="right">{(auction.auctionStatus == "Done") ? <PaymentIntegration auctionId={auction.auctionId}/> : <Button>Join auction</Button>}</TableCell>
+                                <TableCell align="right">{(auction.auctionStatus == "Done") ? <PaymentIntegration auctionId={auction.auctionId}/> : <Button onClick={() => goToAuctionPage(auction.auctionId)}>Join auction</Button>}</TableCell>
                                 <TableCell align="right"><Button variant="danger" onClick={()=>showReportProblemForm(auction)}>Report Problem</Button></TableCell>
                               </React.Fragment>
                           </TableRow>
@@ -390,6 +399,7 @@ function UserManageAuctions(props)
                             <TableCell align="right" Style="font-size: 18px">{auction.status}</TableCell>
                             <React.Fragment>
                                 <TableCell align="right"><Button variant="warning" onClick={()=>showEditAuction(auction)}>  Edit  </Button></TableCell>
+                                <TableCell align="right"><Button onClick={() => goToAuctionPage(auction._id)}>Join auction</Button></TableCell>
                                 <TableCell align="right"><Button variant="danger" onClick={()=>showConfirmDeletion(auction)}>  Delete  </Button></TableCell>
                             </React.Fragment>
                           </TableRow>
