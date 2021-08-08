@@ -9,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import SideBar from './components/profile/profileSideBar';
+import PaymentIntegration from './components/payment/PaymentIntegration';
 import { Button, Container, Row, Col, Modal, Form, InputGroup } from 'react-bootstrap';
 import './css/sideBar.css'
 import UserInfo from './components/profile/userInfo';
@@ -104,7 +105,7 @@ function UserManageAuctions(props)
         })
     })
     console.log("USER INFO DATA FROM MANAGE AUCTION:")
-    console.log(userInfo)
+    console.log(userInfo.manageAuction)
 
     console.log("ALL AUCTIONS:")
     console.log(props.location.state.allAuctions)
@@ -373,7 +374,8 @@ function UserManageAuctions(props)
                             <TableCell align="right" Style="font-size: 18px">{auction.productName}</TableCell>
                             <TableCell align="right" Style="font-size: 18px">{auction.auctionStatus}</TableCell>
                               <React.Fragment>
-                                <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell>
+                                {/* <TableCell align="right"><Button variant="info">Pay Auction</Button></TableCell> */}
+                                <TableCell align="right">{(auction.auctionStatus == "Done") ? <PaymentIntegration auctionId={auction.auctionId}/> : <Button>Join auction</Button>}</TableCell>
                                 <TableCell align="right"><Button variant="danger" onClick={()=>showReportProblemForm(auction)}>Report Problem</Button></TableCell>
                               </React.Fragment>
                           </TableRow>
