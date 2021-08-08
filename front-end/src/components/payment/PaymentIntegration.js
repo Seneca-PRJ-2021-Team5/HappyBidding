@@ -12,7 +12,7 @@ function PaymentIntegration(props) {
 
   useEffect(() => {
     console.log("The props: " + props.auctionId)
-    fetch(`http://localhost:5000/api/auctions/${props.auctionId}`)
+    fetch(`https://happybiddingserve.herokuapp.com/api/auctions/${props.auctionId}`)
     .then((res) => {
         return res.json();
     })

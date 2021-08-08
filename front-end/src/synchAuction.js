@@ -27,7 +27,7 @@ function SynchronousAuction(props){
 
     useEffect(() => {
         console.log("The props: " + props.auctionId)
-        fetch(`http://localhost:5000/api/auctions/${props.location.state.auctionId}`)
+        fetch(`https://happybiddingserve.herokuapp.com/api/auctions/${props.location.state.auctionId}`)
         .then((res) => {
             return res.json();
         })
