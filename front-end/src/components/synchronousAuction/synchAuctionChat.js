@@ -54,6 +54,7 @@ function SynchAuctionChat(props){
     if(sessionStorage.getItem("userName")){
         return(
                 <React.Fragment>
+                    <div id="chatContainer">
                     <div id="chatScreen">
                         <MessageList
                             toBottomHeight={'100%'}
@@ -68,6 +69,8 @@ function SynchAuctionChat(props){
                             </div>
                         </form>
                     </div>
+                    </div>
+                    
                 </React.Fragment>
         )
     }

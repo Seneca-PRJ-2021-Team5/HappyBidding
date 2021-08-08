@@ -29,7 +29,13 @@
 
 /* synchAuctionChat */
 #chatScreen{
-   height:70%;
+   /* height:70%; */
+   max-height: 315px;
+   overflow-y: scroll;
+}
+
+#chatContainer{
+   overflow: hidden;
 }
 
 #chatForm{
