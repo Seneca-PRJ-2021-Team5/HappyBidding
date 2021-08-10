@@ -2,7 +2,6 @@
 BEFORE INSTALLING: **Make sure you are in "front-end" folder**
 | Package Added           | Date Added    | For What? | Command for installation              | Specific page      |
 | ----------------------- |:-------------:| :--------:| ------------------------------------- | ------------------ |
-| react-responsive        | 2021/06/03    | Frontend  | npm install react-responsive          |  |
 | react-bootstrap         | 2021/06/06    | Frontend  | npm install react-bootstrap bootstrap |  |
 | react-router-bootstrap  | 2021/06/07    | Frontend  | npm install react-router-bootstrap    |  |
 | @material-ui/core       | 2021/06/20    | Frontend  | npm install  @material-ui/core        | UserManageAuction  |
