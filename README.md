@@ -9,7 +9,7 @@ Happy Bidding is the online bidding application that is running on browser (Fire
 #### About Technical Information:         
 Please look at the "**TechDocumentation.md**" file in order to understand some technical information about the technologies that were used in this project  
   
-#### About development changes information:      
+#### About development changes and installation packages:      
 Please look at the "**CHANGELOG.md**" file in order to fully understand all the improvements that happen during the development of this project and its packages installed
 
 #### About further project understanding:    
