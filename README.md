@@ -4,7 +4,10 @@ This repository is for:
 \- **PRJ 566** Winter 2021(Team5)      
 \- **PRJ 666** Summer 2021(Team12)       
      
-Happy Bidding is the online bidding application that is running on browser (Firefox, Chrome, Safari)        
+Happy Bidding is the online bidding application that is running on browser (Firefox, Chrome, Safari)
+
+#### The current state of this project as seen on Github is available on:
+https://nostalgic-einstein-482d69.netlify.app/
   
 #### About Technical Information:         
 Please look at the "**TechDocumentation.md**" file in order to understand some technical information about the technologies that were used in this project  
