@@ -20,8 +20,8 @@ For further understanding on how the solution works, please watch the following 
 https://www.youtube.com/watch?v=MEzGP4Dphrk
 
 #### External dependencies
-## Heroku Backend Server
+**Heroku Backend Server:**
 https://github.com/Seneca-PRJ-2021-Team5/HerokuServer
 
-## Heroku Live Chat Server
+**Heroku Live Chat Server:**
 https://github.com/Seneca-PRJ-2021-Team5/HappyBiddingChat
