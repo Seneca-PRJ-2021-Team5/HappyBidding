@@ -18,3 +18,10 @@ Please look at the "**CHANGELOG.md**" file in order to fully understand all the 
 #### About further project understanding:    
 For further understanding on how the solution works, please watch the following video instructions demonstration:     
 https://www.youtube.com/watch?v=MEzGP4Dphrk
+
+#### External dependencies
+## Heroku Backend Server
+https://github.com/Seneca-PRJ-2021-Team5/HerokuServer
+
+## Heroku Live Chat Server
+https://github.com/Seneca-PRJ-2021-Team5/HappyBiddingChat
