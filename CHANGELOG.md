@@ -30,7 +30,17 @@ If you add the same name in diff files, page will load diff file's css.
 \- server.js: Created route to save the changes from a specific auction            
 \- data-service.js: Created function to update Auctions' information into database         
         
-        
+#### 2021/08/08 - Adam
+\- index.html: included script tag to include the paypal jdk
+\- PaymentIntegration.js: code implements the PayPal button which redirects user to third party application to pay for auction
+\- UserManageAuction.js: added PaymentIntegration component, which is only rendered if the the client is of user type
+\- UserManageAuction.js: If auction is set as Ongoing, a button will appear next to auction that redirects user to synchronous auction page with auction details
+\- synchAuctionChat.js: user can now join a specific room which is dedicated to the auction they are viewing
+
+#### 2021/08/07 - Adam
+\- server.js: added route to get an auction by its id from the database
+\- data-service.js: added method to find an auction by its id and return it to the client
+
 #### 2021/07/31 - Arhur    
 \- data-service.js: Fixed auctoin deletion route. Now Users that are registered to the auction that is about to be deleted will have that auction removed from their auction manage list       
 \- login (.js, .css): made recover button to have more tendency to be pressed             
