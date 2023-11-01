@@ -12,7 +12,7 @@
     "client-sessions": "^0.8.0",
     "cors": "^2.8.5",
     "js-cookie": "^2.2.1",
-    "mongoose": "^5.12.12",
+    "mongoose": "^5.13.20",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-chat-elements": "^10.15.0",
